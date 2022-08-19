@@ -1,8 +1,8 @@
 {
-  "name": "next-firebase-starter",
+  "name": "mad-app",
   "private": true,
   "version": "1.0.0",
-  "author": "Trinity Christiana",
+  "author": "Brett Hughes",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
