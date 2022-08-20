@@ -1,24 +1,29 @@
-import { signOut } from '../utils/auth';
+import React, { useState } from 'react';
 import { useAuth } from '../utils/context/authContext';
 
 function Home() {
   const { user } = useAuth();
+  const [fileInputState] = useState({});
+  // const [selectedFile, setSelectedFile] = useState('');
+
+  const handleInput = (e) => {
+    console.warn(e);
+  };
 
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
+    <div>
       <h1>Hello {user.displayName}! </h1>
-      <p>Click the button below to logout!</p>
-      <button className="btn btn-danger btn-lg copy-btn" type="button" onClick={signOut}>
-        Sign Out
-      </button>
+      <h4>Cloudinary Test Code</h4>
+      <form>
+        <input
+          className="photo-upload"
+          type="file"
+          name="image"
+          value={fileInputState}
+          onChange={handleInput}
+        />
+        <button className="submit button" type="submit">Submit</button>
+      </form>
     </div>
   );
 }
