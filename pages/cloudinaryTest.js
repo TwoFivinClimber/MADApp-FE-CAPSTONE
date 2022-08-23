@@ -1,27 +1,19 @@
 import React, { useState } from 'react';
 import { Button, Image } from 'react-bootstrap';
+import uploadPhoto from '../api/cloudinary';
 
 const CloudinaryTest = () => {
   const [image, setImage] = useState('');
   const [url, setUrl] = useState('');
 
   const uploadImage = () => {
-    const data = new FormData();
-    data.append('file', image);
-    data.append('upload_preset', 'spzzmri7');
-    data.append('cloud_name', 'ds4atmcju');
-    fetch('https://api.cloudinary.com/v1_1/ds4atmcju/image/upload', {
-      method: 'post',
-      body: data,
-    })
-      .then((resp) => resp.json())
-      // eslint-disable-next-line no-shadow
-      .then((imgObj) => {
-        setUrl(imgObj.url);
-      })
-      .catch((err) => console.warn(err));
-    console.warn(data);
+    const payload = new FormData();
+    payload.append('file', image);
+    payload.append('upload_preset', 'spzzmri7');
+    payload.append('cloud_name', 'ds4atmcju');
+    uploadPhoto(payload).then(setUrl);
   };
+
   return (
     <div>
       <div>
