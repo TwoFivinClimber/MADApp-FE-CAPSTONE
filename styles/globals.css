@@ -20,3 +20,25 @@ a {
 body {
   background-color: #88effd;
 }
+
+/* NAV BAR */
+.container-fluid{
+  flex: none;
+  height: 100%;
+}
+.navbar{
+  padding: none;
+  height: 70px;
+}
+.navItems{
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.navTitle{
+ margin-left: auto;
+ margin-right: auto;
+ align-self: center;
+ font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+ font-size:xx-large;
+}

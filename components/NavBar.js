@@ -1,36 +1,60 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import Link from 'next/link';
-import { signOut } from '../utils/auth';
+import {
+  Button, Container, Nav, Navbar, Offcanvas,
+} from 'react-bootstrap';
+import { useAuth } from '../utils/context/authContext';
+import { signIn, signOut } from '../utils/auth';
 
-export default function NavBar() {
+const NavBar = () => {
+  const user = useAuth();
+  const expand = false;
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-      <div className="container-fluid">
-        <Link passHref href="/">
-          <a className="navbar-brand" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
-            CHANGE ME
-          </a>
-        </Link>
-        <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon" />
-        </button>
-
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <ul className="navbar-nav me-auto">
-            <li className="nav-item">
-              <Link passHref href="/">
-                <a className="nav-link">
-                  Home
-                </a>
+    <>
+      <Navbar key={expand} bg="light" expand={expand} className="mb-3">
+        <Container fluid>
+          <div className="navItems">
+            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+            <Navbar.Brand className="navTitle" href="#">M.A.D. App</Navbar.Brand>
+            {/* Visible Links go here */}
+            {user ? (
+              <Link href="/" passHref>
+                <Button type="button" className="btn btn-danger" onClick={signOut}>Sign Out</Button>
               </Link>
-            </li>
-            <button type="button" className="btn btn-danger" onClick={signOut}>
-              Sign Out
-            </button>
-          </ul>
-        </div>
-      </div>
-    </nav>
+            ) : (
+              <Button type="button" className="btn btn-danger" onClick={signIn}>Sign In</Button>
+            )}
+          </div>
+          <Navbar.Offcanvas
+            id={`offcanvasNavbar-expand-${expand}`}
+            aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
+            placement="start"
+          >
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
+                M.A.D. App
+              </Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <Nav className="justify-content-center flex-grow-1 pe-3">
+                <Link href="/" passHref>
+                  <span> Home</span>
+                </Link>
+                {user ? <Link href="/cloudinaryTest" passHref><span>Cloudinary Test</span></Link> : <></> }
+                {user ? (
+                  <Link href="/" passHref>
+                    <Button type="button" className="btn btn-danger" onClick={signOut}>Sign Out</Button>
+                  </Link>
+                ) : (
+                  <Button type="button" className="btn btn-danger" onClick={signIn}>Sign In</Button>
+                )}
+              </Nav>
+            </Offcanvas.Body>
+          </Navbar.Offcanvas>
+        </Container>
+      </Navbar>
+    </>
   );
-}
+};
+
+export default NavBar;
