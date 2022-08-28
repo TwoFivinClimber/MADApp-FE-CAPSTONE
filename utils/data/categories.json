@@ -1,0 +1,32 @@
+{
+  "art":{
+    "category": "Art"
+  },
+  "food":{
+    "category": "Food"
+  },
+  "outdoor":{
+    "category": "Outdoor"
+  },
+  "sports":{
+    "category": "Sports"
+  },
+  "nightlife":{
+    "category": "Nightlife"
+  },
+  "fitness":{
+    "category": "Fitness"
+  },
+  "music":{
+    "category": "Music"
+  },
+  "shopping":{
+    "category": "Shopping"
+  },
+  "tourism":{
+    "category": "Tourism"
+  },
+  "party":{
+    "category": "Party"
+  } 
+}
