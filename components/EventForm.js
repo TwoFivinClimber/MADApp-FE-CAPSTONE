@@ -10,7 +10,7 @@ import { useAuth } from '../utils/context/authContext';
 import getCategories from '../api/categories';
 import uploadPhoto from '../api/cloudinary';
 import { createEvent } from '../api/events/eventData';
-// import { createImage } from '../api/images/imageData';
+import { createImages } from '../api/images/mergedImage';
 
 const initialState = {
   title: '',
@@ -60,8 +60,14 @@ function EventForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     createEvent(input).then((response) => {
-      console.warn(response);
-      // uploadPhotos(response.firebaseKey, imgUrls);
+      const imageObjects = imgUrls.map((url) => (
+        {
+          imageUrl: url,
+          eventId: response.firebaseKey,
+          uid: user.uid,
+        }
+      ));
+      createImages(imageObjects);
     });
   };
 
@@ -85,7 +91,9 @@ function EventForm({ obj }) {
     payload.append('cloud_name', 'twofiveclimb');
     uploadPhoto(payload).then((url) => {
       setImgUrls((prevState) => (
-        [...prevState, url]
+        [...prevState, {
+          imageUrl: url,
+        }]
       ));
     });
   };
