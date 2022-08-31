@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const cloudUrl = 'https://api.cloudinary.com/v1_1/ds4atmcju/image/upload';
+const cloudUrl = 'https://api.cloudinary.com/v1_1/twofiveclimb/image/upload';
 
 const uploadPhoto = (payload) => new Promise((resolve, reject) => {
   axios.post(`${cloudUrl}`, payload)

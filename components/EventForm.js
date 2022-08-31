@@ -1,11 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import {
+  Form, Button, Image, CloseButton,
+} from 'react-bootstrap';
 import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useAuth } from '../utils/context/authContext';
 import getCategories from '../api/categories';
+import uploadPhoto from '../api/cloudinary';
 
 const initialState = {
   title: '',
@@ -13,21 +16,39 @@ const initialState = {
   timeOfDay: '',
   category: '',
   location: '',
+  uid: '',
   city: '',
   description: '',
   starRating: 0,
   isPublic: false,
+  eventOfDay: '',
 };
 
+const testPhotos = ['https://res.cloudinary.com/twofiveclimb/image/upload/v1661898852/mad-app/zgbnsycyrspoioxxlnam.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898841/mad-app/mcn1hin10ovagnzqxibc.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898713/mad-app/pgnkhnfkqxbffjw5tx0q.jpg'];
+
 function EventForm({ obj }) {
-  const user = useAuth();
-  const [input, setInput] = useState({ initialState });
+  const { user } = useAuth();
+  const [input, setInput] = useState(initialState);
   const [categories, setCategories] = useState([]);
+  const [image, setImage] = useState([]);
+  const [imgUrls, setImgUrls] = useState(testPhotos);
   const router = useRouter();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    console.warn(name, value);
+    // eslint-disable-next-line prefer-const
+    let { name, value } = e.target;
+    if (name === 'isPublic') {
+      value = e.target.checked;
+    }
+    setInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const handleRating = (e) => {
+    const name = 'starRating';
+    const value = e;
     setInput((prevState) => ({
       ...prevState,
       [name]: value,
@@ -47,9 +68,29 @@ function EventForm({ obj }) {
       setInput((prevState) => ({
         ...prevState,
         uid: user.uid,
+        userName: user.displayName,
       }));
     }
   }, [obj]);
+
+  const uploadImage = () => {
+    const payload = new FormData();
+    payload.append('file', image);
+    payload.append('upload_preset', 'nofzejna');
+    payload.append('cloud_name', 'twofiveclimb');
+    uploadPhoto(payload).then((url) => {
+      setImgUrls((prevState) => (
+        [...prevState, url]
+      ));
+    });
+  };
+
+  const removePhoto = (url) => {
+    setImgUrls((prevState) => {
+      const index = prevState.indexOf(url);
+      console.warn(prevState.splice(index, 1));
+    });
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -84,9 +125,12 @@ function EventForm({ obj }) {
       <div className="eventStarAndPublic">
         <Rating
           name="starRating"
+          allowHover={false}
+          showTooltip
+          allowHalfIcon
+          tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
           ratingValue={input.starRating}
-          initialValue={0}
-          onChange={handleChange}
+          onClick={handleRating}
         />
         <Form.Check
           name="isPublic"
@@ -97,6 +141,20 @@ function EventForm({ obj }) {
           label="Public ?"
         />
       </div>
+      <div className="eventImageUploadDiv">
+        <Form.Label>Photos</Form.Label>
+        <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+        <Button onClick={uploadImage}>Upload</Button>
+      </div>
+      <div className="uploadedImagesDiv">
+        {imgUrls.map((url) => (
+          <div key={url} className="uploadedImagesContainer">
+            <Image className="eventFormPhotos" rounded src={url} />
+            <CloseButton key={url} onClick={() => removePhoto(url)} className="imageDelete" />
+          </div>
+        ))}
+      </div>
+
       <Button type="submit" variant="success">Submit</Button>
       <Button variant="danger" onClick={() => router.push('/')}>Cancel</Button>
     </Form>

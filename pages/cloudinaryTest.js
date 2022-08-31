@@ -9,8 +9,8 @@ const CloudinaryTest = () => {
   const uploadImage = () => {
     const payload = new FormData();
     payload.append('file', image);
-    payload.append('upload_preset', 'spzzmri7');
-    payload.append('cloud_name', 'ds4atmcju');
+    payload.append('upload_preset', 'nofzejna');
+    payload.append('cloud_name', 'twofiveclimb');
     uploadPhoto(payload).then(setUrl);
   };
 
