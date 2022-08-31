@@ -32,7 +32,7 @@ const createEvent = (obj) => new Promise((resolve, reject) => {
     .then((response) => {
       const update = { firebaseKey: response.data.name };
       axios.patch(`${dbUrl}/events/${response.data.name}.json`, update)
-        .then((eventObj) => resolve(eventObj));
+        .then((eventObj) => resolve(eventObj.data));
     }).catch(reject);
 });
 

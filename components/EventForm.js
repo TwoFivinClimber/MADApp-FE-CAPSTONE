@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import { useAuth } from '../utils/context/authContext';
 import getCategories from '../api/categories';
 import uploadPhoto from '../api/cloudinary';
+import { createEvent } from '../api/events/eventData';
+// import { createImage } from '../api/images/imageData';
 
 const initialState = {
   title: '',
@@ -57,7 +59,10 @@ function EventForm({ obj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.warn(input);
+    createEvent(input).then((response) => {
+      console.warn(response);
+      // uploadPhotos(response.firebaseKey, imgUrls);
+    });
   };
 
   useEffect(() => {
@@ -87,8 +92,10 @@ function EventForm({ obj }) {
 
   const removePhoto = (url) => {
     setImgUrls((prevState) => {
-      const index = prevState.indexOf(url);
-      console.warn(prevState.splice(index, 1));
+      const prevCopy = [...prevState];
+      const index = prevCopy.indexOf(url);
+      prevCopy.splice(index, 1);
+      return prevCopy;
     });
   };
 
@@ -150,7 +157,7 @@ function EventForm({ obj }) {
         {imgUrls.map((url) => (
           <div key={url} className="uploadedImagesContainer">
             <Image className="eventFormPhotos" rounded src={url} />
-            <CloseButton key={url} onClick={() => removePhoto(url)} className="imageDelete" />
+            <CloseButton onClick={() => removePhoto(url)} className="imageDelete" />
           </div>
         ))}
       </div>
