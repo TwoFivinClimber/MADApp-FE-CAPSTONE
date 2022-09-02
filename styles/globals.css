@@ -7,6 +7,9 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
+.container{
+  padding: 0;
+}
 
 a {
   color: inherit;
@@ -21,6 +24,7 @@ body {
   background-color: #ede8d6;
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
 }
+
 
 /* NAV BAR */
 .container-fluid{
@@ -42,6 +46,22 @@ body {
  align-self: center;
  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
  font-size:xx-large;
+}
+
+/*MAIN LANDING*/
+.mainDiv{
+  display: flex;
+  justify-content: center;
+}
+.backgroundImage{
+  width: 100%;
+  max-height: 600px;
+  object-fit: cover;
+ }
+.mainHeadSearch{
+  position: absolute;
+  align-self: center;
+  margin-bottom: 350px;
 }
 
 /*Profile*/
@@ -84,4 +104,38 @@ body {
   top:10px;
   right:10px;
   border: 2px gray solid;
+}
+
+/*EVENT CARD*/
+.eventCard{
+  display: flex;
+  flex-direction: row;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  min-height: 110px;
+}
+.eventCard .card-text{
+  margin-bottom: 8px;
+}
+.eventCard .card-body{
+  padding: 8px;
+}
+.eventCardLeft{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.eventCardCenter{
+  align-self: center;
+  max-width: 400px;
+  margin: none!important;
+}
+.eventCardImages{
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  flex-wrap: wrap;
+  
 }
