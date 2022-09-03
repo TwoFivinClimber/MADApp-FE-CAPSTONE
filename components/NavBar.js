@@ -47,7 +47,7 @@ const NavBar = () => {
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand-${expand}`}
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
-            placement="top"
+            placement="start"
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
@@ -60,7 +60,7 @@ const NavBar = () => {
                   <span> Home</span>
                 </Link>
                 <>
-                  {user ? <Link href="/cloudinaryTest" passHref><span>Cloudinary Test</span></Link> : <></> }
+                  {user ? <Link href="/event/new" passHref><span>Create Event</span></Link> : <></> }
                   {user ? <Link href="/user/profile" passHref><span>Profile</span></Link> : <></> }
                   {user ? (
                     <Link href="/" passHref>
