@@ -1,15 +1,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { Card, Image } from 'react-bootstrap';
+import {
+  Card, Image, Dropdown, DropdownButton,
+} from 'react-bootstrap';
 import { Rating } from 'react-simple-star-rating';
 import PropTypes from 'prop-types';
+import { FaEllipsisV } from 'react-icons/fa';
+import { useRouter } from 'next/router';
 import { getImagesByEvent } from '../api/images/imageData';
+import { deleteEvent } from '../api/events/eventData';
 
-const EventCard = ({ obj }) => {
+const EventCard = ({ obj, onUpdate }) => {
   const [images, setImages] = useState([]);
+  const router = useRouter();
 
-  const getTheImages = () => {
-    getImagesByEvent(obj.firebaseKey).then(setImages);
+  const getTheImages = async () => {
+    await getImagesByEvent(obj.firebaseKey).then(setImages);
+  };
+
+  const deleteThisEvent = () => {
+    if (window.confirm('Are You Sure ?')) {
+      deleteEvent(obj.firebaseKey).then(onUpdate);
+    }
   };
 
   useEffect(() => {
@@ -34,7 +46,7 @@ const EventCard = ({ obj }) => {
             height: 'auto', width: 'auto', fontSize: '12px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
           }}
           ratingValue={obj.starRating}
-          size={24}
+          size={26}
           readonly
         />
       </Card.Body>
@@ -46,6 +58,12 @@ const EventCard = ({ obj }) => {
           <Image key={image.firebaseKey} src={image.imageUrl} width={125} height={100} rounded />
         ))}
       </div>
+      <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
+        <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/${obj.firebaseKey}`)}>View</Dropdown.Item>
+        <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
+        <Dropdown.Divider />
+        <Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete</Dropdown.Item>
+      </DropdownButton>
     </Card>
   );
 };
@@ -65,6 +83,7 @@ EventCard.propTypes = {
     firebaseKey: PropTypes.string,
     userName: PropTypes.string,
   }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
 
 export default EventCard;

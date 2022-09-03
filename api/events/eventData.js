@@ -27,6 +27,12 @@ const getEventsByUid = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const updateEvent = (obj) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/events/${obj.firebaseKey}.json`, obj)
+    .then(resolve)
+    .catch(reject);
+});
+
 const deleteEvent = (firebaseKey) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/events/${firebaseKey}.json`)
     .then(resolve)
@@ -43,5 +49,5 @@ const createEvent = (obj) => new Promise((resolve, reject) => {
 });
 
 export {
-  getEvents, createEvent, getSingleEvent, getEventsByUid, deleteEvent, getPublicEvents,
+  getEvents, createEvent, getSingleEvent, getEventsByUid, deleteEvent, getPublicEvents, updateEvent,
 };

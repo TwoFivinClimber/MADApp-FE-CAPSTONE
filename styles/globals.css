@@ -94,6 +94,14 @@ body {
   height: 200px;
   width: auto;
 }
+.eventStarAndPublic{
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+.formFile{
+  display: flex;
+}
 /* event form images */
 .uploadedImagesContainer{
   position:relative;
@@ -137,5 +145,37 @@ body {
   flex-direction: row;
   justify-content: right;
   flex-wrap: wrap;
+}
+
+/*EVENT PAGE*/
+.eventPage{
+  background-color: #588157;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.eventPageImages{
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #A3B18A;
+  border: 4px dotted darkgreen;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between ;
+}
+.eventPageLeft{
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.eventPageCenter{
+  align-self: center;
   
+  margin: none!important;
+  justify-self: center;
+}
+.eventPageDropdown{
+  min-width: 150px;
+  text-align: right;
 }

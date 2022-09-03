@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import React, { Form } from 'react-bootstrap';
 import Image from 'react-bootstrap/Image';
@@ -35,7 +36,7 @@ function Home() {
       </div>
       <div className="mainFeaturedDiv">
         <h4>Featured Event</h4>
-        <EventCard obj={featuredEvent} />
+        <EventCard obj={featuredEvent} onUpdate={getFeatured} />
       </div>
     </div>
   );
