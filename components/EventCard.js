@@ -26,7 +26,7 @@ const EventCard = ({ obj, onUpdate }) => {
 
   useEffect(() => {
     getTheImages();
-  }, []);
+  }, [obj]);
 
   return (
     <Card className="eventCard">
@@ -54,7 +54,7 @@ const EventCard = ({ obj, onUpdate }) => {
         <Card.Text>{obj.description}</Card.Text>
       </Card.Body>
       <div className="eventCardImages">
-        {images?.map((image) => (
+        {images.map((image) => (
           <Image key={image.firebaseKey} src={image.imageUrl} width={125} height={100} rounded />
         ))}
       </div>

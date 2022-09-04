@@ -7,7 +7,7 @@ import EventCard from '../components/EventCard';
 // import { useAuth } from '../utils/context/authContext';
 
 function Home() {
-  const [featuredEvent, setFeaturedEvent] = useState({});
+  const [featuredEvent, setFeaturedEvent] = useState([]);
 
   const getFeatured = () => {
     getPublicEvents().then((eventsArr) => {
