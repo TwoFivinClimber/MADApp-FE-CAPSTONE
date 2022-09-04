@@ -88,7 +88,6 @@ function EventForm({ obj }) {
       setInput((prevState) => ({
         ...prevState,
         uid: user.uid,
-        userName: user.displayName,
       }));
     }
   }, [obj]);

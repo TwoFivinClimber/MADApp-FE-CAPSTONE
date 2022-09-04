@@ -31,7 +31,6 @@ function DayForm({ obj }) {
   const { user } = useAuth();
 
   const handleChange = (e) => {
-    console.warn(e.target);
     // eslint-disable-next-line prefer-const
     let { name, value } = e.target;
     if (name === 'isPublic') {
