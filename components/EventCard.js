@@ -8,11 +8,13 @@ import PropTypes from 'prop-types';
 import { FaEllipsisV } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import { getImagesByEvent } from '../api/images/imageData';
-import { deleteEvent } from '../api/events/eventData';
+import { deleteEvent } from '../api/events/mergedEvents';
+import { useAuth } from '../utils/context/authContext';
 
 const EventCard = ({ obj, onUpdate }) => {
   const [images, setImages] = useState([]);
   const router = useRouter();
+  const { user } = useAuth();
 
   const getTheImages = async () => {
     await getImagesByEvent(obj.firebaseKey).then(setImages);
@@ -58,12 +60,18 @@ const EventCard = ({ obj, onUpdate }) => {
           <Image key={image.firebaseKey} src={image.imageUrl} width={125} height={100} rounded />
         ))}
       </div>
-      <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
-        <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/${obj.firebaseKey}`)}>View</Dropdown.Item>
-        <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
-        <Dropdown.Divider />
-        <Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete</Dropdown.Item>
-      </DropdownButton>
+      {router.route === '/' ? ('') : (
+        <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
+          <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/${obj.firebaseKey}`)}>View</Dropdown.Item>
+          {user.uid === obj.uid ? (
+            <>
+              <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete</Dropdown.Item>
+            </>
+          ) : ('')}
+        </DropdownButton>
+      )}
     </Card>
   );
 };

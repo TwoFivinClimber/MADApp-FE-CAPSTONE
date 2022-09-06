@@ -48,6 +48,7 @@ function EventForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
+    console.warn(input);
   };
 
   const handleRating = (e) => {
@@ -122,8 +123,7 @@ function EventForm({ obj }) {
         <Form.Label>Title</Form.Label>
         <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Event" required />
         <Form.Label>Date</Form.Label>
-        <Form.Control name="date" value={input.date} onChange={handleChange} type="date" placeholder="When Day " required />
-
+        <Form.Control name="date" value={input.date} onChange={handleChange} type="date" required />
         <Form.Label>Time of Day</Form.Label>
         <Form.Select aria-label="Time of Day" name="timeOfDay" value={input.timeOfDay} onChange={handleChange} required>
           <option value="">Select a Time of Day</option>

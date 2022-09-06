@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 // import { createDay, updateDay } from '../api/day/dayData';
-import { getEventsByDay, getEventsByUid } from '../api/events/eventData';
+import { getEventsByUid, getEventsByDay } from '../api/events/eventData';
 import { useAuth } from '../utils/context/authContext';
 import EventModalCard from './EventModalCard';
 import EventCard from './EventCard';
@@ -27,12 +27,13 @@ function DayForm({ obj }) {
   const [events, setEvents] = useState([]);
   const [input, setInput] = useState(initialState);
   const [dayEvents, setDayEvents] = useState([]);
+  // EVENTS TO BE SHOWN AS SELECTED //
+  const selectedEvents = events.filter((event) => dayEvents.includes(event.firebaseKey));
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const router = useRouter();
   const { user } = useAuth();
-  const selectedEvents = events.filter((event) => dayEvents.includes(event.firebaseKey));
 
   const handleChange = (e) => {
     // eslint-disable-next-line prefer-const
@@ -66,6 +67,13 @@ function DayForm({ obj }) {
     setDayEvents([]);
   };
 
+  const handleShowEvents = async () => {
+    await getEventsByUid(user.uid).then((eventsArr) => {
+      setEvents(eventsArr.filter((event) => event.date === input.date && !event.eventOfDay));
+    });
+    handleShow();
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
@@ -82,7 +90,6 @@ function DayForm({ obj }) {
   };
 
   useEffect(() => {
-    getEventsByUid(user.uid).then(setEvents);
     getEventsByDay(obj.firebaseKey).then((eventsArr) => {
       setDayEvents(eventsArr.map((event) => event.firebaseKey));
     });
@@ -117,7 +124,7 @@ function DayForm({ obj }) {
           id="custom-switch"
           label="Public ?"
         />
-        <Button variant="primary" onClick={handleShow}>
+        <Button variant="primary" onClick={handleShowEvents}>
           Select An Event
         </Button>
 
@@ -126,17 +133,21 @@ function DayForm({ obj }) {
             <Modal.Title>Select Your Event</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {events.map((event) => (
-              <div key={event.firebaseKey} className="modalEventCheck">
-                <Form.Check
-                  type="checkbox"
-                  value={event.firebaseKey}
-                  onChange={handleChecked}
-                  checked={dayEvents.includes(event.firebaseKey)}
-                />
-                <EventModalCard obj={event} />
-              </div>
-            ))}
+            {events.length ? (
+              events.map((event) => (
+                <div key={event.firebaseKey} className="modalEventCheck">
+                  <Form.Check
+                    type="checkbox"
+                    value={event.firebaseKey}
+                    onChange={handleChecked}
+                    checked={dayEvents.includes(event.firebaseKey)}
+                  />
+                  <EventModalCard obj={event} />
+                </div>
+              ))
+            ) : (
+              <h6> Please select a date or create events on this day</h6>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClear}>
@@ -149,7 +160,7 @@ function DayForm({ obj }) {
         </Modal>
         <Button variant="warning" onClick={() => router.push('/event/new')}>Add An Event</Button>
         <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
-        <Button variant="danger">Cancel</Button>
+        <Button variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
       </Form>
       <div className="dayEventDiv">
         <h4>Selected Events</h4>

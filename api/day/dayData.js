@@ -36,12 +36,12 @@ const getDaysbyUid = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deleteDay = (firebaseKey) => new Promise((resolve, reject) => {
+const deleteSingleDay = (firebaseKey) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/days/${firebaseKey}.json`)
     .then(resolve)
     .catch(reject);
 });
 
 export {
-  createDay, updateDay, getPublicDays, getDaysbyUid, deleteDay, getSingleDay,
+  createDay, updateDay, getPublicDays, getDaysbyUid, deleteSingleDay, getSingleDay,
 };

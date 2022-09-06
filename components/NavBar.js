@@ -23,6 +23,10 @@ const NavBar = () => {
       });
     }
   };
+  const signOutUser = () => {
+    router.push('/');
+    signOut();
+  };
 
   useEffect(() => {
     checkUserProfile();
@@ -38,7 +42,7 @@ const NavBar = () => {
             {/* Visible Stuff go here */}
             {user ? (
               <Link href="/" passHref>
-                <Button type="button" className="btn btn-danger" onClick={signOut}>Sign Out</Button>
+                <Button type="button" className="btn btn-danger" onClick={signOutUser}>Sign Out</Button>
               </Link>
             ) : (
               <Button type="button" className="btn btn-success" onClick={signIn}>Sign In</Button>
@@ -71,7 +75,7 @@ const NavBar = () => {
                   {user ? <Link href="/user/profile" passHref><span>Profile</span></Link> : <></> }
                   {user ? (
                     <Link href="/" passHref>
-                      <Button type="button" className="btn btn-danger" onClick={signOut}>Sign Out</Button>
+                      <Button type="button" className="btn btn-danger" onClick={signOutUser}>Sign Out</Button>
                     </Link>
                   ) : (
                     <Button type="button" className="btn btn-danger" onClick={signIn}>Sign In</Button>
