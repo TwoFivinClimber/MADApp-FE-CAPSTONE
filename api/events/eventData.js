@@ -48,6 +48,12 @@ const createEvent = (obj) => new Promise((resolve, reject) => {
     }).catch(reject);
 });
 
+const getEventsByDay = (dayFbKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/events.json?orderBy="eventOfDay"&equalTo="${dayFbKey}"`)
+    .then((eventsArr) => resolve(Object.values(eventsArr.data)))
+    .catch(reject);
+});
+
 export {
-  getEvents, createEvent, getSingleEvent, getEventsByUid, deleteEvent, getPublicEvents, updateEvent,
+  getEvents, createEvent, getSingleEvent, getEventsByUid, deleteEvent, getPublicEvents, updateEvent, getEventsByDay,
 };

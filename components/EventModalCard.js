@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 function EventModalCard({ obj }) {
   return (
-    <Card>
+    <Card className="eventModalCard">
       <Card.Title>{obj.title}</Card.Title>
       <Card.Text>{obj.location}</Card.Text>
       <Card.Text>{obj.date}</Card.Text>

@@ -8,8 +8,14 @@ const createDay = (obj) => new Promise((resolve, reject) => {
     .then((response) => {
       const update = { firebaseKey: response.data.name };
       axios.patch(`${dbUrl}/days/${response.data.name}.json`, update)
-        .then(resolve);
+        .then((dayObj) => resolve(dayObj.data));
     }).catch(reject);
+});
+
+const getSingleDay = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/days/${firebaseKey}.json`)
+    .then((dayObj) => resolve(dayObj.data))
+    .catch(reject);
 });
 
 const updateDay = (obj) => new Promise((resolve, reject) => {
@@ -18,7 +24,7 @@ const updateDay = (obj) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getDaysPublicDays = () => new Promise((resolve, reject) => {
+const getPublicDays = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/days.json?orderBy="isPublic"&equalTo=true`)
     .then((daysArr) => resolve(Object.values(daysArr.data)))
     .catch(reject);
@@ -37,5 +43,5 @@ const deleteDay = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  createDay, updateDay, getDaysPublicDays, getDaysbyUid, deleteDay,
+  createDay, updateDay, getPublicDays, getDaysbyUid, deleteDay, getSingleDay,
 };

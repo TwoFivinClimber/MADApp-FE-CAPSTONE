@@ -17,7 +17,7 @@ function BrowseEvents() {
     <div>
       <h4>Browse Events</h4>
       {events.map((event) => (
-        <EventCard obj={event} onUpdate={getTheEvents} />
+        <EventCard key={event.firebaseKey} obj={event} onUpdate={getTheEvents} />
       ))}
     </div>
   );

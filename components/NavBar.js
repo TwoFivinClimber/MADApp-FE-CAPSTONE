@@ -62,6 +62,9 @@ const NavBar = () => {
                 <Link href="/browseEvents" passHref>
                   <span>Browse Events</span>
                 </Link>
+                <Link href="/browseDays" passHref>
+                  <span>Browse Days</span>
+                </Link>
                 <>
                   {user ? <Link href="/event/new" passHref><span>Create Event</span></Link> : <></> }
                   {user ? <Link href="/day/new" passHref><span>Create Day</span></Link> : <></> }
