@@ -47,6 +47,11 @@ body {
  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
  font-size:xx-large;
 }
+.roundUserImg{
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+}
 
 /*MAIN LANDING*/
 .mainDiv{
@@ -178,4 +183,63 @@ body {
 .eventPageDropdown{
   min-width: 150px;
   text-align: right;
+}
+
+/*Day Form Modal*/
+
+.modalEventCheck{
+  display: flex;
+  align-items: center;
+}
+.eventModalCard{
+  width: 100%;
+}
+
+/*Day Card*/
+
+.dayCard .card-text{
+  margin-bottom: 8px;
+}
+.dayCard .card-body{
+  padding: 8px;
+}
+.dayCard{
+  display: flex;
+}
+.dayCardHead{
+  display: flex;
+  flex-direction: row;
+}
+.dayCardLeft{
+  width: auto;
+}
+.dayCardCenter{
+  display: flex;
+  align-items: center;
+}
+.dayStarText{
+  font-size: 12px;
+}
+
+/* View Day */
+.viewDayHeader{
+  display: flex;
+  flex-direction: row;
+}
+.viewDayCenter{
+  display: flex;
+  align-items: center;
+}
+.viewDayImages{
+  max-width: 200px;
+  object-fit: contain;
+  margin: 6px;
+}
+.viewDayImagesDiv{
+  max-height: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  overflow: scroll;
 }

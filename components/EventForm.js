@@ -22,18 +22,20 @@ const initialState = {
   city: '',
   description: '',
   starRating: 0,
-  isPublic: true,
+  isPublic: false,
   eventOfDay: '',
 };
 
-// const testPhotos = ['https://res.cloudinary.com/twofiveclimb/image/upload/v1661898852/mad-app/zgbnsycyrspoioxxlnam.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898841/mad-app/mcn1hin10ovagnzqxibc.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898713/mad-app/pgnkhnfkqxbffjw5tx0q.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898831/mad-app/xdlyve7ecqjwhrzxaykl.jpg'];
+const testPhotos = ['https://res.cloudinary.com/twofiveclimb/image/upload/v1661898852/mad-app/zgbnsycyrspoioxxlnam.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898841/mad-app/mcn1hin10ovagnzqxibc.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898713/mad-app/pgnkhnfkqxbffjw5tx0q.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898831/mad-app/xdlyve7ecqjwhrzxaykl.jpg'];
 
 function EventForm({ obj }) {
   const { user } = useAuth();
   const [input, setInput] = useState(initialState);
   const [categories, setCategories] = useState([]);
+  // To Cloudinary ⬇️ //
   const [image, setImage] = useState([]);
-  const [imgUrls, setImgUrls] = useState([]);
+  // From Cloudinary For Sample Render and Firebase ⬇️  //
+  const [imgUrls, setImgUrls] = useState(testPhotos);
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -86,17 +88,16 @@ function EventForm({ obj }) {
       setInput((prevState) => ({
         ...prevState,
         uid: user.uid,
-        userName: user.displayName,
       }));
     }
   }, [obj]);
 
-  const uploadImage = () => {
+  const uploadImage = async () => {
     const payload = new FormData();
     payload.append('file', image);
     payload.append('upload_preset', 'nofzejna');
     payload.append('cloud_name', 'twofiveclimb');
-    uploadPhoto(payload).then((url) => {
+    await uploadPhoto(payload).then((url) => {
       setImgUrls((prevState) => (
         [...prevState, {
           imageUrl: url,
@@ -119,7 +120,7 @@ function EventForm({ obj }) {
       <h4>{obj.firebaseKey ? 'Edit' : 'Create'} Event</h4>
       <Form onSubmit={handleSubmit}>
         <Form.Label>Title</Form.Label>
-        <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Day" required />
+        <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Event" required />
         <Form.Label>Date</Form.Label>
         <Form.Control name="date" value={input.date} onChange={handleChange} type="date" placeholder="When Day " required />
 
@@ -147,7 +148,6 @@ function EventForm({ obj }) {
         <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
         <div className="eventStarAndPublic">
           <Rating
-            name="starRating"
             allowHover={false}
             showTooltip
             allowHalfIcon
@@ -160,6 +160,7 @@ function EventForm({ obj }) {
             value={input.isPublic}
             onChange={handleChange}
             type="switch"
+            defaultChecked={input.isPublic}
             id="custom-switch"
             label="Public ?"
           />
@@ -172,12 +173,20 @@ function EventForm({ obj }) {
           </Form.Group>
         </div>
         <div className="uploadedImagesDiv">
+          {/* With Practice Images */}
           {imgUrls.map((url) => (
             <div key={url} className="uploadedImagesContainer">
               <Image className="eventFormPhotos" rounded src={url} />
               <CloseButton onClick={() => removePhoto(url)} className="imageDelete" />
             </div>
           ))}
+          {/* REAL DEAL */}
+          {/* {imgUrls.map((imageObj) => (
+            <div key={imageObj.imageUrl} className="uploadedImagesContainer">
+              <Image className="eventFormPhotos" rounded src={imageObj.imageUrl} />
+              <CloseButton onClick={() => removePhoto(imageObj.imageUrl)} className="imageDelete" />
+            </div>
+          ))} */}
         </div>
 
         <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
