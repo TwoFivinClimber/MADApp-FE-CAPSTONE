@@ -28,7 +28,7 @@ function UserProfile() {
 
   useEffect(() => {
     getContent();
-  }, [user]);
+  }, [router]);
 
   const deleteProfile = () => {
     if (window.confirm('Be Careful! this will delete all of your posts.  Ae you sure ?')) {
