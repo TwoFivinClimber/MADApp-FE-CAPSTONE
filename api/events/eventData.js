@@ -33,7 +33,7 @@ const updateEvent = (obj) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deleteEvent = (firebaseKey) => new Promise((resolve, reject) => {
+const deleteSingleEvent = (firebaseKey) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/events/${firebaseKey}.json`)
     .then(resolve)
     .catch(reject);
@@ -55,5 +55,5 @@ const getEventsByDay = (dayFbKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  getEvents, createEvent, getSingleEvent, getEventsByUid, deleteEvent, getPublicEvents, updateEvent, getEventsByDay,
+  getEvents, createEvent, getSingleEvent, getEventsByUid, deleteSingleEvent, getPublicEvents, updateEvent, getEventsByDay,
 };

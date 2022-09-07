@@ -8,17 +8,28 @@ import { Rating } from 'react-simple-star-rating';
 import { FaEllipsisV } from 'react-icons/fa';
 import { getSingleEvent } from '../../api/events/eventData';
 import { getImagesByEvent } from '../../api/images/imageData';
+import { deleteEvent } from '../../api/events/mergedEvents';
+import { useAuth } from '../../utils/context/authContext';
 
 function ViewEvent() {
   const [event, setEvent] = useState({});
   const [images, setImages] = useState([]);
   const router = useRouter();
+  const { user } = useAuth();
   const { firebaseKey } = router.query;
 
   useEffect(() => {
     getSingleEvent(firebaseKey).then(setEvent);
     getImagesByEvent(firebaseKey).then(setImages);
   }, []);
+
+  const deleteThisEvent = () => {
+    if (window.confirm('Are You Sure ?')) {
+      deleteEvent(event.firebaseKey).then(() => {
+        router.push('/user/profile');
+      });
+    }
+  };
 
   return (
     <div className="eventPageContainerDiv">
@@ -47,7 +58,15 @@ function ViewEvent() {
           <Card.Text>{event.description}</Card.Text>
         </Card.Body>
         <DropdownButton align="end" variant="secondary" className="eventPageDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
-          <Dropdown.Item className="dropDownItem">Save</Dropdown.Item>
+          {user.uid === event.uid ? (
+            <>
+              <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${event.firebaseKey}`)}>Edit</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete</Dropdown.Item>
+            </>
+          ) : (
+            <Dropdown.Item className="dropDownItem">Save</Dropdown.Item>
+          )}
         </DropdownButton>
       </Card>
       <div className="eventPageImages">

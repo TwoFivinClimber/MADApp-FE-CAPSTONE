@@ -8,18 +8,24 @@ import { useRouter } from 'next/router';
 import { Rating } from 'react-simple-star-rating';
 import { getEventsByDay } from '../api/events/eventData';
 import EventCard from './EventCard';
+import { deleteDay } from '../api/day/mergedDayData';
+import { useAuth } from '../utils/context/authContext';
 
 function DayCard({ obj, onUpdate }) {
   const [events, setEvents] = useState([]);
   const router = useRouter();
+  const { user } = useAuth();
 
   useEffect(() => {
     getEventsByDay(obj.firebaseKey).then(setEvents);
   }, [obj]);
 
   const deleteThisDay = () => {
-    console.warn('deleteClicked');
-    onUpdate();
+    if (window.confirm('Are you Sure?  Your Day Looks Awesome!')) {
+      deleteDay(obj.firebaseKey).then(() => {
+        onUpdate();
+      });
+    }
   };
 
   const rating = events.reduce((a, b) => a + b.starRating / events.length, 0);
@@ -51,9 +57,13 @@ function DayCard({ obj, onUpdate }) {
         </Card.Body>
         <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
           <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/day/${obj.firebaseKey}`)}>View</Dropdown.Item>
-          <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/day/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
-          <Dropdown.Divider />
-          <Dropdown.Item className="dropDownItem" onClick={deleteThisDay}>Delete</Dropdown.Item>
+          {user.uid === obj.uid ? (
+            <>
+              <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/day/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item className="dropDownItem" onClick={deleteThisDay}>Delete</Dropdown.Item>
+            </>
+          ) : ('')}
         </DropdownButton>
       </div>
       <div className="eventsDiv">

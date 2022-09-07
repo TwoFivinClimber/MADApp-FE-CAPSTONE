@@ -32,12 +32,12 @@ const createUser = (userObj) => new Promise((resolve, reject) => {
     });
 });
 
-const deleteUser = (firebaseKey) => new Promise((resolve, reject) => {
+const deleteThisUser = (firebaseKey) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/users/${firebaseKey}.json`)
     .then(resolve)
     .catch(reject);
 });
 
 export {
-  getUser, updateUser, createUser, getUserByFbKey, deleteUser,
+  getUser, updateUser, createUser, getUserByFbKey, deleteThisUser,
 };

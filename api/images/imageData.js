@@ -18,4 +18,10 @@ const getImagesByEvent = (eventId) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { createImage, getImagesByEvent };
+const deleteImage = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/images/${firebaseKey}.json`)
+    .then(resolve)
+    .catch(reject);
+});
+
+export { createImage, getImagesByEvent, deleteImage };

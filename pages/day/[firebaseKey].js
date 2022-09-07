@@ -5,8 +5,7 @@ import {
 } from 'react-bootstrap';
 import { FaEllipsisV } from 'react-icons/fa';
 import { Rating } from 'react-simple-star-rating';
-import { deleteDay } from '../../api/day/dayData';
-import { getDayPackage } from '../../api/day/mergedDayData';
+import { deleteDay, getDayPackage } from '../../api/day/mergedDayData';
 import { getUser } from '../../api/user/userData';
 import EventCard from '../../components/EventCard';
 import { useAuth } from '../../utils/context/authContext';
@@ -22,8 +21,8 @@ function ViewDay() {
 
   const { firebaseKey } = router.query;
 
-  const getTheContent = async () => {
-    await getDayPackage(firebaseKey).then((dayObj) => {
+  const getTheContent = () => {
+    getDayPackage(firebaseKey).then((dayObj) => {
       setDay(dayObj);
       setImages(dayObj.images);
       setEvents(dayObj.events);
@@ -41,7 +40,7 @@ function ViewDay() {
   const deleteThisDay = () => {
     if (window.confirm('Are you Sure?  Your Day Looks Awesome!')) {
       deleteDay(day.firebaseKey);
-      router.push('/profile');
+      router.push('/user/profile');
     }
   };
   return (
@@ -72,7 +71,7 @@ function ViewDay() {
         <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
           <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/day/edit/${day.firebaseKey}`)}>Edit</Dropdown.Item>
           {user.uid === day.uid ? (
-            <><Dropdown.Divider /><Dropdown.Item className="dropDownItem" onClick={deleteThisDay}>Delete</Dropdown.Item></>
+            <><Dropdown.Divider /><Dropdown.Item className="dropDownItem" onClick={deleteThisDay}>Delete This Day</Dropdown.Item></>
           ) : ('')}
         </DropdownButton>
       </Card>

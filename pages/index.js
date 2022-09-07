@@ -1,9 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
-import React, { Form } from 'react-bootstrap';
+import React, { useEffect, useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import { getPublicEvents } from '../api/events/eventData';
 import EventCard from '../components/EventCard';
+import SearchBar from '../components/SearchBar';
 // import { useAuth } from '../utils/context/authContext';
 
 function Home() {
@@ -26,12 +26,7 @@ function Home() {
         <Image className="backgroundImage" src="https://res.cloudinary.com/twofiveclimb/image/upload/v1662000538/IMG_8989_lgto2x.jpg" />
         <div className="mainHeadSearch">
           <h1>Find Your Day</h1>
-          <Form.Control
-            type="search"
-            placeholder="Search"
-            className="me-2"
-            aria-label="Search"
-          />
+          <SearchBar />
         </div>
       </div>
       <div className="mainFeaturedDiv">

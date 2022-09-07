@@ -8,6 +8,7 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../utils/context/authContext';
 import { signIn, signOut } from '../utils/auth';
 import { getUser } from '../api/user/userData';
+import SearchBar from './SearchBar';
 
 const NavBar = () => {
   const router = useRouter();
@@ -22,6 +23,10 @@ const NavBar = () => {
         }
       });
     }
+  };
+  const signOutUser = () => {
+    router.push('/');
+    signOut();
   };
 
   useEffect(() => {
@@ -38,7 +43,7 @@ const NavBar = () => {
             {/* Visible Stuff go here */}
             {user ? (
               <Link href="/" passHref>
-                <Button type="button" className="btn btn-danger" onClick={signOut}>Sign Out</Button>
+                <Button type="button" className="btn btn-danger" onClick={signOutUser}>Sign Out</Button>
               </Link>
             ) : (
               <Button type="button" className="btn btn-success" onClick={signIn}>Sign In</Button>
@@ -65,13 +70,17 @@ const NavBar = () => {
                 <Link href="/browseDays" passHref>
                   <span>Browse Days</span>
                 </Link>
+                <Link href="/search" passHref>
+                  <span>Search</span>
+                </Link>
                 <>
                   {user ? <Link href="/event/new" passHref><span>Create Event</span></Link> : <></> }
                   {user ? <Link href="/day/new" passHref><span>Create Day</span></Link> : <></> }
                   {user ? <Link href="/user/profile" passHref><span>Profile</span></Link> : <></> }
+                  <SearchBar />
                   {user ? (
                     <Link href="/" passHref>
-                      <Button type="button" className="btn btn-danger" onClick={signOut}>Sign Out</Button>
+                      <Button type="button" className="btn btn-danger" onClick={signOutUser}>Sign Out</Button>
                     </Link>
                   ) : (
                     <Button type="button" className="btn btn-danger" onClick={signIn}>Sign In</Button>
