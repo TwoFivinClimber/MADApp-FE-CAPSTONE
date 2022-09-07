@@ -48,7 +48,6 @@ function EventForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
-    console.warn(input);
   };
 
   const handleRating = (e) => {

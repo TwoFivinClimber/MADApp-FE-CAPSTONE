@@ -69,7 +69,7 @@ function DayForm({ obj }) {
 
   const handleShowEvents = async () => {
     await getEventsByUid(user.uid).then((eventsArr) => {
-      setEvents(eventsArr.filter((event) => event.date === input.date && !event.eventOfDay));
+      setEvents(eventsArr.filter((event) => event.date === input.date));
     });
     handleShow();
   };

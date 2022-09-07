@@ -1,5 +1,8 @@
+import { getPublicDays } from '../day/dayData';
 import { deleteImage, getImagesByEvent } from '../images/imageData';
-import { deleteSingleEvent, getEventsByDay, updateEvent } from './eventData';
+import {
+  deleteSingleEvent, getEventsByDay, getPublicEvents, updateEvent,
+} from './eventData';
 
 const handleDayEvents = (dayFirebaseKey, eventsFbkArr) => new Promise((resolve, reject) => {
   const updateEvents = eventsFbkArr.map((firebaseKey) => updateEvent({ firebaseKey, eventOfDay: dayFirebaseKey }));
@@ -24,5 +27,13 @@ const deleteEvent = (firebaseKey) => new Promise((resolve, reject) => {
   });
 });
 
+const getEventsAndDays = () => new Promise((resolve, reject) => {
+  getPublicEvents().then((eventsArr) => {
+    getPublicDays().then((daysArr) => {
+      resolve([...eventsArr, ...daysArr]);
+    }).catch(reject);
+  });
+});
+
 // eslint-disable-next-line import/prefer-default-export
-export { handleDayEvents, deleteEvent };
+export { handleDayEvents, deleteEvent, getEventsAndDays };
