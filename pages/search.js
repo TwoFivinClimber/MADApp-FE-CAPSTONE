@@ -9,7 +9,7 @@ import SearchBar from '../components/SearchBar';
 function Search() {
   const router = useRouter();
   const [results, setResults] = useState([]);
-  const value = router.query.keyword;
+  const value = router.query.keyword ? router.query.keyword : '';
 
   const getTheContent = () => {
     getEventsAndDays().then((contentArr) => {

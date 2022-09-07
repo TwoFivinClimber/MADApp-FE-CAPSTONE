@@ -10,7 +10,8 @@ import { useAuth } from '../utils/context/authContext';
 import getCategories from '../api/categories';
 import uploadPhoto from '../api/cloudinary';
 import { createEvent, updateEvent } from '../api/events/eventData';
-import { createImages } from '../api/images/mergedImage';
+import { createImages, deleteImagesByEvent } from '../api/images/mergedImage';
+import { getImagesByEvent } from '../api/images/imageData';
 
 const initialState = {
   title: '',
@@ -26,7 +27,7 @@ const initialState = {
   eventOfDay: '',
 };
 
-const testPhotos = ['https://res.cloudinary.com/twofiveclimb/image/upload/v1661898852/mad-app/zgbnsycyrspoioxxlnam.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898841/mad-app/mcn1hin10ovagnzqxibc.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898713/mad-app/pgnkhnfkqxbffjw5tx0q.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898831/mad-app/xdlyve7ecqjwhrzxaykl.jpg'];
+// const testPhotos = ['https://res.cloudinary.com/twofiveclimb/image/upload/v1661898852/mad-app/zgbnsycyrspoioxxlnam.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898841/mad-app/mcn1hin10ovagnzqxibc.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898713/mad-app/pgnkhnfkqxbffjw5tx0q.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898831/mad-app/xdlyve7ecqjwhrzxaykl.jpg'];
 
 function EventForm({ obj }) {
   const { user } = useAuth();
@@ -35,7 +36,7 @@ function EventForm({ obj }) {
   // To Cloudinary ⬇️ //
   const [image, setImage] = useState([]);
   // From Cloudinary For Sample Render and Firebase ⬇️  //
-  const [imgUrls, setImgUrls] = useState(testPhotos);
+  const [imgUrls, setImgUrls] = useState([]);
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -62,8 +63,18 @@ function EventForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
-      updateEvent(input).then(() => {
-        router.push('/user/profile');
+      deleteImagesByEvent(obj.firebaseKey).then(() => {
+        updateEvent(input).then(() => {
+          const imageObjects = imgUrls.map((url) => (
+            {
+              imageUrl: url,
+              eventId: obj.firebaseKey,
+              uid: user.uid,
+            }
+          ));
+          createImages(imageObjects);
+          router.push('/user/profile');
+        });
       });
     } else {
       createEvent(input).then((response) => {
@@ -84,6 +95,10 @@ function EventForm({ obj }) {
     getCategories().then(setCategories);
     if (obj.firebaseKey) {
       setInput(obj);
+      getImagesByEvent(obj.firebaseKey).then((imageArr) => {
+        const imageUrls = imageArr.map((img) => img.imageUrl);
+        setImgUrls(imageUrls);
+      });
     } else {
       setInput((prevState) => ({
         ...prevState,
@@ -99,9 +114,9 @@ function EventForm({ obj }) {
     payload.append('cloud_name', 'twofiveclimb');
     await uploadPhoto(payload).then((url) => {
       setImgUrls((prevState) => (
-        [...prevState, {
-          imageUrl: url,
-        }]
+        [...prevState,
+          url,
+        ]
       ));
     });
   };
@@ -172,20 +187,12 @@ function EventForm({ obj }) {
           </Form.Group>
         </div>
         <div className="uploadedImagesDiv">
-          {/* With Practice Images */}
           {imgUrls.map((url) => (
             <div key={url} className="uploadedImagesContainer">
               <Image className="eventFormPhotos" rounded src={url} />
               <CloseButton onClick={() => removePhoto(url)} className="imageDelete" />
             </div>
           ))}
-          {/* REAL DEAL */}
-          {/* {imgUrls.map((imageObj) => (
-            <div key={imageObj.imageUrl} className="uploadedImagesContainer">
-              <Image className="eventFormPhotos" rounded src={imageObj.imageUrl} />
-              <CloseButton onClick={() => removePhoto(imageObj.imageUrl)} className="imageDelete" />
-            </div>
-          ))} */}
         </div>
 
         <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>

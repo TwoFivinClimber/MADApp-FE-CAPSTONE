@@ -60,15 +60,15 @@ function UserForm({ obj }) {
       <h4>{obj.firebaseKey ? 'Edit' : 'Create'} Your Profile</h4>
       <Form onSubmit={handleSubmit}>
         <Form.Label>Profile Name</Form.Label>
-        <Form.Control name="userName" value={input.userName} onChange={handleChange} type="text" placeholder="Enter Profile Name" />
+        <Form.Control name="userName" value={input.userName} onChange={handleChange} type="text" placeholder="Enter Profile Name" required />
         <Form.Label>Image Url</Form.Label>
-        <Form.Control name="imageUrl" value={input.imageUrl} onChange={handleChange} type="text" />
+        <Form.Control name="imageUrl" value={input.imageUrl} onChange={handleChange} type="text" required />
         <Form.Label>Tag Line</Form.Label>
-        <Form.Control name="tagLine" value={input.tagLine} onChange={handleChange} type="text" placeholder="Just Tryna Be Awesome" />
+        <Form.Control name="tagLine" value={input.tagLine} onChange={handleChange} type="text" placeholder="Just Tryna Be Awesome" required />
         <Form.Label>Home City</Form.Label>
-        <Form.Control name="homeCity" value={input.homeCity} onChange={handleChange} type="text" placeholder="Enter Your Home City" />
+        <Form.Control name="homeCity" value={input.homeCity} onChange={handleChange} type="text" placeholder="Enter Your Home City" required />
         <Form.Label>Age</Form.Label>
-        <Form.Control name="age" value={input.age} onChange={handleChange} type="text" placeholder="Enter Your Age" />
+        <Form.Control name="age" value={input.age} onChange={handleChange} type="text" placeholder="Enter Your Age" required />
 
         <Form.Label>Interest 1</Form.Label>
         <Form.Select aria-label="Interest 1" name="interestOne" value={input.interestOne} onChange={handleChange}>
