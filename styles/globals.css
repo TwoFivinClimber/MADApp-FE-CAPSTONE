@@ -52,6 +52,10 @@ body {
   width: 45px;
   border-radius: 50%;
 }
+/*NAV NO SHOW ON USER FORM */
+.navNoShow{
+  display: none;
+}
 
 /*MAIN LANDING*/
 .mainDiv{
@@ -242,4 +246,7 @@ body {
   flex-wrap: wrap;
   justify-content: space-between;
   overflow: scroll;
+}
+.navShow{
+  display: none;
 }

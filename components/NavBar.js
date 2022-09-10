@@ -35,7 +35,7 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar key={expand} bg="light" expand={expand} className="mb-3">
+      <Navbar key={expand} bg="light" expand={expand} className={`${router.route === '/user/new' ? 'navNoShow' : ''} "mb-3"`}>
         <Container fluid>
           <div className="navItems">
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
@@ -53,6 +53,7 @@ const NavBar = () => {
             id={`offcanvasNavbar-expand-${expand}`}
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
             placement="start"
+            collapseOnSelect
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
@@ -61,7 +62,7 @@ const NavBar = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="justify-content-center flex-grow-1 pe-3">
-                <Link href="/" passHref>
+                <Link href="/" passHref expand={false}>
                   <span> Home</span>
                 </Link>
                 <Link href="/browseEvents" passHref>
