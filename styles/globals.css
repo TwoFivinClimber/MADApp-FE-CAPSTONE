@@ -52,6 +52,17 @@ body {
   width: 45px;
   border-radius: 50%;
 }
+.navbar-toggler{
+  margin: 10px;
+}
+.sign-in{
+  background-color: #4d9f0a;
+  color: black;
+}
+.sign-out{
+  background-color: firebrick;
+  color: black;
+}
 /*NAV NO SHOW ON USER FORM */
 .navNoShow{
   display: none;
