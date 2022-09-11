@@ -16,8 +16,8 @@ const EventCard = ({ obj, onUpdate }) => {
   const router = useRouter();
   const { user } = useAuth();
 
-  const getTheImages = async () => {
-    await getImagesByEvent(obj.firebaseKey).then(setImages);
+  const getTheImages = () => {
+    getImagesByEvent(obj.firebaseKey).then(setImages);
   };
 
   const deleteThisEvent = () => {

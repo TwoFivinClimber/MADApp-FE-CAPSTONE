@@ -14,7 +14,7 @@ const handleDayEvents = (dayFirebaseKey, eventsFbkArr) => new Promise((resolve, 
         const removeTheDay = removeDayArr.map((evnt) => updateEvent({ ...evnt, ...update }));
         Promise.all(removeTheDay).then(resolve);
       }
-    }).catch(reject);
+    }).then(resolve).catch(reject);
   });
 });
 

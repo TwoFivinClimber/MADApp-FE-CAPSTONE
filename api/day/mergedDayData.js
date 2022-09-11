@@ -1,4 +1,4 @@
-import { getEventsByDay, updateEvent } from '../events/eventData';
+import { getEventsByDay, getEventsByUid, updateEvent } from '../events/eventData';
 import { getImagesByEvent } from '../images/imageData';
 import { deleteSingleDay, getSingleDay } from './dayData';
 
@@ -24,5 +24,15 @@ const deleteDay = (firebaseKey) => new Promise((resolve, reject) => {
   });
 });
 
+const getDayFormPackage = (firebaseKey, uid) => new Promise((resolve, reject) => {
+  getEventsByUid(uid).then((uidArray) => {
+    getEventsByDay(firebaseKey).then((dayEventArray) => {
+      const eventFbKeys = [];
+      dayEventArray.map((event) => eventFbKeys.push(event.firebaseKey));
+      resolve({ events: uidArray, dayEvents: eventFbKeys });
+    }).catch(reject);
+  });
+});
+
 // eslint-disable-next-line import/prefer-default-export
-export { getDayPackage, deleteDay };
+export { getDayPackage, deleteDay, getDayFormPackage };

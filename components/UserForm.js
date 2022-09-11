@@ -93,11 +93,6 @@ function UserForm({ obj }) {
         </Form.Select>
         <br />
         <Button type="submit" variant="success">Submit</Button>
-        {obj.firebaseKey ? (
-          <Button variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
-        ) : (
-          <Button variant="danger" onClick={() => router.push('/')}>Cancel</Button>
-        )}
       </Form>
     </>
   );
