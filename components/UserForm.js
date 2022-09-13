@@ -49,7 +49,6 @@ function UserForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
-    console.warn(input);
   };
 
   const handleSubmit = (e) => {
