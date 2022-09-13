@@ -13,7 +13,8 @@ import uploadPhoto from '../api/cloudinary';
 import { createEvent, updateEvent } from '../api/events/eventData';
 import { createImages, deleteImagesByEvent } from '../api/images/mergedImage';
 import { getImagesByEvent } from '../api/images/imageData';
-import getPoi from '../api/tom-tom';
+import { getPoi } from '../api/tom-tom';
+import { getUser } from '../api/user/userData';
 
 const initialState = {
   title: '',
@@ -33,6 +34,7 @@ const initialState = {
 
 function EventForm({ obj }) {
   const { user } = useAuth();
+  const [authUser, setAuthUser] = useState({});
   const [input, setInput] = useState(initialState);
   const [categories, setCategories] = useState([]);
   // To Cloudinary ⬇️ //
@@ -51,7 +53,7 @@ function EventForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
-    console.warn(input);
+    console.warn(authUser);
   };
 
   const handleRating = (e) => {
@@ -96,6 +98,9 @@ function EventForm({ obj }) {
 
   useEffect(() => {
     getCategories().then(setCategories);
+    getUser(user.uid).then((userArr) => {
+      setAuthUser(userArr[0]);
+    });
     if (obj.firebaseKey) {
       setInput(obj);
       getImagesByEvent(obj.firebaseKey).then((imageArr) => {
@@ -132,8 +137,10 @@ function EventForm({ obj }) {
       return prevCopy;
     });
   };
+
+  // TOM TOM API//
   const promiseOptions = (inputValue) => new Promise((resolve, reject) => {
-    getPoi(inputValue).then((result) => {
+    getPoi(inputValue, authUser.lat, authUser.long).then((result) => {
       resolve(result);
     }).catch(reject);
   });
@@ -187,7 +194,6 @@ function EventForm({ obj }) {
           value={{ label: input.location, value: input.location }}
           loadOptions={promiseOptions}
         />
-        {/* / OLD FORM INPUT * <Form.Control name="location" value={input.location} onChange={handleChange} type="text" placeholder="Where were you?" required /> */}
         <Form.Label>City</Form.Label>
         <Form.Control name="city" value={input.city} onChange={handleChange} type="text" placeholder="What City ?" required />
         <Form.Label>Describe Your Experience</Form.Label>

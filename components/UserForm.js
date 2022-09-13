@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
+import AsyncCreatable from 'react-select/async-creatable';
 import getCategories from '../api/categories';
 import { useAuth } from '../utils/context/authContext';
 import { createUser, updateUser } from '../api/user/userData';
+import { getCity } from '../api/tom-tom';
 
 const initialState = {
   uid: '',
@@ -13,6 +15,8 @@ const initialState = {
   imageUrl: '',
   tagLine: '',
   homeCity: '',
+  lat: 0,
+  long: 0,
   age: 0,
   interestOne: '',
   interestTwo: '',
@@ -45,7 +49,9 @@ function UserForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
+    console.warn(input);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
@@ -53,6 +59,25 @@ function UserForm({ obj }) {
     } else {
       createUser(input).then(() => router.push('/user/profile'));
     }
+  };
+
+  // TOM TOM API//
+  const promiseOptions = (inputValue) => new Promise((resolve, reject) => {
+    getCity(inputValue).then((result) => {
+      resolve(result);
+    }).catch(reject);
+  });
+
+  const handleSelect = (selected) => {
+    const {
+      name, value, lat, long,
+    } = selected;
+    setInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+      lat,
+      long,
+    }));
   };
 
   return (
@@ -65,8 +90,14 @@ function UserForm({ obj }) {
         <Form.Control name="imageUrl" value={input.imageUrl} onChange={handleChange} type="text" required />
         <Form.Label>Tag Line</Form.Label>
         <Form.Control name="tagLine" value={input.tagLine} onChange={handleChange} type="text" placeholder="Just Tryna Be Awesome" required />
-        <Form.Label>Home City</Form.Label>
-        <Form.Control name="homeCity" value={input.homeCity} onChange={handleChange} type="text" placeholder="Enter Your Home City" required />
+        <Form.Label>Location</Form.Label>
+        <AsyncCreatable
+          isClearable
+          onChange={handleSelect}
+          value={{ label: input.homeCity, value: input.homeCity }}
+          loadOptions={promiseOptions}
+        />
+        {/* <Form.Control name="homeCity" value={input.homeCity} onChange={handleChange} type="text" placeholder="Find" required /> */}
         <Form.Label>Age</Form.Label>
         <Form.Control name="age" value={input.age} onChange={handleChange} type="text" placeholder="Enter Your Age" required />
 
