@@ -6,12 +6,14 @@ import {
 import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import AsyncCreatable from 'react-select/async-creatable';
 import { useAuth } from '../utils/context/authContext';
 import getCategories from '../api/categories';
 import uploadPhoto from '../api/cloudinary';
 import { createEvent, updateEvent } from '../api/events/eventData';
 import { createImages, deleteImagesByEvent } from '../api/images/mergedImage';
 import { getImagesByEvent } from '../api/images/imageData';
+import getPoi from '../api/tom-tom';
 
 const initialState = {
   title: '',
@@ -49,6 +51,7 @@ function EventForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
+    console.warn(input);
   };
 
   const handleRating = (e) => {
@@ -129,6 +132,29 @@ function EventForm({ obj }) {
       return prevCopy;
     });
   };
+  const promiseOptions = (inputValue) => new Promise((resolve, reject) => {
+    getPoi(inputValue).then((result) => {
+      resolve(result);
+    }).catch(reject);
+  });
+
+  const handleSelect = (selected) => {
+    if (selected.city) {
+      const { name, value } = selected;
+      const city = `${selected.city}, ${selected.state}`;
+      setInput((prevState) => ({
+        ...prevState,
+        [name]: value,
+        city,
+      }));
+    } else {
+      const { value } = selected;
+      setInput((prevState) => ({
+        ...prevState,
+        location: value,
+      }));
+    }
+  };
 
   return (
     <>
@@ -155,7 +181,13 @@ function EventForm({ obj }) {
           ))}
         </Form.Select>
         <Form.Label>Location</Form.Label>
-        <Form.Control name="location" value={input.location} onChange={handleChange} type="text" placeholder="Where were you?" required />
+        <AsyncCreatable
+          isClearable
+          onChange={handleSelect}
+          value={{ label: input.location, value: input.location }}
+          loadOptions={promiseOptions}
+        />
+        {/* / OLD FORM INPUT * <Form.Control name="location" value={input.location} onChange={handleChange} type="text" placeholder="Where were you?" required /> */}
         <Form.Label>City</Form.Label>
         <Form.Control name="city" value={input.city} onChange={handleChange} type="text" placeholder="What City ?" required />
         <Form.Label>Describe Your Experience</Form.Label>

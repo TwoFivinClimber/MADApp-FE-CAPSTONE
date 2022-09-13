@@ -1,9 +1,19 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import React from 'react';
+// import React, { useState, useEffect } from 'react';
+import useReactIpLocation from 'react-ip-details';
 import AsyncSelect from 'react-select/async';
 import getPoi from '../api/tom-tom';
 
 function tomTom() {
+  const {
+    geoLocationPosition,
+  } = useReactIpLocation({ onlyPosition: true });
+
+  console.warn(geoLocationPosition);
+  // const setLatLong = () => {
+  //   setLat(ipResponse.latitude);
+  //   setlong(ipResponse.longitude);
+  // };
   // const [results, setResults] = useState([]);
   // const [options, setOptions] = useState([]);
   // const testTom = () => {
@@ -11,8 +21,8 @@ function tomTom() {
   // };
 
   // useEffect(() => {
-  //   testTom();
-  // }, []);
+  //   setLatLong();
+  // }, [ipResponse]);
 
   const promiseOptions = (inputValue) => new Promise((resolve, reject) => {
     getPoi(inputValue).then((result) => {
@@ -25,15 +35,17 @@ function tomTom() {
   };
 
   return (
-    <div>
-      <h4>Results</h4>
-      {/* <ul>
+    <>
+      <div>
+        <h4>Results</h4>
+        {/* <ul>
         {results.map((result) => (
           <li>{result.poi.name}</li>
         ))}
       </ul> */}
-      <AsyncSelect isClearable onChange={handleSelect} loadOptions={promiseOptions} />
-    </div>
+        <AsyncSelect isClearable onChange={handleSelect} loadOptions={promiseOptions} />
+      </div>
+    </>
   );
 }
 
