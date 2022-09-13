@@ -6,12 +6,15 @@ import {
 import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
+import AsyncCreatable from 'react-select/async-creatable';
 import { useAuth } from '../utils/context/authContext';
 import getCategories from '../api/categories';
 import uploadPhoto from '../api/cloudinary';
 import { createEvent, updateEvent } from '../api/events/eventData';
 import { createImages, deleteImagesByEvent } from '../api/images/mergedImage';
 import { getImagesByEvent } from '../api/images/imageData';
+import { getPoi } from '../api/tom-tom';
+import { getUser } from '../api/user/userData';
 
 const initialState = {
   title: '',
@@ -31,6 +34,7 @@ const initialState = {
 
 function EventForm({ obj }) {
   const { user } = useAuth();
+  const [authUser, setAuthUser] = useState({});
   const [input, setInput] = useState(initialState);
   const [categories, setCategories] = useState([]);
   // To Cloudinary ⬇️ //
@@ -93,6 +97,9 @@ function EventForm({ obj }) {
 
   useEffect(() => {
     getCategories().then(setCategories);
+    getUser(user.uid).then((userArr) => {
+      setAuthUser(userArr[0]);
+    });
     if (obj.firebaseKey) {
       setInput(obj);
       getImagesByEvent(obj.firebaseKey).then((imageArr) => {
@@ -130,6 +137,31 @@ function EventForm({ obj }) {
     });
   };
 
+  // TOM TOM API//
+  const promiseOptions = (inputValue) => new Promise((resolve, reject) => {
+    getPoi(inputValue, authUser.lat, authUser.long).then((result) => {
+      resolve(result);
+    }).catch(reject);
+  });
+
+  const handleSelect = (selected) => {
+    if (selected.city) {
+      const { name, value } = selected;
+      const city = `${selected.city}, ${selected.state}`;
+      setInput((prevState) => ({
+        ...prevState,
+        [name]: value,
+        city,
+      }));
+    } else {
+      const { value } = selected;
+      setInput((prevState) => ({
+        ...prevState,
+        location: value,
+      }));
+    }
+  };
+
   return (
     <>
       <h4>{obj.firebaseKey ? 'Edit' : 'Create'} Event</h4>
@@ -155,7 +187,12 @@ function EventForm({ obj }) {
           ))}
         </Form.Select>
         <Form.Label>Location</Form.Label>
-        <Form.Control name="location" value={input.location} onChange={handleChange} type="text" placeholder="Where were you?" required />
+        <AsyncCreatable
+          isClearable
+          onChange={handleSelect}
+          value={{ label: input.location, value: input.location }}
+          loadOptions={promiseOptions}
+        />
         <Form.Label>City</Form.Label>
         <Form.Control name="city" value={input.city} onChange={handleChange} type="text" placeholder="What City ?" required />
         <Form.Label>Describe Your Experience</Form.Label>
