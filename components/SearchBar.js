@@ -26,7 +26,7 @@ function SearchBar() {
       <Form>
         <Form.Control
           type="search"
-          placeholder="Search by Title or City"
+          placeholder="Search by Event Title"
           className="me-2"
           aria-label="Search"
           value={searchInput}
