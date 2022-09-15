@@ -4,11 +4,9 @@ import Image from 'react-bootstrap/Image';
 import { getPublicEvents } from '../api/events/eventData';
 import EventCard from '../components/EventCard';
 import SearchBar from '../components/SearchBar';
-import { useAuth } from '../utils/context/authContext';
 // import { useAuth } from '../utils/context/authContext';
 
 function Home() {
-  const user = useAuth();
   const [featuredEvent, setFeaturedEvent] = useState({});
 
   const getFeatured = () => {
@@ -20,7 +18,6 @@ function Home() {
 
   useEffect(() => {
     getFeatured();
-    console.warn(user);
   }, []);
 
   return (
