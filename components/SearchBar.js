@@ -1,34 +1,11 @@
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React from 'react';
 import { Form } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
-function SearchBar({ setContent, onChange, keyword }) {
-  const [searchInput, setSearchInput] = useState('');
-  const router = useRouter();
-
+function SearchBar({ setKeyword, keyword }) {
   const handleChange = (e) => {
     const { value } = e.target;
-    if (router.pathname === '/search') {
-      setContent(value);
-      console.warn('no path');
-    } else {
-      setSearchInput(value);
-      console.warn('regpath');
-    }
-  };
-
-  const handleEnter = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      router.push({
-        pathname: '/search',
-        query: { keyword: searchInput },
-      });
-    }
-    if (router.pathname === '/search') {
-      onChange(e);
-    }
+    setKeyword(value);
   };
 
   return (
@@ -41,7 +18,6 @@ function SearchBar({ setContent, onChange, keyword }) {
           aria-label="Search"
           value={keyword}
           onChange={handleChange}
-          onKeyDown={handleEnter}
           name="keyword"
         />
       </Form>
@@ -50,13 +26,8 @@ function SearchBar({ setContent, onChange, keyword }) {
 }
 
 SearchBar.propTypes = {
-  onChange: PropTypes.func.isRequired,
   keyword: PropTypes.string.isRequired,
-  setContent: PropTypes.func.isRequired,
+  setKeyword: PropTypes.func.isRequired,
 };
-
-// SearchBar.defaultProps = {
-//   keyword: '',
-// };
 
 export default SearchBar;

@@ -19,12 +19,23 @@ function Search() {
   const [category, setCategory] = useState('');
   const [city, setCity] = useState('');
 
+  // const keywordFilter = (arr, filter) => {
+  //   const keywordResults = content.filter((event) => event.title.toLowerCase().includes(keyword.toLowerCase()));
+  //   return keywordResults;
+  // };
+
+  // const categoryFilter = () => {
+  //   const categoryResults = content.filter((event) => event.category.toLowerCase() === category.toLowerCase());
+  //   return categoryResults;
+  // };
+
+  // const cityFilter = () => {
+  //   const cityResults = content.filter((event) => event.category.toLowerCase().includes(category.toLowerCase()));
+  //   setResults(cityResults);
+  // };
+
   const getResults = () => {
-    if (keyword) {
-      const keywordResults = content.filter((event) => event.title.toLowerCase().includes(keyword.toLowerCase()));
-      setResults(keywordResults);
-      console.warn('keyword');
-    } else if (city && category) {
+    if (city && category) {
       const cityResults = content.filter((event) => event.city.toLowerCase().includes(city.toLowerCase()));
       const cityCatResults = cityResults.filter((event) => event.category.toLowerCase().includes(category.toLowerCase()));
       setResults(cityCatResults);
@@ -37,6 +48,10 @@ function Search() {
       const categoryResults = content.filter((event) => event.category.toLowerCase() === category.toLowerCase());
       setResults(categoryResults);
       console.warn('category');
+    } else if (keyword) {
+      const keywordResults = content.filter((event) => event.title.toLowerCase().includes(keyword.toLowerCase()));
+      setResults(keywordResults);
+      console.warn('keyword');
     } else {
       setResults(content);
     }
@@ -44,7 +59,6 @@ function Search() {
 
   const handleInput = (e) => {
     setKeyword(e.target.value);
-    console.warn(e.target.value);
   };
 
   const handleCitySelect = (target) => {
@@ -85,7 +99,7 @@ function Search() {
     <>
       <div className="searchActionsDiv">
         <h5>Search by Keyword</h5>
-        <SearchBar onChange={handleInput} setContent={setKeyword} keyword={keyword} />
+        <SearchBar onChange={handleInput} setKeyword={setKeyword} keyword={keyword} />
         <h5>Refine Your Search</h5>
         <Form.Label>Category Search</Form.Label>
         <AsyncSelect
