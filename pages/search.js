@@ -19,39 +19,41 @@ function Search() {
   const [category, setCategory] = useState('');
   const [city, setCity] = useState('');
 
-  // const keywordFilter = (arr, filter) => {
-  //   const keywordResults = content.filter((event) => event.title.toLowerCase().includes(keyword.toLowerCase()));
-  //   return keywordResults;
-  // };
+  const keywordFilter = () => {
+    const keywordResults = content.filter((event) => event.title.toLowerCase().includes(keyword.toLowerCase()));
+    return keywordResults;
+  };
 
-  // const categoryFilter = () => {
-  //   const categoryResults = content.filter((event) => event.category.toLowerCase() === category.toLowerCase());
-  //   return categoryResults;
-  // };
+  const categoryFilter = () => {
+    const categoryResults = content.filter((event) => event.category.toLowerCase() === category.toLowerCase());
+    return categoryResults;
+  };
 
-  // const cityFilter = () => {
-  //   const cityResults = content.filter((event) => event.category.toLowerCase().includes(category.toLowerCase()));
-  //   setResults(cityResults);
-  // };
+  const cityFilter = () => {
+    const cityResults = content.filter((event) => event.city.toLowerCase() === city.toLowerCase());
+    return cityResults;
+  };
 
   const getResults = () => {
-    if (city && category) {
-      const cityResults = content.filter((event) => event.city.toLowerCase().includes(city.toLowerCase()));
-      const cityCatResults = cityResults.filter((event) => event.category.toLowerCase().includes(category.toLowerCase()));
-      setResults(cityCatResults);
-      console.warn('city and cat');
+    if (keyword && city && category) {
+      console.warn('key cat city');
+    } else if (keyword && category) {
+      console.warn('key and cat');
+    } else if (keyword && city) {
+      console.warn('key and city');
+    } else if (city && category) {
+      const filteredCities = cityFilter();
+      setResults(categoryFilter(filteredCities));
+      console.warn('city && cat');
     } else if (city) {
-      const cityResults = content.filter((event) => event.category.toLowerCase().includes(category.toLowerCase()));
-      setResults(cityResults);
+      setResults(cityFilter());
       console.warn('city');
     } else if (category) {
-      const categoryResults = content.filter((event) => event.category.toLowerCase() === category.toLowerCase());
-      setResults(categoryResults);
-      console.warn('category');
+      setResults(categoryFilter());
+      console.warn('cat');
     } else if (keyword) {
-      const keywordResults = content.filter((event) => event.title.toLowerCase().includes(keyword.toLowerCase()));
-      setResults(keywordResults);
-      console.warn('keyword');
+      setResults(keywordFilter());
+      console.warn('key');
     } else {
       setResults(content);
     }
@@ -82,7 +84,6 @@ function Search() {
   const getTheContent = () => {
     getPublicEvents().then((contentArr) => {
       setContent(contentArr);
-      getResults();
       setKeyword(input);
     });
   };
