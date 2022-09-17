@@ -6,6 +6,7 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 // import { createDay, updateDay } from '../api/day/dayData';
+import Moment from 'moment';
 import { useAuth } from '../utils/context/authContext';
 import EventModalCard from './EventModalCard';
 import EventCard from './EventCard';
@@ -72,12 +73,14 @@ function DayForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
+      input.date = Moment(input.date).format('MM-DD-YYYY');
       updateDay(input).then(() => {
         handleDayEvents(obj.firebaseKey, dayEvents).then(() => {
           router.push('/user/profile');
         });
       });
     } else {
+      input.date = Moment(input.date).format('MM-DD-YYYY');
       createDay(input).then((dayObj) => {
         handleDayEvents(dayObj.firebaseKey, dayEvents).then(() => {
           router.push('/user/profile');
@@ -91,13 +94,6 @@ function DayForm({ obj }) {
       setDayEvents(dayFormObj.dayEvents);
       setEvents(dayFormObj.events);
     });
-
-    // getEventsByDay(obj.firebaseKey).then((eventsArr) => {
-    //   getEventsByUid(user.uid).then((eventArr) => {
-    //     setDayEvents(eventsArr.map((event) => event.firebaseKey));
-    //     setEvents(eventArr.filter((event) => event.date === input.date));
-    //   });
-    // });
     if (obj.firebaseKey) {
       setInput(obj);
     } else {

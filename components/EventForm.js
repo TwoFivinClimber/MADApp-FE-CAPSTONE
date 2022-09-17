@@ -7,6 +7,7 @@ import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import AsyncCreatable from 'react-select/async-creatable';
+import Moment from 'moment';
 import { useAuth } from '../utils/context/authContext';
 import { getCategories } from '../api/categories';
 import uploadPhoto from '../api/cloudinary';
@@ -68,6 +69,7 @@ function EventForm({ obj }) {
     e.preventDefault();
     if (obj.firebaseKey) {
       deleteImagesByEvent(obj.firebaseKey).then(() => {
+        input.date = Moment(input.date).format('MM-DD-YYYY');
         updateEvent(input).then(() => {
           const imageObjects = imgUrls.map((url) => (
             {
@@ -81,6 +83,7 @@ function EventForm({ obj }) {
         });
       });
     } else {
+      input.date = Moment(input.date).format('MM-DD-YYYY');
       createEvent(input).then((response) => {
         const imageObjects = imgUrls.map((url) => (
           {

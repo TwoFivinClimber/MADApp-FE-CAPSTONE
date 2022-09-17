@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 
 function SearchBar({ setKeyword, keyword }) {
   const handleChange = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+    }
     const { value } = e.target;
     setKeyword(value);
   };
@@ -19,6 +22,7 @@ function SearchBar({ setKeyword, keyword }) {
           value={keyword}
           onChange={handleChange}
           name="keyword"
+          onKeyDown={handleChange}
         />
       </Form>
     </>

@@ -19,41 +19,41 @@ function Search() {
   const [category, setCategory] = useState('');
   const [city, setCity] = useState('');
 
-  const keywordFilter = () => {
-    const keywordResults = content.filter((event) => event.title.toLowerCase().includes(keyword.toLowerCase()));
+  const keywordFilter = (array) => {
+    const keywordResults = array.filter((event) => event.title.toLowerCase().includes(keyword.toLowerCase()));
     return keywordResults;
   };
 
-  const categoryFilter = () => {
-    const categoryResults = content.filter((event) => event.category.toLowerCase() === category.toLowerCase());
+  const categoryFilter = (array) => {
+    const categoryResults = array.filter((event) => event.category.toLowerCase() === category.toLowerCase());
     return categoryResults;
   };
 
-  const cityFilter = () => {
-    const cityResults = content.filter((event) => event.city.toLowerCase() === city.toLowerCase());
+  const cityFilter = (array) => {
+    const cityResults = array.filter((event) => event.city.toLowerCase() === city.toLowerCase());
     return cityResults;
   };
 
   const getResults = () => {
     if (keyword && city && category) {
-      console.warn('key cat city');
+      const filteredCities = cityFilter(content);
+      const cityAndCategory = categoryFilter(filteredCities);
+      setResults(keywordFilter(cityAndCategory));
     } else if (keyword && category) {
-      console.warn('key and cat');
+      const filteredCategories = categoryFilter(content);
+      setResults(keywordFilter(filteredCategories));
     } else if (keyword && city) {
-      console.warn('key and city');
+      const filteredCities = cityFilter(content);
+      setResults(keywordFilter(filteredCities));
     } else if (city && category) {
-      const filteredCities = cityFilter();
+      const filteredCities = cityFilter(content);
       setResults(categoryFilter(filteredCities));
-      console.warn('city && cat');
     } else if (city) {
-      setResults(cityFilter());
-      console.warn('city');
+      setResults(cityFilter(content));
     } else if (category) {
-      setResults(categoryFilter());
-      console.warn('cat');
+      setResults(categoryFilter(content));
     } else if (keyword) {
-      setResults(keywordFilter());
-      console.warn('key');
+      setResults(keywordFilter(content));
     } else {
       setResults(content);
     }
@@ -90,11 +90,11 @@ function Search() {
 
   useEffect(() => {
     getTheContent();
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     getResults();
-  }, [keyword, category, city]);
+  }, [content, keyword, category, city]);
 
   return (
     <>
