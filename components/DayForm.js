@@ -111,7 +111,7 @@ function DayForm({ obj }) {
         <Form.Label>Title</Form.Label>
         <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Event" required />
         <Form.Label>Date</Form.Label>
-        <Form.Control name="date" value={input.date} onChange={handleChange} type="date" placeholder="When Day " required />
+        <Form.Control name="date" value={Moment(input.date).format('YYYY-MM-DD')} onChange={handleChange} type="date" placeholder="When Day " required />
         <Form.Label>City</Form.Label>
         <Form.Control name="city" value={input.city} onChange={handleChange} type="text" placeholder="What City ?" required />
         <Form.Label>Describe Your Experience</Form.Label>
