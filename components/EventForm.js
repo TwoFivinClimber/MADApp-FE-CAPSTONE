@@ -7,8 +7,9 @@ import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import AsyncCreatable from 'react-select/async-creatable';
+import Moment from 'moment';
 import { useAuth } from '../utils/context/authContext';
-import getCategories from '../api/categories';
+import { getCategories } from '../api/categories';
 import uploadPhoto from '../api/cloudinary';
 import { createEvent, updateEvent } from '../api/events/eventData';
 import { createImages, deleteImagesByEvent } from '../api/images/mergedImage';
@@ -68,6 +69,7 @@ function EventForm({ obj }) {
     e.preventDefault();
     if (obj.firebaseKey) {
       deleteImagesByEvent(obj.firebaseKey).then(() => {
+        input.date = Moment(input.date).format('MM-DD-YYYY');
         updateEvent(input).then(() => {
           const imageObjects = imgUrls.map((url) => (
             {
@@ -81,6 +83,7 @@ function EventForm({ obj }) {
         });
       });
     } else {
+      input.date = Moment(input.date).format('MM-DD-YYYY');
       createEvent(input).then((response) => {
         const imageObjects = imgUrls.map((url) => (
           {
@@ -94,25 +97,6 @@ function EventForm({ obj }) {
       });
     }
   };
-
-  useEffect(() => {
-    getCategories().then(setCategories);
-    getUser(user.uid).then((userArr) => {
-      setAuthUser(userArr[0]);
-    });
-    if (obj.firebaseKey) {
-      setInput(obj);
-      getImagesByEvent(obj.firebaseKey).then((imageArr) => {
-        const imageUrls = imageArr.map((img) => img.imageUrl);
-        setImgUrls(imageUrls);
-      });
-    } else {
-      setInput((prevState) => ({
-        ...prevState,
-        uid: user.uid,
-      }));
-    }
-  }, [obj]);
 
   const uploadImage = async () => {
     const payload = new FormData();
@@ -145,22 +129,43 @@ function EventForm({ obj }) {
   });
 
   const handleSelect = (selected) => {
-    if (selected.city) {
-      const { name, value } = selected;
-      const city = `${selected.city}, ${selected.state}`;
-      setInput((prevState) => ({
-        ...prevState,
-        [name]: value,
-        city,
-      }));
-    } else {
-      const { value } = selected;
-      setInput((prevState) => ({
-        ...prevState,
-        location: value,
-      }));
+    if (selected) {
+      if (selected.city) {
+        const { name, value } = selected;
+        const city = `${selected.city}, ${selected.state}`;
+        setInput((prevState) => ({
+          ...prevState,
+          [name]: value,
+          city,
+        }));
+      } else {
+        const { value } = selected;
+        setInput((prevState) => ({
+          ...prevState,
+          location: value,
+        }));
+      }
     }
   };
+
+  useEffect(() => {
+    getCategories().then(setCategories);
+    getUser(user.uid).then((userArr) => {
+      setAuthUser(userArr[0]);
+    });
+    if (obj.firebaseKey) {
+      setInput(obj);
+      getImagesByEvent(obj.firebaseKey).then((imageArr) => {
+        const imageUrls = imageArr.map((img) => img.imageUrl);
+        setImgUrls(imageUrls);
+      });
+    } else {
+      setInput((prevState) => ({
+        ...prevState,
+        uid: user.uid,
+      }));
+    }
+  }, [obj]);
 
   return (
     <>

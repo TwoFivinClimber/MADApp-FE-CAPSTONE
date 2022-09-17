@@ -53,6 +53,7 @@ const EventCard = ({ obj, onUpdate }) => {
         />
       </Card.Body>
       <Card.Body className="eventCardCenter">
+        <Card.Text>{obj.category}</Card.Text>
         <Card.Text>{obj.description}</Card.Text>
       </Card.Body>
       <div className="eventCardImages">

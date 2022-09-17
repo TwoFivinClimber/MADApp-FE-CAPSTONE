@@ -1,24 +1,14 @@
-import { useRouter } from 'next/router';
-import React, { useState } from 'react';
+import React from 'react';
 import { Form } from 'react-bootstrap';
+import PropTypes from 'prop-types';
 
-function SearchBar() {
-  const [searchInput, setSearchInput] = useState('');
-  const router = useRouter();
-
+function SearchBar({ setKeyword, keyword }) {
   const handleChange = (e) => {
-    const { value } = e.target;
-    setSearchInput(value);
-  };
-
-  const handleEnter = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
-      router.push({
-        pathname: '/search',
-        query: { keyword: searchInput },
-      });
     }
+    const { value } = e.target;
+    setKeyword(value);
   };
 
   return (
@@ -26,16 +16,22 @@ function SearchBar() {
       <Form>
         <Form.Control
           type="search"
-          placeholder="Search by Title or City"
+          placeholder="Search by Event Title"
           className="me-2"
           aria-label="Search"
-          value={searchInput}
+          value={keyword}
           onChange={handleChange}
-          onKeyDown={handleEnter}
+          name="keyword"
+          onKeyDown={handleChange}
         />
       </Form>
     </>
   );
 }
+
+SearchBar.propTypes = {
+  keyword: PropTypes.string.isRequired,
+  setKeyword: PropTypes.func.isRequired,
+};
 
 export default SearchBar;

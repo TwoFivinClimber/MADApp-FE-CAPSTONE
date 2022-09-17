@@ -8,4 +8,18 @@ const getCategories = () => new Promise((resolve, reject) => {
     .then((categories) => resolve(Object.values(categories.data)))
     .catch(reject);
 });
-export default getCategories;
+
+const getCategorySelect = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/categories.json`)
+    .then((categories) => {
+      const categoryArray = Object.values(categories.data);
+      const returnArray = categoryArray.map((cat) => ({
+        name: 'category',
+        label: cat.category,
+        value: cat.category,
+      }));
+      resolve(returnArray);
+    }).catch(reject);
+});
+
+export { getCategories, getCategorySelect };

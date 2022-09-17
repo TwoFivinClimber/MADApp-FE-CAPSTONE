@@ -35,5 +35,18 @@ const getEventsAndDays = () => new Promise((resolve, reject) => {
   });
 });
 
+const getEventCities = () => new Promise((resolve, reject) => {
+  getPublicEvents().then((eventsArray) => {
+    const returnArray = eventsArray.map((event) => ({
+      name: 'city',
+      value: event.city,
+      label: event.city,
+    }));
+    resolve(returnArray);
+  }).catch(reject);
+});
+
 // eslint-disable-next-line import/prefer-default-export
-export { handleDayEvents, deleteEvent, getEventsAndDays };
+export {
+  handleDayEvents, deleteEvent, getEventsAndDays, getEventCities,
+};

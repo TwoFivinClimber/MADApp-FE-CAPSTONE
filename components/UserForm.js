@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import AsyncCreatable from 'react-select/async-creatable';
-import getCategories from '../api/categories';
+import { getCategories } from '../api/categories';
 import { useAuth } from '../utils/context/authContext';
 import { createUser, updateUser } from '../api/user/userData';
 import { getCity } from '../api/tom-tom';

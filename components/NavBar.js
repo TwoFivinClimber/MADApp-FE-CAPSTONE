@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import { useAuth } from '../utils/context/authContext';
 import { signIn, signOut } from '../utils/auth';
 import { getUser } from '../api/user/userData';
-import SearchBar from './SearchBar';
 
 const NavBar = () => {
   const router = useRouter();
@@ -102,7 +101,6 @@ const NavBar = () => {
                       </Navbar.Toggle>
                     )
                     : <></> }
-                  <SearchBar />
                   {user ? (
                     <Button type="button" className="sign-out btn btn-danger" onClick={signOutUser}>Sign Out</Button>
                   ) : (
