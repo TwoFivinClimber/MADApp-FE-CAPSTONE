@@ -261,3 +261,23 @@ body {
 .navShow{
   display: none;
 }
+
+/* COMMENT CARD */
+
+.commentCard {
+  width: 100%;
+  padding-left: 10px; 
+  display:flex;
+  border-bottom: solid 1px black;
+  padding: 6px;
+
+}
+.commentUserImage{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+}
+.commentCard .card-body {
+  margin-left: 6px;
+  padding-right: 10px;
+}
