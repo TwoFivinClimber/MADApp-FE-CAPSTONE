@@ -5,8 +5,11 @@ import {
 } from 'react-bootstrap';
 import { FaEllipsisV } from 'react-icons/fa';
 import { Rating } from 'react-simple-star-rating';
+import { getComments } from '../../api/comments/commentData';
 import { deleteDay, getDayPackage } from '../../api/day/mergedDayData';
 import { getUser } from '../../api/user/userData';
+import CommentCard from '../../components/CommentCard';
+import CommentForm from '../../components/CommentForm';
 import EventCard from '../../components/EventCard';
 import { useAuth } from '../../utils/context/authContext';
 
@@ -15,6 +18,8 @@ function ViewDay() {
   const [creator, setCreator] = useState({});
   const [images, setImages] = useState([]);
   const [events, setEvents] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [commentToUpdate, setCommentToUpdate] = useState({});
   const { user } = useAuth();
   const router = useRouter();
   const rating = events.reduce((a, b) => a + b.starRating / events.length, 0);
@@ -29,6 +34,7 @@ function ViewDay() {
       getUser(dayObj.uid).then((userArr) => {
         setCreator(userArr[0]);
       });
+      getComments(firebaseKey).then(setComments);
     });
   };
 
@@ -85,6 +91,12 @@ function ViewDay() {
           <EventCard key={event.firebaseKey} obj={event} />
         ))}
       </Card>
+      <div className="commentsDiv">
+        <CommentForm obj={commentToUpdate} firebaseKey={firebaseKey} onUpdate={getTheContent} />
+        {comments?.map((comment) => (
+          <CommentCard key={comment.firebaseKey} obj={comment} onUpdate={getTheContent} setCommentToUpdate={setCommentToUpdate} />
+        ))}
+      </div>
     </>
   );
 }

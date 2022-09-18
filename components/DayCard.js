@@ -1,23 +1,34 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import {
-  Card, Dropdown, DropdownButton,
+  Card, Dropdown, DropdownButton, Image,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { FaEllipsisV } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import { Rating } from 'react-simple-star-rating';
+import Link from 'next/link';
 import { getEventsByDay } from '../api/events/eventData';
 import EventCard from './EventCard';
 import { deleteDay } from '../api/day/mergedDayData';
 import { useAuth } from '../utils/context/authContext';
+import { getUser } from '../api/user/userData';
 
 function DayCard({ obj, onUpdate }) {
   const [events, setEvents] = useState([]);
+  const [dayUser, setDayUser] = useState({});
   const router = useRouter();
   const { user } = useAuth();
 
-  useEffect(() => {
+  const getTheContent = () => {
     getEventsByDay(obj.firebaseKey).then(setEvents);
+    getUser(obj.uid).then((userArr) => {
+      setDayUser(userArr[0]);
+    });
+  };
+
+  useEffect(() => {
+    getTheContent();
   }, [obj]);
 
   const deleteThisDay = () => {
@@ -35,6 +46,16 @@ function DayCard({ obj, onUpdate }) {
       <div className="dayCardHead">
         <Card.Body className="dayCardLeft">
           <Card.Title className="dayCardTitle">{obj.title}</Card.Title>
+          {dayUser.uid === user.uid ? (
+            <Link href="/user/profile" passHref>
+              <Image className="commentUserImage" src={dayUser.imageUrl} />
+            </Link>
+          ) : (
+            <Link href={`/user/${dayUser.uid}`} passHref>
+              <Image className="commentUserImage" src={dayUser.imageUrl} />
+            </Link>
+          )}
+          <Card.Text>{dayUser.userName}</Card.Text>
           <Card.Text>{obj.date}</Card.Text>
           <Card.Text>{obj.city}</Card.Text>
           <Card.Text className="dayStarText">Average Event Rating</Card.Text>

@@ -3,21 +3,22 @@ import React, { useEffect, useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import { Form } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-import { getPublicEvents } from '../api/events/eventData';
-import EventCard from '../components/EventCard';
+// import { getPublicEvents } from '../api/events/eventData';
+// import EventCard from '../components/EventCard';
+import { getRandomPublicEvent } from '../api/events/mergedEvents';
 // import { useAuth } from '../utils/context/authContext';
+import FeaturedCard from '../components/FeaturedCard';
 
 function Home() {
+  // const { user } = useAuth();
   const router = useRouter();
   const [searchInput, setSearchInput] = useState('');
   const [featuredEvent, setFeaturedEvent] = useState({});
 
   const getFeatured = () => {
-    getPublicEvents().then((eventsArr) => {
-      const index = Math.floor(Math.random() * eventsArr.length);
-      setFeaturedEvent(eventsArr[index]);
-    });
+    getRandomPublicEvent().then(setFeaturedEvent);
   };
+
   const handleChange = (e) => {
     const { value } = e.target;
     if (e.key === 'Enter') {
@@ -57,7 +58,7 @@ function Home() {
       </div>
       <div className="mainFeaturedDiv">
         <h4>Featured Event</h4>
-        <EventCard obj={featuredEvent} onUpdate={getFeatured} />
+        <FeaturedCard obj={featuredEvent} onUpdate={getFeatured} />
       </div>
     </div>
   );

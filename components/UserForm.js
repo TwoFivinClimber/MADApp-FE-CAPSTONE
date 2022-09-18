@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import AsyncCreatable from 'react-select/async-creatable';
@@ -8,6 +8,7 @@ import { getCategories } from '../api/categories';
 import { useAuth } from '../utils/context/authContext';
 import { createUser, updateUser } from '../api/user/userData';
 import { getCity } from '../api/tom-tom';
+import uploadPhoto from '../api/cloudinary';
 
 const initialState = {
   uid: '',
@@ -17,7 +18,7 @@ const initialState = {
   homeCity: '',
   lat: 0,
   long: 0,
-  age: 0,
+  age: '',
   interestOne: '',
   interestTwo: '',
   interestThree: '',
@@ -28,20 +29,7 @@ function UserForm({ obj }) {
   const { user } = useAuth();
   const [categories, setCategories] = useState([]);
   const [input, setInput] = useState(initialState);
-
-  useEffect(() => {
-    getCategories().then(setCategories);
-    if (obj.firebaseKey) {
-      setInput(obj);
-    } else {
-      setInput((prevState) => ({
-        ...prevState,
-        uid: user.uid,
-        userName: user.displayName,
-        imageUrl: user.photoURL,
-      }));
-    }
-  }, [obj]);
+  const [image, setImage] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -49,6 +37,25 @@ function UserForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
+  };
+
+  const handleSelect = (selected) => {
+    if (selected) {
+      const {
+        name, value, lat, long,
+      } = selected;
+      setInput((prevState) => ({
+        ...prevState,
+        [name]: value,
+        lat,
+        long,
+      }));
+    } else {
+      setInput((prevState) => ({
+        ...prevState,
+        homeCity: '',
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -66,31 +73,57 @@ function UserForm({ obj }) {
       resolve(result);
     }).catch(reject);
   });
-
-  const handleSelect = (selected) => {
-    const {
-      name, value, lat, long,
-    } = selected;
-    setInput((prevState) => ({
-      ...prevState,
-      [name]: value,
-      lat,
-      long,
-    }));
+  // IMAGE UPLOAD //
+  const uploadImage = async () => {
+    const payload = new FormData();
+    payload.append('file', image);
+    payload.append('upload_preset', 'nofzejna');
+    payload.append('cloud_name', 'twofiveclimb');
+    await uploadPhoto(payload).then((url) => {
+      setInput((prevState) => (
+        {
+          ...prevState,
+          imageUrl: url,
+        }
+      ));
+    });
   };
+
+  useEffect(() => {
+    getCategories().then(setCategories);
+    if (obj.firebaseKey) {
+      setInput(obj);
+    } else {
+      setInput((prevState) => ({
+        ...prevState,
+        uid: user.uid,
+        userName: user.displayName,
+        imageUrl: user.photoURL,
+      }));
+    }
+  }, [obj]);
 
   return (
     <>
       <h4>{obj.firebaseKey ? 'Edit' : 'Create'} Your Profile</h4>
       <Form onSubmit={handleSubmit}>
+        <div>
+          <Card.Img style={{ width: '100%', maxWidth: '150px', height: 'auto' }} variant="start" src={input.imageUrl} />
+          <Form.Label>Change Photo</Form.Label>
+          <Form.Group controlId="formFile" className="formFile mb-3">
+            <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} />
+            <Button onClick={uploadImage}>Upload</Button>
+          </Form.Group>
+        </div>
         <Form.Label>Profile Name</Form.Label>
         <Form.Control name="userName" value={input.userName} onChange={handleChange} type="text" placeholder="Enter Profile Name" required />
-        <Form.Label>Image Url</Form.Label>
-        <Form.Control name="imageUrl" value={input.imageUrl} onChange={handleChange} type="text" required />
+        {/* <Form.Label>Image Url</Form.Label>
+        <Form.Control name="imageUrl" value={input.imageUrl} onChange={handleChange} type="text" required /> */}
         <Form.Label>Tag Line</Form.Label>
         <Form.Control name="tagLine" value={input.tagLine} onChange={handleChange} type="text" placeholder="Just Tryna Be Awesome" required />
         <Form.Label>Location</Form.Label>
         <AsyncCreatable
+          backspaceRemovesValue
           isClearable
           onChange={handleSelect}
           value={{ label: input.homeCity, value: input.homeCity }}

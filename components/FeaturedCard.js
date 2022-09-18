@@ -7,22 +7,18 @@ import { Rating } from 'react-simple-star-rating';
 import PropTypes from 'prop-types';
 import { FaEllipsisV } from 'react-icons/fa';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { getImagesByEvent } from '../api/images/imageData';
 import { deleteEvent } from '../api/events/mergedEvents';
 import { useAuth } from '../utils/context/authContext';
-import { getSingleUserByUid } from '../api/user/userData';
 
-const EventCard = ({ obj, onUpdate }) => {
+const FeaturedCard = ({ obj, onUpdate }) => {
   const [images, setImages] = useState([]);
-  const [eventUser, setEventUser] = useState({});
+  // const [eventUser, setEventUser] = useState({});
   const router = useRouter();
   const { user } = useAuth();
 
   const getTheContent = () => {
-    getSingleUserByUid(obj.uid).then((evUser) => {
-      setEventUser(evUser);
-    });
     getImagesByEvent(obj.firebaseKey).then(setImages);
   };
 
@@ -33,6 +29,7 @@ const EventCard = ({ obj, onUpdate }) => {
   };
 
   useEffect(() => {
+    // setEventUser(obj.evUser);
     getTheContent();
   }, [obj]);
 
@@ -40,16 +37,17 @@ const EventCard = ({ obj, onUpdate }) => {
     <Card className="eventCard">
       <Card.Body className="eventCardLeft">
         <Card.Title className="eventCardTitle">{obj.title}</Card.Title>
-        {eventUser.uid === user.uid ? (
+        {/* {eventUser.uid === user.uid ? (
           <Link href="/user/profile" passHref>
             <Image className="commentUserImage" src={eventUser.imageUrl} />
           </Link>
         ) : (
-          <Link href={`/user/${eventUser.uid}`} passHref>
+          <Link href={`/user/${obj.uid}`} passHref>
             <Image className="commentUserImage" src={eventUser.imageUrl} />
           </Link>
         )}
-        <Card.Text>{eventUser.userName}</Card.Text>
+        <Card.Text>{eventUser.userName}</Card.Text> */}
+        <Card.Text>{obj.userName}</Card.Text>
         <Card.Text>{obj.date}</Card.Text>
         <Card.Text>{obj.location}</Card.Text>
         <Card.Text>{obj.city}</Card.Text>
@@ -93,7 +91,7 @@ const EventCard = ({ obj, onUpdate }) => {
   );
 };
 
-EventCard.propTypes = {
+FeaturedCard.propTypes = {
   obj: PropTypes.shape({
     title: PropTypes.string,
     date: PropTypes.string,
@@ -107,8 +105,13 @@ EventCard.propTypes = {
     uid: PropTypes.string,
     firebaseKey: PropTypes.string,
     userName: PropTypes.string,
+    evUser: PropTypes.shape({
+      uid: PropTypes.string,
+      imageUrl: PropTypes.string,
+      userName: PropTypes.string,
+    }),
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
 
-export default EventCard;
+export default FeaturedCard;
