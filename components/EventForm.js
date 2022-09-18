@@ -14,7 +14,7 @@ import uploadPhoto from '../api/cloudinary';
 import { createEvent, updateEvent } from '../api/events/eventData';
 import { createImages, deleteImagesByEvent } from '../api/images/mergedImage';
 import { getImagesByEvent } from '../api/images/imageData';
-import { getPoi } from '../api/tom-tom';
+import { getCity, getPoi } from '../api/tom-tom';
 import { getUser } from '../api/user/userData';
 
 const initialState = {
@@ -122,8 +122,14 @@ function EventForm({ obj }) {
   };
 
   // TOM TOM API//
-  const promiseOptions = (inputValue) => new Promise((resolve, reject) => {
+  const locationOptions = (inputValue) => new Promise((resolve, reject) => {
     getPoi(inputValue, authUser.lat, authUser.long).then((result) => {
+      resolve(result);
+    }).catch(reject);
+  });
+
+  const cityOptions = (inputValue) => new Promise((resolve, reject) => {
+    getCity(inputValue).then((result) => {
       resolve(result);
     }).catch(reject);
   });
@@ -145,6 +151,20 @@ function EventForm({ obj }) {
           location: value,
         }));
       }
+    }
+  };
+  const handleCitySelect = (selected) => {
+    if (selected) {
+      const { value } = selected;
+      setInput((prevState) => ({
+        ...prevState,
+        city: value,
+      }));
+    } else {
+      setInput((prevState) => ({
+        ...prevState,
+        city: '',
+      }));
     }
   };
 
@@ -196,10 +216,17 @@ function EventForm({ obj }) {
           isClearable
           onChange={handleSelect}
           value={{ label: input.location, value: input.location }}
-          loadOptions={promiseOptions}
+          loadOptions={locationOptions}
         />
         <Form.Label>City</Form.Label>
-        <Form.Control name="city" value={input.city} onChange={handleChange} type="text" placeholder="What City ?" required />
+        {/* <Form.Control name="city" value={input.city} onChange={handleChange} type="text" placeholder="What City ?" required /> */}
+        <AsyncCreatable
+          backspaceRemovesValue
+          isClearable
+          onChange={handleCitySelect}
+          value={{ label: input.city, value: input.city }}
+          loadOptions={cityOptions}
+        />
         <Form.Label>Describe Your Experience</Form.Label>
         <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
         <div className="eventStarAndPublic">
