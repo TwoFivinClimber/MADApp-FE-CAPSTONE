@@ -7,12 +7,14 @@ import {
 import PropTypes from 'prop-types';
 // import { createDay, updateDay } from '../api/day/dayData';
 import Moment from 'moment';
+import AsyncCreatable from 'react-select/async-creatable';
 import { useAuth } from '../utils/context/authContext';
 import EventModalCard from './EventModalCard';
 import EventCard from './EventCard';
 import { createDay, updateDay } from '../api/day/dayData';
 import { handleDayEvents } from '../api/events/mergedEvents';
 import { getDayFormPackage } from '../api/day/mergedDayData';
+import { getCity } from '../api/tom-tom';
 
 const initialState = {
   title: '',
@@ -70,6 +72,21 @@ function DayForm({ obj }) {
     setDayEvents([]);
   };
 
+  const handleCitySelect = (selected) => {
+    if (selected) {
+      const { value } = selected;
+      setInput((prevState) => ({
+        ...prevState,
+        city: value,
+      }));
+    } else {
+      setInput((prevState) => ({
+        ...prevState,
+        city: '',
+      }));
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
@@ -88,6 +105,13 @@ function DayForm({ obj }) {
       });
     }
   };
+
+  // Tom Tom API //
+  const cityOptions = (target) => new Promise((resolve, reject) => {
+    getCity(target).then((cityArr) => {
+      resolve(cityArr.filter((city) => city.value.toLowerCase().includes(target.toLowerCase())));
+    }).catch(reject);
+  });
 
   useEffect(() => {
     getDayFormPackage(obj.firebaseKey, user.uid).then((dayFormObj) => {
@@ -113,7 +137,13 @@ function DayForm({ obj }) {
         <Form.Label>Date</Form.Label>
         <Form.Control name="date" value={Moment(input.date).format('YYYY-MM-DD')} onChange={handleChange} type="date" placeholder="When Day " required />
         <Form.Label>City</Form.Label>
-        <Form.Control name="city" value={input.city} onChange={handleChange} type="text" placeholder="What City ?" required />
+        <AsyncCreatable
+          backspaceRemovesValue
+          isClearable
+          onChange={handleCitySelect}
+          value={{ label: input.city, value: input.city }}
+          loadOptions={cityOptions}
+        />
         <Form.Label>Describe Your Experience</Form.Label>
         <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
         <Form.Check
@@ -166,7 +196,7 @@ function DayForm({ obj }) {
       <div className="dayEventDiv">
         <h4>Selected Events</h4>
         {selectedEvents.map((event) => (
-          <EventCard obj={event} />
+          <EventCard key={event.firebaseKey} obj={event} />
         ))}
       </div>
     </>

@@ -89,7 +89,7 @@ function DayCard({ obj, onUpdate }) {
       </div>
       <div className="eventsDiv">
         {events.map((event) => (
-          <EventCard obj={event} />
+          <EventCard key={event.firebaseKey} obj={event} />
         ))}
       </div>
     </Card>

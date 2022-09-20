@@ -88,7 +88,7 @@ function ViewDay() {
       </Card>
       <Card>
         {events.map((event) => (
-          <EventCard key={event.firebaseKey} obj={event} />
+          <EventCard key={event.firebaseKey} obj={event} onUpdate={getTheContent} />
         ))}
       </Card>
       <div className="commentsDiv">

@@ -29,7 +29,7 @@ function UserForm({ obj }) {
   const { user } = useAuth();
   const [categories, setCategories] = useState([]);
   const [input, setInput] = useState(initialState);
-  const [image, setImage] = useState([]);
+  // const [image, setImage] = useState([]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -68,15 +68,16 @@ function UserForm({ obj }) {
   };
 
   // TOM TOM API//
-  const promiseOptions = (inputValue) => new Promise((resolve, reject) => {
-    getCity(inputValue).then((result) => {
-      resolve(result);
+  const handleInput = (target) => new Promise((resolve, reject) => {
+    getCity(target).then((cityArr) => {
+      resolve(cityArr.filter((result) => result.value.toLowerCase().includes(target.toLowerCase())));
     }).catch(reject);
   });
+
   // IMAGE UPLOAD //
-  const uploadImage = async () => {
+  const uploadImage = async (e) => {
     const payload = new FormData();
-    payload.append('file', image);
+    payload.append('file', e.target.files[0]);
     payload.append('upload_preset', 'nofzejna');
     payload.append('cloud_name', 'twofiveclimb');
     await uploadPhoto(payload).then((url) => {
@@ -111,8 +112,7 @@ function UserForm({ obj }) {
           <Card.Img style={{ width: '100%', maxWidth: '150px', height: 'auto' }} variant="start" src={input.imageUrl} />
           <Form.Label>Change Photo</Form.Label>
           <Form.Group controlId="formFile" className="formFile mb-3">
-            <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} />
-            <Button onClick={uploadImage}>Upload</Button>
+            <Form.Control type="file" onChange={uploadImage} />
           </Form.Group>
         </div>
         <Form.Label>Profile Name</Form.Label>
@@ -121,15 +121,14 @@ function UserForm({ obj }) {
         <Form.Control name="imageUrl" value={input.imageUrl} onChange={handleChange} type="text" required /> */}
         <Form.Label>Tag Line</Form.Label>
         <Form.Control name="tagLine" value={input.tagLine} onChange={handleChange} type="text" placeholder="Just Tryna Be Awesome" required />
-        <Form.Label>Location</Form.Label>
+        <Form.Label>Location </Form.Label>
         <AsyncCreatable
           backspaceRemovesValue
           isClearable
           onChange={handleSelect}
           value={{ label: input.homeCity, value: input.homeCity }}
-          loadOptions={promiseOptions}
+          loadOptions={handleInput}
         />
-        {/* <Form.Control name="homeCity" value={input.homeCity} onChange={handleChange} type="text" placeholder="Find" required /> */}
         <Form.Label>Age</Form.Label>
         <Form.Control name="age" value={input.age} onChange={handleChange} type="text" placeholder="Enter Your Age" required />
 

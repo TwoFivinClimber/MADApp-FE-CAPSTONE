@@ -28,7 +28,9 @@ const EventCard = ({ obj, onUpdate }) => {
 
   const deleteThisEvent = () => {
     if (window.confirm('Are You Sure ?')) {
-      deleteEvent(obj.firebaseKey).then(onUpdate);
+      deleteEvent(obj.firebaseKey).then(() => {
+        onUpdate();
+      });
     }
   };
 
@@ -40,16 +42,16 @@ const EventCard = ({ obj, onUpdate }) => {
     <Card className="eventCard">
       <Card.Body className="eventCardLeft">
         <Card.Title className="eventCardTitle">{obj.title}</Card.Title>
-        {eventUser.uid === user.uid ? (
+        {eventUser?.uid === user.uid ? (
           <Link href="/user/profile" passHref>
-            <Image className="commentUserImage" src={eventUser.imageUrl} />
+            <Image className="commentUserImage" src={eventUser?.imageUrl} />
           </Link>
         ) : (
-          <Link href={`/user/${eventUser.uid}`} passHref>
-            <Image className="commentUserImage" src={eventUser.imageUrl} />
+          <Link href={`/user/${eventUser?.uid}`} passHref>
+            <Image className="commentUserImage" src={eventUser?.imageUrl} />
           </Link>
         )}
-        <Card.Text>{eventUser.userName}</Card.Text>
+        <Card.Text>{eventUser?.userName}</Card.Text>
         <Card.Text>{obj.date}</Card.Text>
         <Card.Text>{obj.location}</Card.Text>
         <Card.Text>{obj.city}</Card.Text>

@@ -4,10 +4,10 @@ import Image from 'react-bootstrap/Image';
 import { Form } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 // import { getPublicEvents } from '../api/events/eventData';
-// import EventCard from '../components/EventCard';
+import EventCard from '../components/EventCard';
 import { getRandomPublicEvent } from '../api/events/mergedEvents';
 // import { useAuth } from '../utils/context/authContext';
-import FeaturedCard from '../components/FeaturedCard';
+// import FeaturedCard from '../components/FeaturedCard';
 
 function Home() {
   // const { user } = useAuth();
@@ -58,7 +58,7 @@ function Home() {
       </div>
       <div className="mainFeaturedDiv">
         <h4>Featured Event</h4>
-        <FeaturedCard obj={featuredEvent} onUpdate={getFeatured} />
+        <EventCard obj={featuredEvent} onUpdate={getFeatured} />
       </div>
     </div>
   );

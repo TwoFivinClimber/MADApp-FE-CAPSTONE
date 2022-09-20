@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -63,6 +64,18 @@ function Search() {
     setKeyword(e.target.value);
   };
 
+  const handleCityInput = (target) => new Promise((resolve) => {
+    getEventCities().then((citiesArr) => {
+      resolve(citiesArr.filter((citySelect) => citySelect.value.toLowerCase().includes(target.toLowerCase())));
+    });
+  });
+
+  const handleCatInput = (target) => new Promise((resolve) => {
+    getCategorySelect().then((catArr) => {
+      resolve(catArr.filter((catSelect) => catSelect.value.toLowerCase().includes(target.toLowerCase())));
+    });
+  });
+
   const handleCitySelect = (target) => {
     if (target) {
       const { value } = target;
@@ -70,6 +83,7 @@ function Search() {
     } else {
       setCity('');
     }
+    console.warn(target);
   };
 
   const handleCatSelect = (target) => {
@@ -106,14 +120,16 @@ function Search() {
         <AsyncSelect
           isClearable
           defaultOptions
-          loadOptions={getCategorySelect}
+          loadOptions={handleCatInput}
           onChange={handleCatSelect}
         />
         <Form.Label>City Search</Form.Label>
         <AsyncSelect
+          autoFocus
           isClearable
           defaultOptions
-          loadOptions={getEventCities}
+          noOptionsMessage={() => 'No Events Found in The City....Yet'}
+          loadOptions={handleCityInput}
           onChange={handleCitySelect}
         />
       </div>
