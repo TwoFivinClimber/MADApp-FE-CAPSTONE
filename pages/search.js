@@ -83,7 +83,6 @@ function Search() {
     } else {
       setCity('');
     }
-    console.warn(target);
   };
 
   const handleCatSelect = (target) => {

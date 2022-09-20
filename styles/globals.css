@@ -135,7 +135,7 @@ body {
 }
 
 /*EVENT CARD*/
-.eventCard{
+/* .eventCard{
   display: flex;
   flex-direction: row;
   margin-top: 8px;
@@ -165,7 +165,7 @@ body {
   flex-direction: row;
   justify-content: right;
   flex-wrap: wrap;
-}
+} */
 
 /*EVENT PAGE*/
 .eventPage{

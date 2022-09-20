@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getPublicEvents } from '../api/events/eventData';
-import EventCard from '../components/EventCard';
+// import EventCard from '../components/EventCard';
+import EventCardNew from '../components/EventCardNew';
 
 function BrowseEvents() {
   const [events, setEvents] = useState([]);
@@ -17,7 +18,7 @@ function BrowseEvents() {
     <div>
       <h4>Browse Events</h4>
       {events.map((event) => (
-        <EventCard key={event.firebaseKey} obj={event} onUpdate={getTheEvents} />
+        <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheEvents} />
       ))}
     </div>
   );
