@@ -46,12 +46,12 @@ const EventCardNew = ({ obj, onUpdate }) => {
   };
 
   return (
-    <Card style={{ width: '25rem' }}>
+    <Card className="event-card">
       <Carousel activeIndex={index} onSelect={handleImageRotation} interval={null}>
         {images.map((image) => (
           <Carousel.Item>
             <img
-              className="d-block w-100"
+              className="event-card-image d-block w-100"
               src={image.imageUrl}
               alt="user posted content"
             />
@@ -59,8 +59,8 @@ const EventCardNew = ({ obj, onUpdate }) => {
         ))}
 
       </Carousel>
-      <Card.Body>
-        <Card.Title>{obj.title}</Card.Title>
+      <Card.Body className="event-card-body">
+        <Card.Title className="event-card-title">{obj.title}</Card.Title>
         {eventUser?.uid === user.uid ? (
           <Link href="/user/profile" passHref>
             <Image className="commentUserImage" src={eventUser?.imageUrl} />
