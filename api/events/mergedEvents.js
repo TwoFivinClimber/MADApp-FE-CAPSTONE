@@ -1,5 +1,6 @@
 import { getDaysbyUid, getPublicDays } from '../day/dayData';
 import { deleteImage, getImagesByEvent } from '../images/imageData';
+import { getSingleUserByUid } from '../user/userData';
 import {
   deleteSingleEvent, getEventsByDay, getEventsByUid, getPublicEvents, updateEvent,
 } from './eventData';
@@ -56,7 +57,17 @@ const getPublicContentByUser = (uid) => new Promise((resolve, reject) => {
   });
 });
 
+const getRandomPublicEvent = () => new Promise((resolve, reject) => {
+  getPublicEvents().then((eventsArr) => {
+    const index = Math.floor(Math.random() * eventsArr.length);
+    const event = eventsArr[index];
+    getSingleUserByUid(event.uid).then((evUser) => {
+      resolve({ ...event, evUser });
+    });
+  }).catch(reject);
+});
+
 // eslint-disable-next-line import/prefer-default-export
 export {
-  handleDayEvents, deleteEvent, getEventsAndDays, getEventCities, getPublicContentByUser,
+  handleDayEvents, deleteEvent, getEventsAndDays, getEventCities, getPublicContentByUser, getRandomPublicEvent,
 };

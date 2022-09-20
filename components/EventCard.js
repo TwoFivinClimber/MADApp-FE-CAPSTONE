@@ -7,33 +7,51 @@ import { Rating } from 'react-simple-star-rating';
 import PropTypes from 'prop-types';
 import { FaEllipsisV } from 'react-icons/fa';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { getImagesByEvent } from '../api/images/imageData';
 import { deleteEvent } from '../api/events/mergedEvents';
 import { useAuth } from '../utils/context/authContext';
+import { getSingleUserByUid } from '../api/user/userData';
 
 const EventCard = ({ obj, onUpdate }) => {
   const [images, setImages] = useState([]);
+  const [eventUser, setEventUser] = useState({});
   const router = useRouter();
   const { user } = useAuth();
 
-  const getTheImages = () => {
+  const getTheContent = () => {
+    getSingleUserByUid(obj.uid).then((evUser) => {
+      setEventUser(evUser);
+    });
     getImagesByEvent(obj.firebaseKey).then(setImages);
   };
 
   const deleteThisEvent = () => {
     if (window.confirm('Are You Sure ?')) {
-      deleteEvent(obj.firebaseKey).then(onUpdate);
+      deleteEvent(obj.firebaseKey).then(() => {
+        onUpdate();
+      });
     }
   };
 
   useEffect(() => {
-    getTheImages();
+    getTheContent();
   }, [obj]);
 
   return (
     <Card className="eventCard">
       <Card.Body className="eventCardLeft">
         <Card.Title className="eventCardTitle">{obj.title}</Card.Title>
+        {eventUser?.uid === user.uid ? (
+          <Link href="/user/profile" passHref>
+            <Image className="commentUserImage" src={eventUser?.imageUrl} />
+          </Link>
+        ) : (
+          <Link href={`/user/${eventUser?.uid}`} passHref>
+            <Image className="commentUserImage" src={eventUser?.imageUrl} />
+          </Link>
+        )}
+        <Card.Text>{eventUser?.userName}</Card.Text>
         <Card.Text>{obj.date}</Card.Text>
         <Card.Text>{obj.location}</Card.Text>
         <Card.Text>{obj.city}</Card.Text>

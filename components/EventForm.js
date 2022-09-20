@@ -14,7 +14,7 @@ import uploadPhoto from '../api/cloudinary';
 import { createEvent, updateEvent } from '../api/events/eventData';
 import { createImages, deleteImagesByEvent } from '../api/images/mergedImage';
 import { getImagesByEvent } from '../api/images/imageData';
-import { getPoi } from '../api/tom-tom';
+import { getCity, getPoi } from '../api/tom-tom';
 import { getUser } from '../api/user/userData';
 
 const initialState = {
@@ -22,9 +22,9 @@ const initialState = {
   date: '',
   timeOfDay: '',
   category: '',
-  location: '',
+  location: 'Find Where You Were',
   uid: '',
-  city: '',
+  city: 'Search For Your City',
   description: '',
   starRating: 0,
   isPublic: false,
@@ -38,8 +38,6 @@ function EventForm({ obj }) {
   const [authUser, setAuthUser] = useState({});
   const [input, setInput] = useState(initialState);
   const [categories, setCategories] = useState([]);
-  // To Cloudinary ⬇️ //
-  const [image, setImage] = useState([]);
   // From Cloudinary For Sample Render and Firebase ⬇️  //
   const [imgUrls, setImgUrls] = useState([]);
   const router = useRouter();
@@ -98,18 +96,20 @@ function EventForm({ obj }) {
     }
   };
 
-  const uploadImage = async () => {
-    const payload = new FormData();
-    payload.append('file', image);
-    payload.append('upload_preset', 'nofzejna');
-    payload.append('cloud_name', 'twofiveclimb');
-    await uploadPhoto(payload).then((url) => {
-      setImgUrls((prevState) => (
-        [...prevState,
-          url,
-        ]
-      ));
-    });
+  const uploadImage = async (e) => {
+    if (e.target.files.length) {
+      const payload = new FormData();
+      payload.append('file', e.target.files[0]);
+      payload.append('upload_preset', 'nofzejna');
+      payload.append('cloud_name', 'twofiveclimb');
+      await uploadPhoto(payload).then((url) => {
+        setImgUrls((prevState) => (
+          [...prevState,
+            url,
+          ]
+        ));
+      });
+    }
   };
 
   const removePhoto = (url) => {
@@ -122,9 +122,15 @@ function EventForm({ obj }) {
   };
 
   // TOM TOM API//
-  const promiseOptions = (inputValue) => new Promise((resolve, reject) => {
-    getPoi(inputValue, authUser.lat, authUser.long).then((result) => {
-      resolve(result);
+  const locationOptions = (target) => new Promise((resolve, reject) => {
+    getPoi(target, authUser.lat, authUser.long).then((placesArr) => {
+      resolve(placesArr.filter((place) => place.value.toLowerCase().includes(target.toLowerCase())));
+    }).catch(reject);
+  });
+
+  const cityOptions = (target) => new Promise((resolve, reject) => {
+    getCity(target).then((cityArr) => {
+      resolve(cityArr.filter((city) => city.value.toLowerCase().includes(target.toLowerCase())));
     }).catch(reject);
   });
 
@@ -145,6 +151,20 @@ function EventForm({ obj }) {
           location: value,
         }));
       }
+    }
+  };
+  const handleCitySelect = (selected) => {
+    if (selected) {
+      const { value } = selected;
+      setInput((prevState) => ({
+        ...prevState,
+        city: value,
+      }));
+    } else {
+      setInput((prevState) => ({
+        ...prevState,
+        city: '',
+      }));
     }
   };
 
@@ -193,13 +213,20 @@ function EventForm({ obj }) {
         </Form.Select>
         <Form.Label>Location</Form.Label>
         <AsyncCreatable
+          backspaceRemovesValue
           isClearable
           onChange={handleSelect}
           value={{ label: input.location, value: input.location }}
-          loadOptions={promiseOptions}
+          loadOptions={locationOptions}
         />
         <Form.Label>City</Form.Label>
-        <Form.Control name="city" value={input.city} onChange={handleChange} type="text" placeholder="What City ?" required />
+        <AsyncCreatable
+          backspaceRemovesValue
+          isClearable
+          onChange={handleCitySelect}
+          value={{ label: input.city, value: input.city }}
+          loadOptions={cityOptions}
+        />
         <Form.Label>Describe Your Experience</Form.Label>
         <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
         <div className="eventStarAndPublic">
@@ -224,8 +251,7 @@ function EventForm({ obj }) {
         <div className="eventImageUploadDiv">
           <Form.Label>Upload Photos</Form.Label>
           <Form.Group controlId="formFile" className="formFile mb-3">
-            <Form.Control type="file" onChange={(e) => setImage(e.target.files[0])} />
-            <Button onClick={uploadImage}>Upload</Button>
+            <Form.Control type="file" onChange={uploadImage} />
           </Form.Group>
         </div>
         <div className="uploadedImagesDiv">

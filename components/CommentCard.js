@@ -33,9 +33,15 @@ function CommentCard({ obj, onUpdate, setCommentToUpdate }) {
 
   return (
     <Card.Body className="commentCard">
-      <Link href={`/user/${commentUser.uid}`} passHref>
-        <Image className="commentUserImage" src={commentUser.imageUrl} />
-      </Link>
+      {commentUser.uid === user.uid ? (
+        <Link href="/user/profile" passHref>
+          <Image className="commentUserImage" src={commentUser.imageUrl} />
+        </Link>
+      ) : (
+        <Link href={`/user/${commentUser.uid}`} passHref>
+          <Image className="commentUserImage" src={commentUser.imageUrl} />
+        </Link>
+      )}
       <Card.Body>
         <Card.Text>{commentUser.userName}</Card.Text>
         <Card.Text>{ commentUser.displayName }</Card.Text>
