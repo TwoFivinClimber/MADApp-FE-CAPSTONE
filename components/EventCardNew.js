@@ -17,10 +17,10 @@ import { getSingleUserByUid } from '../api/user/userData';
 
 const EventCardNew = ({ obj, onUpdate }) => {
   const [images, setImages] = useState([]);
-  const [index, setIndex] = useState(0);
   const [eventUser, setEventUser] = useState({});
   const router = useRouter();
   const { user } = useAuth();
+  const [index, setIndex] = useState(0);
 
   const getTheContent = () => {
     getSingleUserByUid(obj.uid).then((evUser) => {
@@ -47,64 +47,67 @@ const EventCardNew = ({ obj, onUpdate }) => {
 
   return (
     <Card className="event-card">
-      <Carousel activeIndex={index} onSelect={handleImageRotation} interval={null}>
-        {images.map((image) => (
-          <Carousel.Item>
-            <img
-              className="event-card-image d-block w-100"
-              src={image.imageUrl}
-              alt="user posted content"
-            />
-          </Carousel.Item>
-        ))}
-
-      </Carousel>
+      <div className="event-card-carousel">
+        <Carousel activeIndex={index} onSelect={handleImageRotation} interval={null}>
+          {images.map((image) => (
+            <Carousel.Item>
+              <img
+                className="event-card-image d-block w-100"
+                src={image.imageUrl}
+                alt="user posted content"
+              />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </div>
       <Card.Body className="event-card-body">
-        <Card.Title className="event-card-title">{obj.title}</Card.Title>
-        {eventUser?.uid === user.uid ? (
-          <Link href="/user/profile" passHref>
-            <Image className="commentUserImage" src={eventUser?.imageUrl} />
-          </Link>
-        ) : (
-          <Link href={`/user/${eventUser?.uid}`} passHref>
-            <Image className="commentUserImage" src={eventUser?.imageUrl} />
-          </Link>
-        )}
-        <Card.Text>{eventUser?.userName}</Card.Text>
-        <Card.Text>{obj.location}</Card.Text>
-        <Card.Text>{obj.city}</Card.Text>
-        <Card.Text>{obj.date}</Card.Text>
-        <Rating
-          name="starRating"
-          allowHover={false}
-          showTooltip
-          allowHalfIcon
-          tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
-          tooltipStyle={{
-            height: 'auto', width: 'auto', fontSize: '12px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
-          }}
-          ratingValue={obj.starRating}
-          size={26}
-          readonly
-        />
+        <div className="event-card-title">
+          <Card.Title className="event-card-title">{obj.title}</Card.Title>
+          {router.route === '/' ? ('') : (
+            <DropdownButton align="end" variant="secondary" className="event-card-dropdown" title={<FaEllipsisV className="droptoggleicon" />}>
+              <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/${obj.firebaseKey}`)}>View</Dropdown.Item>
+              {user.uid === obj.uid ? (
+                <>
+                  <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
+                  <Dropdown.Divider />
+                  <Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete</Dropdown.Item>
+                </>
+              ) : ('')}
+            </DropdownButton>
+          )}
+        </div>
+        <div className="event-card-user">
+          {eventUser?.uid === user.uid ? (
+            <Link href="/user/profile" passHref>
+              <Image className="commentUserImage" src={eventUser?.imageUrl} />
+            </Link>
+          ) : (
+            <Link href={`/user/${eventUser?.uid}`} passHref>
+              <Image className="commentUserImage" src={eventUser?.imageUrl} />
+            </Link>
+          )}
+          <Card.Text className="event-card-username">{eventUser?.userName}</Card.Text>
+        </div>
+        <div className="event-card-location">
+          <Card.Text>{obj.location}</Card.Text>
+          <Card.Text>{obj.city}</Card.Text>
+        </div>
+        <div className="event-card-rating">
+          <Rating
+            name="starRating"
+            allowHover={false}
+            showTooltip
+            allowHalfIcon
+            tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
+            tooltipStyle={{
+              height: 'auto', width: 'auto', fontSize: '12px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
+            }}
+            ratingValue={obj.starRating}
+            size={26}
+            readonly
+          />
+        </div>
       </Card.Body>
-      {/* <div className="eventCardImages">
-        {images.map((image) => (
-          <Image key={image.firebaseKey} src={image.imageUrl} width={125} height={100} rounded />
-        ))}
-      </div> */}
-      {router.route === '/' ? ('') : (
-        <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
-          <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/${obj.firebaseKey}`)}>View</Dropdown.Item>
-          {user.uid === obj.uid ? (
-            <>
-              <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete</Dropdown.Item>
-            </>
-          ) : ('')}
-        </DropdownButton>
-      )}
     </Card>
   );
 };

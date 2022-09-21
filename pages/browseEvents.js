@@ -17,9 +17,11 @@ function BrowseEvents() {
   return (
     <div>
       <h4>Browse Events</h4>
-      {events.map((event) => (
-        <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheEvents} />
-      ))}
+      <div className="browseEvents-div">
+        {events.map((event) => (
+          <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheEvents} />
+        ))}
+      </div>
     </div>
   );
 }

@@ -97,6 +97,10 @@ body {
 .userProfileCard{
   flex-direction: row;
 }
+.userEventsDiv{
+  display: flex;
+  flex-wrap: wrap;
+}
 
 
 /*DropDown*/
@@ -134,8 +138,8 @@ body {
   border: 2px gray solid;
 }
 
-/*EVENT CARD*/
-/* .eventCard{
+EVENT CARD
+.eventCard{
   display: flex;
   flex-direction: row;
   margin-top: 8px;
@@ -165,9 +169,121 @@ body {
   flex-direction: row;
   justify-content: right;
   flex-wrap: wrap;
-} */
+}
 
+/* Event Card New */
+.event-card {
+  max-width: 400px;
+  margin: 8px;
+}
+.event-card-carousel{
+  min-width: 400px;
+}
+.event-card-image{
+  max-height: 265px;
+  max-width: 398px; 
+  object-fit: cover;
+}
+.event-card-body{
+  padding: 8px;
+}
+.event-card-title {
+  display: flex;
+  justify-content: space-between;
+}
+.event-card-dropdown{
+  margin-right: -1rem;
+  margin-top: -.5rem;
+}
+.event-card-user{
+  display: flex;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+.event-card-username{
+  margin-left: .6rem;
+  margin-top: .4rem;
+}
+.event-card-location {
+  display: flex;
+  justify-content: space-between;
+}
+.event-card-location > * {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+.event-card-rating{
+  display: flex;
+  justify-content: center;
+}
 
+/*Day Card*/
+
+.dayCard .card-text{
+  margin-bottom: 8px;
+}
+.dayCard .card-body{
+  padding: 8px;
+}
+.dayCard{
+  display: flex;
+}
+.dayCardHead{
+  display: flex;
+  flex-direction: row;
+}
+.dayCardLeft{
+  width: auto;
+}
+.dayCardCenter{
+  display: flex;
+  align-items: center;
+}
+.dayStarText{
+  font-size: 12px;
+}
+
+/* Day Card New*/
+.day-card{
+  display: flex;
+  flex-wrap: wrap;
+  width: 816px;
+  margin: 8px;
+}
+.day-card-head{
+  display:flex;
+  justify-content: space-between;
+}
+.day-card-info{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.day-card-user{
+  display: flex;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+}
+.day-card-username{
+  margin-left: .6rem;
+  margin-top: .4rem;
+}
+.day-card-bottom{
+  display:flex;
+  flex-direction: row; 
+  justify-content: space-evenly;
+}
+.day-card-events{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+.day-card-photos{
+  align-self: right;
+  margin-bottom: 1rem;
+}
 
 /*EVENT PAGE*/
 .eventPage{
@@ -202,6 +318,13 @@ body {
   text-align: right;
 }
 
+/* Broswe EVents Page*/
+
+.browseEvents-div{
+  display: flex;
+  flex-wrap: wrap;
+}
+
 /*Day Form Modal*/
 
 .modalEventCheck{
@@ -212,31 +335,7 @@ body {
   width: 100%;
 }
 
-/*Day Card*/
 
-.dayCard .card-text{
-  margin-bottom: 8px;
-}
-.dayCard .card-body{
-  padding: 8px;
-}
-.dayCard{
-  display: flex;
-}
-.dayCardHead{
-  display: flex;
-  flex-direction: row;
-}
-.dayCardLeft{
-  width: auto;
-}
-.dayCardCenter{
-  display: flex;
-  align-items: center;
-}
-.dayStarText{
-  font-size: 12px;
-}
 
 /* View Day */
 .viewDayHeader{
