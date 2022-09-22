@@ -7,7 +7,6 @@ import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import AsyncCreatable from 'react-select/async-creatable';
-import Moment from 'moment';
 import { useAuth } from '../utils/context/authContext';
 import { getCategories } from '../api/categories';
 import uploadPhoto from '../api/cloudinary';
@@ -67,7 +66,6 @@ function EventForm({ obj }) {
     e.preventDefault();
     if (obj.firebaseKey) {
       deleteImagesByEvent(obj.firebaseKey).then(() => {
-        input.date = Moment(input.date).format('MM-DD-YYYY');
         updateEvent(input).then(() => {
           const imageObjects = imgUrls.map((url) => (
             {
@@ -81,7 +79,6 @@ function EventForm({ obj }) {
         });
       });
     } else {
-      input.date = Moment(input.date).format('MM-DD-YYYY');
       createEvent(input).then((response) => {
         const imageObjects = imgUrls.map((url) => (
           {
@@ -194,7 +191,7 @@ function EventForm({ obj }) {
         <Form.Label>Title</Form.Label>
         <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Event" required />
         <Form.Label>Date</Form.Label>
-        <Form.Control name="date" value={Moment(input.date).format('YYYY-MM-DD')} onChange={handleChange} type="date" required />
+        <Form.Control name="date" value={input.date} onChange={handleChange} type="date" required />
         <Form.Label>Time of Day</Form.Label>
         <Form.Select aria-label="Time of Day" name="timeOfDay" value={input.timeOfDay} onChange={handleChange} required>
           <option value="">Select a Time of Day</option>
