@@ -67,6 +67,9 @@ body {
 .navNoShow{
   display: none;
 }
+.navShow{
+  display: none;
+}
 
 /*MAIN LANDING*/
 .mainDiv{
@@ -82,6 +85,17 @@ body {
   position: absolute;
   align-self: center;
   margin-bottom: 350px;
+}
+.mainFeaturedDiv{
+  margin-top: 1.5rem;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.featuredContentDiv{
+  display:flex;
+  justify-content: center;
+  flex-wrap:wrap;
 }
 
 /*Profile*/
@@ -138,38 +152,6 @@ body {
   border: 2px gray solid;
 }
 
-EVENT CARD
-.eventCard{
-  display: flex;
-  flex-direction: row;
-  margin-top: 8px;
-  margin-bottom: 8px;
-  min-height: 110px;
-}
-.eventCard .card-text{
-  margin-bottom: 8px;
-}
-.eventCard .card-body{
-  padding: 8px;
-}
-.eventCardLeft{
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.eventCardCenter{
-  align-self: center;
-  max-width: 400px;
-  margin: none!important;
-}
-.eventCardImages{
-  width: 60%;
-  display: flex;
-  flex-direction: row;
-  justify-content: right;
-  flex-wrap: wrap;
-}
 
 /* Event Card New */
 .event-card {
@@ -191,9 +173,11 @@ EVENT CARD
   display: flex;
   justify-content: space-between;
 }
-.event-card-dropdown{
-  margin-right: -1rem;
-  margin-top: -.5rem;
+
+.event-card-header{
+  display:flex;
+  justify-content: space-between;
+  padding-left: .5rem;
 }
 .event-card-user{
   display: flex;
@@ -204,44 +188,20 @@ EVENT CARD
   margin-left: .6rem;
   margin-top: .4rem;
 }
+.event-card-dropdown{
+  align-self: center;
+}
+
 .event-card-location {
   display: flex;
   justify-content: space-between;
 }
-.event-card-location > * {
-  margin-left: 1rem;
-  margin-right: 1rem;
-}
+
 .event-card-rating{
   display: flex;
   justify-content: center;
 }
 
-/*Day Card*/
-
-.dayCard .card-text{
-  margin-bottom: 8px;
-}
-.dayCard .card-body{
-  padding: 8px;
-}
-.dayCard{
-  display: flex;
-}
-.dayCardHead{
-  display: flex;
-  flex-direction: row;
-}
-.dayCardLeft{
-  width: auto;
-}
-.dayCardCenter{
-  display: flex;
-  align-items: center;
-}
-.dayStarText{
-  font-size: 12px;
-}
 
 /* Day Card New*/
 .day-card{
@@ -254,10 +214,16 @@ EVENT CARD
   display:flex;
   justify-content: space-between;
 }
+.day-card-dropdown{
+  margin-top: -.5rem;
+}
 .day-card-info{
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.day-card-city{
+  padding-top: 1rem;
 }
 .day-card-user{
   display: flex;
@@ -273,21 +239,26 @@ EVENT CARD
   flex-direction: row; 
   justify-content: space-evenly;
 }
+.day-card-events-header{
+ text-decoration:underline;
+}
 .day-card-events{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  margin-bottom: 1rem;
+  margin-bottom: 2rem;
+  margin-top: -2rem;
 }
 .day-card-photos{
   align-self: right;
   margin-bottom: 1rem;
+  max-width: 397px;
 }
 
-/*EVENT PAGE*/
+/* EVENT PAGE
 .eventPage{
-  background-color: #588157;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -295,8 +266,6 @@ EVENT CARD
 .eventPageImages{
   margin-top: 10px;
   padding: 10px;
-  background-color: #A3B18A;
-  border: 4px dotted darkgreen;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between ;
@@ -316,6 +285,19 @@ EVENT CARD
 .eventPageDropdown{
   min-width: 150px;
   text-align: right;
+} */
+
+/* EVENT PAGE */
+.event-page-carousel{
+  max-height: 600px;
+  max-width: 800px;
+  margin-right: auto;
+  margin-left:auto;
+}
+.event-page-images{
+  max-height: 600px;
+  max-width: 800px;
+  object-fit: cover;
 }
 
 /* Broswe EVents Page*/
@@ -338,29 +320,58 @@ EVENT CARD
 
 
 /* View Day */
-.viewDayHeader{
+.view-day-head{
   display: flex;
-  flex-direction: row;
-}
-.viewDayCenter{
-  display: flex;
-  align-items: center;
-}
-.viewDayImages{
-  max-width: 200px;
-  object-fit: contain;
-  margin: 6px;
-}
-.viewDayImagesDiv{
-  max-height: 400px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   justify-content: space-between;
-  overflow: scroll;
 }
-.navShow{
-  display: none;
+.view-day-user{
+  display: flex;
+  /* margin-top: .5rem; */
+  margin-bottom: .6rem;
+}
+.view-day-username{
+  margin-left: .6rem;
+  margin-top: .4rem;
+}
+.view-day-details{
+  display: flex;
+  justify-content: space-between;
+}
+.view-day-description{
+  max-width: 800px;
+  align-self: center;
+}
+.view-day-events-header{
+  margin-left: 2rem;
+}
+.view-day-events-div{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* COMMENT FORM */
+.comment-form {
+  margin-top: 8px;
+  margin-bottom: 8px;
+  display: flex;
+}
+.comment-form .form-control {
+  border: #1b5983 2px solid;
+  height: 3rem;
+  line-height: 3rem;
+}
+.comment-form-button{
+  margin-right: .5rem;
+  background-color: #1b5983;
+}
+.comment-form-user-image{
+  max-height: 40px;
+  max-width: 40px;
+  border-radius: 50%;
+  align-self: center;
+  margin-left: .5rem;
+  margin-right: .5rem;
 }
 
 /* COMMENT CARD */
@@ -369,16 +380,57 @@ EVENT CARD
   width: 100%;
   padding-left: 10px; 
   display:flex;
+  flex-direction: column;
   border-bottom: solid 1px black;
   padding: 6px;
-
+}
+.comment-card-top{
+  display: flex;
+  justify-content: space-between;
+}
+.comment-card-user{
+  display: flex;
+  margin-top: .5rem;
+  margin-bottom: .6rem;
+}
+.comment-card-username{
+  margin-left: .6rem;
+  margin-top: .4rem;
+  font-weight: 600;
 }
 .commentUserImage{
   height: 40px;
   width: 40px;
   border-radius: 50%;
 }
-.commentCard .card-body {
-  margin-left: 6px;
-  padding-right: 10px;
+.comment-card-comment{
+  padding-top: .5rem;
+  align-self: center;
+  width: 75%;
+}
+.comment-card-date{
+  font-size: smaller;
+}
+
+/* SEARCH PAGE */
+.searchActionsDiv{
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}
+.searchResultsDiv{
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+}
+.search-page-search{
+  width: 50%;
+}
+.search-page-city-select{
+  width: 50%;
+}
+.search-page-category-select{
+  width: 50%;
 }

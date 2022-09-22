@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import {
-  Card, Dropdown, DropdownButton, Image, Button, Carousel,
+  Card, Dropdown, DropdownButton, Image, Carousel,
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { FaEllipsisV } from 'react-icons/fa';
@@ -57,7 +57,7 @@ function DayCardNew({ obj, onUpdate }) {
       <Card.Body className="day-card-top">
         <div className="day-card-head">
           <Card.Title className="day-card-title">{obj.title}</Card.Title>
-          <DropdownButton align="end" variant="secondary" className="event-card-dropdown" title={<FaEllipsisV className="droptoggleicon" />}>
+          <DropdownButton align="end" variant="secondary" className="day-card-dropdown" title={<FaEllipsisV className="droptoggleicon" />}>
             <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/day/${obj.firebaseKey}`)}>View</Dropdown.Item>
             {user.uid === obj.uid ? (
               <>
@@ -70,18 +70,18 @@ function DayCardNew({ obj, onUpdate }) {
         </div>
         <div className="day-card-info">
           <div className="day-card-user">
-            {dayUser.uid === user.uid ? (
+            {dayUser?.uid === user.uid ? (
               <Link href="/user/profile" passHref>
-                <Image className="commentUserImage" src={dayUser.imageUrl} />
+                <Image className="commentUserImage" src={dayUser?.imageUrl} />
               </Link>
             ) : (
-              <Link href={`/user/${dayUser.uid}`} passHref>
-                <Image className="commentUserImage" src={dayUser.imageUrl} />
+              <Link href={`/user/${dayUser?.uid}`} passHref>
+                <Image className="commentUserImage" src={dayUser?.imageUrl} />
               </Link>
             )}
-            <Card.Text className="day-card-username">{dayUser.userName}</Card.Text>
+            <Card.Text className="day-card-username">{dayUser?.userName}</Card.Text>
           </div>
-          <Card.Text>{obj.city}</Card.Text>
+          <Card.Text className="day-card-city">{obj.city}</Card.Text>
           <Rating
             name="starRating"
             allowHover={false}
@@ -99,8 +99,9 @@ function DayCardNew({ obj, onUpdate }) {
       </Card.Body>
       <div className="day-card-bottom">
         <div className="day-card-events">
+          <h6 className="day-card-events-header">Events From Day</h6>
           {events.map((event) => (
-            <Button key={event.firebaseKey} variant="outline-secondary"><Card.Title>{event.title}</Card.Title></Button>
+            <Card.Title>{event.title}</Card.Title>
           ))}
         </div>
         <div className="day-card-photos">

@@ -1,22 +1,27 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import {
-  Card, Image, Dropdown, DropdownButton,
+  Card, Carousel, Dropdown, DropdownButton,
 } from 'react-bootstrap';
 import { Rating } from 'react-simple-star-rating';
 import { FaEllipsisV } from 'react-icons/fa';
-import { getSingleEvent } from '../../api/events/eventData';
-import { getImagesByEvent } from '../../api/images/imageData';
-import { deleteEvent } from '../../api/events/mergedEvents';
+// import ImageList from '@mui/material/ImageList';
+// import ImageListItem from '@mui/material/ImageListItem';
+// import { getSingleEvent } from '../../api/events/eventData';
+// import { getImagesByEvent } from '../../api/images/imageData';
+import { deleteEvent, getEventPackage } from '../../api/events/mergedEvents';
 import { useAuth } from '../../utils/context/authContext';
 import CommentForm from '../../components/CommentForm';
 import { getComments } from '../../api/comments/commentData';
 import CommentCard from '../../components/CommentCard';
+// import { getSingleUserByUid } from '../../api/user/userData';
 
 function ViewEvent() {
   const [event, setEvent] = useState({});
   const [images, setImages] = useState([]);
+  const [eventUser, setEventUser] = useState({});
   const [comments, setComments] = useState([]);
   const [commentToUpdate, setCommentToUpdate] = useState({});
   const router = useRouter();
@@ -24,14 +29,18 @@ function ViewEvent() {
   const { firebaseKey } = router.query;
 
   const getTheContent = () => {
-    getSingleEvent(firebaseKey).then(setEvent);
-    getImagesByEvent(firebaseKey).then(setImages);
+    getEventPackage(firebaseKey).then((eventObj) => {
+      setEvent(eventObj);
+      setImages(eventObj.images);
+      setEventUser(eventObj.eventUser);
+      console.warn(eventObj);
+    });
     getComments(firebaseKey).then(setComments);
   };
 
   useEffect(() => {
     getTheContent();
-  }, []);
+  }, [firebaseKey]);
 
   const deleteThisEvent = () => {
     if (window.confirm('Are You Sure ?')) {
@@ -42,58 +51,63 @@ function ViewEvent() {
   };
 
   return (
-    <>
-      <div className="eventPageContainerDiv">
-        <Card className="eventPage">
-          <Card.Body className="eventPageLeft">
-            <Card.Title className="eventPageTitle">{event.title}</Card.Title>
-            <Card.Text>{event.date}</Card.Text>
-            <Card.Text>{event.location}</Card.Text>
+    <Card className="viewDayHeader">
+      <Card.Body>
+        <div className="view-day-head">
+          <div className="view-day-user">
+            <Card.Img className="roundUserImg" src={eventUser?.imageUrl} />
+            <Card.Text className="view-day-username">{eventUser?.userName}</Card.Text>
+          </div>
+          <div className="view-day-dropdown">
+            <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
+              {user.uid === event.uid ? (
+                <><Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${event.firebaseKey}`)}>Edit</Dropdown.Item><><Dropdown.Divider /><Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete This Day</Dropdown.Item></></>
+              ) : ('')}
+            </DropdownButton>
+          </div>
+        </div>
+        <Carousel fade className="event-page-carousel">
+          {images?.map((image) => (
+            <Carousel.Item>
+              <img
+                className="event-page-images d-block w-100"
+                src={image.imageUrl}
+                alt="First slide"
+              />
+            </Carousel.Item>
+          ))}
+        </Carousel>
+        <div className="view-day-details">
+          <Card.Body>
+            <Card.Title>{event.title}</Card.Title>
             <Card.Text>{event.city}</Card.Text>
-            <Card.Text>{event.userName}</Card.Text>
+            <Card.Text className="comment-card-date">{event.date}</Card.Text>
             <Rating
               name="starRating"
               allowHover={false}
               showTooltip
               allowHalfIcon
+              ratingValue={event.starRating}
+              readonly
+              size={26}
               tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
               tooltipStyle={{
                 height: 'auto', width: 'auto', fontSize: '12px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
               }}
-              ratingValue={event.starRating}
-              size={24}
-              readonly
             />
           </Card.Body>
-          <Card.Body className="eventPageCenter">
+          <Card.Body className="view-day-description">
             <Card.Text>{event.description}</Card.Text>
           </Card.Body>
-          <DropdownButton align="end" variant="secondary" className="eventPageDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
-            {user.uid === event.uid ? (
-              <>
-                <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${event.firebaseKey}`)}>Edit</Dropdown.Item>
-                <Dropdown.Divider />
-                <Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete</Dropdown.Item>
-              </>
-            ) : (
-              <Dropdown.Item className="dropDownItem">Save</Dropdown.Item>
-            )}
-          </DropdownButton>
-        </Card>
-        <div className="eventPageImages">
-          {images?.map((image) => (
-          // eslint-disable-next-line import/no-dynamic-require, global-require
-            <Image key={image.firebaseKey} src={image.imageUrl} style={{ maxHeight: '250px', width: 'auto' }} rounded />
-          ))}
         </div>
-      </div>
+      </Card.Body>
       <div className="commentsDiv">
         <CommentForm obj={commentToUpdate} firebaseKey={firebaseKey} onUpdate={getTheContent} />
         {comments?.map((comment) => (
           <CommentCard key={comment.firebaseKey} obj={comment} onUpdate={getTheContent} setCommentToUpdate={setCommentToUpdate} />
         ))}
       </div>
-    </>
+    </Card>
   );
 }
 

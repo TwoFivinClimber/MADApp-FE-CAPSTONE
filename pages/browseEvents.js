@@ -5,6 +5,7 @@ import EventCardNew from '../components/EventCardNew';
 
 function BrowseEvents() {
   const [events, setEvents] = useState([]);
+  const eventsDateSort = events?.sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
   const getTheEvents = () => {
     getPublicEvents().then(setEvents);
@@ -18,7 +19,7 @@ function BrowseEvents() {
     <div>
       <h4>Browse Events</h4>
       <div className="browseEvents-div">
-        {events.map((event) => (
+        {eventsDateSort?.map((event) => (
           <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheEvents} />
         ))}
       </div>

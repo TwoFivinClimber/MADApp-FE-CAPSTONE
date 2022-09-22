@@ -6,10 +6,11 @@ import AsyncSelect from 'react-select/async';
 import { Form } from 'react-bootstrap';
 import { getEventCities } from '../api/events/mergedEvents';
 // import DayCard from '../components/DayCard';
-import EventCard from '../components/EventCard';
+// import EventCard from '../components/EventCard';
 import SearchBar from '../components/SearchBar';
 import { getCategorySelect } from '../api/categories';
 import { getPublicEvents } from '../api/events/eventData';
+import EventCardNew from '../components/EventCardNew';
 
 function Search() {
   const router = useRouter();
@@ -112,11 +113,12 @@ function Search() {
   return (
     <>
       <div className="searchActionsDiv">
-        <h5>Search by Keyword</h5>
+        <h3>Find the Conent You Want</h3>
+        <Form.Label>Keyword Search</Form.Label>
         <SearchBar onChange={handleInput} setKeyword={setKeyword} keyword={keyword} />
-        <h5>Refine Your Search</h5>
         <Form.Label>Category Search</Form.Label>
         <AsyncSelect
+          className="search-page-category-select"
           isClearable
           defaultOptions
           loadOptions={handleCatInput}
@@ -124,9 +126,9 @@ function Search() {
         />
         <Form.Label>City Search</Form.Label>
         <AsyncSelect
+          className="search-page-city-select"
           autoFocus
           isClearable
-          defaultOptions
           noOptionsMessage={() => 'No Events Found in The City....Yet'}
           loadOptions={handleCityInput}
           onChange={handleCitySelect}
@@ -134,7 +136,7 @@ function Search() {
       </div>
       <div className="searchResultsDiv">
         {results?.map((event) => (
-          <EventCard key={event.firebaseKey} onUpdate={getTheContent} obj={event} />
+          <EventCardNew key={event.firebaseKey} onUpdate={getTheContent} obj={event} />
         ))}
       </div>
     </>

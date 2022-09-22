@@ -32,38 +32,40 @@ function CommentCard({ obj, onUpdate, setCommentToUpdate }) {
   }, [obj]);
 
   return (
-    <Card.Body className="commentCard">
-      {commentUser.uid === user.uid ? (
-        <Link href="/user/profile" passHref>
-          <Image className="commentUserImage" src={commentUser.imageUrl} />
-        </Link>
-      ) : (
-        <Link href={`/user/${commentUser.uid}`} passHref>
-          <Image className="commentUserImage" src={commentUser.imageUrl} />
-        </Link>
-      )}
-      <Card.Body>
-        <Card.Text>{commentUser.userName}</Card.Text>
-        <Card.Text>{ commentUser.displayName }</Card.Text>
-        <Card.Text>{ obj.commentText }</Card.Text>
-        <Card.Text>{ obj.date }</Card.Text>
-      </Card.Body>
-      {user.uid === obj.uid ? (
-        <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
-          <>
-            <Dropdown.Item
-              className="dropDownItem"
-              onClick={() => {
-                setCommentToUpdate(obj); scroll();
-              }}
-            >Edit
-            </Dropdown.Item>
-            <Dropdown.Divider />
-            <Dropdown.Item className="dropDownItem" onClick={deleteThisComment}>Delete</Dropdown.Item>
-          </>
-        </DropdownButton>
-      ) : ('')}
-    </Card.Body>
+    <Card className="commentCard">
+      <div className="comment-card-top">
+        <div className="comment-card-user">
+          {commentUser.uid === user.uid ? (
+            <Link href="/user/profile" passHref>
+              <Image className="commentUserImage" src={commentUser.imageUrl} />
+            </Link>
+          ) : (
+            <Link href={`/user/${commentUser.uid}`} passHref>
+              <Image className="commentUserImage" src={commentUser.imageUrl} />
+            </Link>
+          )}
+
+          <Card.Text className="comment-card-username">{commentUser.userName}</Card.Text>
+        </div>
+        <Card.Text className="comment-card-comment">{ obj.commentText }</Card.Text>
+        {user.uid === obj.uid ? (
+          <DropdownButton align="end" variant="secondary" className="comment-drop-down cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
+            <>
+              <Dropdown.Item
+                className="dropDownItem"
+                onClick={() => {
+                  setCommentToUpdate(obj); scroll();
+                }}
+              >Edit
+              </Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item className="dropDownItem" onClick={deleteThisComment}>Delete</Dropdown.Item>
+            </>
+          </DropdownButton>
+        ) : ('🙌🏻')}
+      </div>
+      <Card.Text className="comment-card-date">{ obj.date }</Card.Text>
+    </Card>
   );
 }
 

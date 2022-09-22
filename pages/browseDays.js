@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getPublicDays } from '../api/day/dayData';
-import DayCard from '../components/DayCard';
+// import DayCard from '../components/DayCard';
+import DayCardNew from '../components/DayCardNew';
 
 function BrowseDays() {
   const [days, setDays] = useState([]);
@@ -17,7 +18,7 @@ function BrowseDays() {
     <>
       <h4>Browse Days</h4>
       {days.map((day) => (
-        <DayCard key={day.firebaseKey} obj={day} onUpdate={getTheContent} />
+        <DayCardNew key={day.firebaseKey} obj={day} onUpdate={getTheContent} />
       ))}
     </>
   );

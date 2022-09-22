@@ -47,6 +47,30 @@ const EventCardNew = ({ obj, onUpdate }) => {
 
   return (
     <Card className="event-card">
+      <div className="event-card-header">
+        <div className="event-card-user">
+          {eventUser?.uid === user.uid ? (
+            <Link href="/user/profile" passHref>
+              <Image className="commentUserImage" src={eventUser?.imageUrl} />
+            </Link>
+          ) : (
+            <Link href={`/user/${eventUser?.uid}`} passHref>
+              <Image className="commentUserImage" src={eventUser?.imageUrl} />
+            </Link>
+          )}
+          <Card.Text className="event-card-username">{eventUser?.userName}</Card.Text>
+        </div>
+        <DropdownButton align="end" variant="secondary" className="event-card-dropdown" title={<FaEllipsisV className="droptoggleicon" />}>
+          <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/${obj.firebaseKey}`)}>View</Dropdown.Item>
+          {user.uid === obj.uid ? (
+            <>
+              <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete</Dropdown.Item>
+            </>
+          ) : ('')}
+        </DropdownButton>
+      </div>
       <div className="event-card-carousel">
         <Carousel activeIndex={index} onSelect={handleImageRotation} interval={null}>
           {images.map((image) => (
@@ -63,30 +87,6 @@ const EventCardNew = ({ obj, onUpdate }) => {
       <Card.Body className="event-card-body">
         <div className="event-card-title">
           <Card.Title className="event-card-title">{obj.title}</Card.Title>
-          {router.route === '/' ? ('') : (
-            <DropdownButton align="end" variant="secondary" className="event-card-dropdown" title={<FaEllipsisV className="droptoggleicon" />}>
-              <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/${obj.firebaseKey}`)}>View</Dropdown.Item>
-              {user.uid === obj.uid ? (
-                <>
-                  <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete</Dropdown.Item>
-                </>
-              ) : ('')}
-            </DropdownButton>
-          )}
-        </div>
-        <div className="event-card-user">
-          {eventUser?.uid === user.uid ? (
-            <Link href="/user/profile" passHref>
-              <Image className="commentUserImage" src={eventUser?.imageUrl} />
-            </Link>
-          ) : (
-            <Link href={`/user/${eventUser?.uid}`} passHref>
-              <Image className="commentUserImage" src={eventUser?.imageUrl} />
-            </Link>
-          )}
-          <Card.Text className="event-card-username">{eventUser?.userName}</Card.Text>
         </div>
         <div className="event-card-location">
           <Card.Text>{obj.location}</Card.Text>
