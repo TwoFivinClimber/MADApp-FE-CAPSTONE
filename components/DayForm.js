@@ -10,11 +10,11 @@ import Moment from 'moment';
 import AsyncCreatable from 'react-select/async-creatable';
 import { useAuth } from '../utils/context/authContext';
 import EventModalCard from './EventModalCard';
-import EventCard from './EventCard';
 import { createDay, updateDay } from '../api/day/dayData';
 import { handleDayEvents } from '../api/events/mergedEvents';
 import { getDayFormPackage } from '../api/day/mergedDayData';
 import { getCity } from '../api/tom-tom';
+import EventCardNew from './EventCardNew';
 
 const initialState = {
   title: '',
@@ -196,7 +196,7 @@ function DayForm({ obj }) {
       <div className="dayEventDiv">
         <h4>Selected Events</h4>
         {selectedEvents.map((event) => (
-          <EventCard key={event.firebaseKey} obj={event} />
+          <EventCardNew key={event.firebaseKey} obj={event} />
         ))}
       </div>
     </>

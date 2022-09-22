@@ -190,47 +190,70 @@ function EventForm({ obj }) {
   return (
     <>
       <h4>{obj.firebaseKey ? 'Edit' : 'Create'} Event</h4>
-      <Form onSubmit={handleSubmit}>
-        <Form.Label>Title</Form.Label>
-        <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Event" required />
-        <Form.Label>Date</Form.Label>
-        <Form.Control name="date" value={Moment(input.date).format('YYYY-MM-DD')} onChange={handleChange} type="date" required />
-        <Form.Label>Time of Day</Form.Label>
-        <Form.Select aria-label="Time of Day" name="timeOfDay" value={input.timeOfDay} onChange={handleChange} required>
-          <option value="">Select a Time of Day</option>
-          <option value="morning">Morning</option>
-          <option value="day-time">Day Time</option>
-          <option value="afternoon">Afternoon</option>
-          <option value="evening">Evening</option>
-          <option value="night">Night</option>
-        </Form.Select>
-        <Form.Label>Category</Form.Label>
-        <Form.Select aria-label="category" name="category" value={input.category} onChange={handleChange} required>
-          <option value="">Select a Category</option>
-          {categories.map((category) => (
-            <option key={category.category} value={category.category}>{category.category}</option>
-          ))}
-        </Form.Select>
-        <Form.Label>Location</Form.Label>
-        <AsyncCreatable
-          backspaceRemovesValue
-          isClearable
-          onChange={handleSelect}
-          value={{ label: input.location, value: input.location }}
-          loadOptions={locationOptions}
-        />
-        <Form.Label>City</Form.Label>
-        <AsyncCreatable
-          backspaceRemovesValue
-          isClearable
-          onChange={handleCitySelect}
-          value={{ label: input.city, value: input.city }}
-          loadOptions={cityOptions}
-        />
-        <Form.Label>Describe Your Experience</Form.Label>
-        <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
+      <Form className="event-from" onSubmit={handleSubmit}>
+        <div className="event-form-columns">
+          <div className="event-form-title-date">
+            <div>
+              <Form.Label>Title</Form.Label>
+              <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Event" required />
+            </div>
+            <div>
+              <Form.Label>Date</Form.Label>
+              <Form.Control name="date" value={Moment(input.date).format('YYYY-MM-DD')} onChange={handleChange} type="date" required />
+            </div>
+          </div>
+          <div className="event-form-time-category">
+            <div>
+              <Form.Label>Time of Day</Form.Label>
+              <Form.Select aria-label="Time of Day" name="timeOfDay" value={input.timeOfDay} onChange={handleChange} required>
+                <option value="">Select a Time of Day</option>
+                <option value="morning">Morning</option>
+                <option value="day-time">Day Time</option>
+                <option value="afternoon">Afternoon</option>
+                <option value="evening">Evening</option>
+                <option value="night">Night</option>
+              </Form.Select>
+            </div>
+            <div>
+              <Form.Label>Category</Form.Label>
+              <Form.Select aria-label="category" name="category" value={input.category} onChange={handleChange} required>
+                <option value="">Select a Category</option>
+                {categories.map((category) => (
+                  <option key={category.category} value={category.category}>{category.category}</option>
+                ))}
+              </Form.Select>
+            </div>
+          </div>
+          <div className="event-form-location-city">
+            <div>
+              <Form.Label>Location</Form.Label>
+              <AsyncCreatable
+                backspaceRemovesValue
+                isClearable
+                onChange={handleSelect}
+                value={{ label: input.location, value: input.location }}
+                loadOptions={locationOptions}
+              />
+            </div>
+            <div>
+              <Form.Label>City</Form.Label>
+              <AsyncCreatable
+                backspaceRemovesValue
+                isClearable
+                onChange={handleCitySelect}
+                value={{ label: input.city, value: input.city }}
+                loadOptions={cityOptions}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="event-form-description">
+          <Form.Label>Describe Your Experience</Form.Label>
+          <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
+        </div>
         <div className="eventStarAndPublic">
           <Rating
+            className="event-form-star-rating"
             allowHover={false}
             showTooltip
             allowHalfIcon
@@ -239,20 +262,19 @@ function EventForm({ obj }) {
             onClick={handleRating}
           />
           <Form.Check
+            className="event-form-public-check"
             name="isPublic"
             value={input.isPublic}
             onChange={handleChange}
             type="switch"
             defaultChecked={input.isPublic}
             id="custom-switch"
-            label="Public ?"
+            label="Make it Public ?"
           />
         </div>
         <div className="eventImageUploadDiv">
           <Form.Label>Upload Photos</Form.Label>
-          <Form.Group controlId="formFile" className="formFile mb-3">
-            <Form.Control type="file" onChange={uploadImage} />
-          </Form.Group>
+          <Form.Control type="file" onChange={uploadImage} />
         </div>
         <div className="uploadedImagesDiv">
           {imgUrls.map((url) => (
@@ -262,9 +284,10 @@ function EventForm({ obj }) {
             </div>
           ))}
         </div>
-
-        <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
-        <Button variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
+        <div className="event-form-buttons">
+          <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
+          <Button variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
+        </div>
       </Form>
     </>
   );

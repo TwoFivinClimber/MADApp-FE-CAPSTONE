@@ -1,14 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-// import { Card, Dropdown, DropdownButton } from 'react-bootstrap';
-// import { FaEllipsisV } from 'react-icons/fa';
-// import { getDaysbyUid } from '../../api/day/dayData';
-// import { getEventsByUid } from '../../api/events/eventData';
 import { getPublicContentByUser } from '../../api/events/mergedEvents';
 import { getUser } from '../../api/user/userData';
-import DayCard from '../../components/DayCard';
-import EventCard from '../../components/EventCard';
+import DayCardNew from '../../components/DayCardNew';
+import EventCardNew from '../../components/EventCardNew';
 import ProfileCard from '../../components/ProfileCard';
 // import { useAuth } from '../../utils/context/authContext';
 
@@ -32,12 +28,11 @@ function UserPage() {
 
   return (
     <>
-      <h4>User Page</h4>
       <ProfileCard userObj={pageUser} />
+      <h4 className="user-page-events-header">Events</h4>
       <div className="userEventsDiv">
-        <h4>Events</h4>
         {content.map((event) => (
-          event.category ? <EventCard key={event.firebaseKey} obj={event} onUpdate={getTheContent} /> : <DayCard obj={(event)} key={event.firebaseKey} onUpdate={getTheContent} />
+          event.category ? <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheContent} /> : <DayCardNew obj={(event)} key={event.firebaseKey} onUpdate={getTheContent} />
         ))}
       </div>
     </>

@@ -87,6 +87,9 @@ const EventCardNew = ({ obj, onUpdate }) => {
       <Card.Body className="event-card-body">
         <div className="event-card-title">
           <Card.Title className="event-card-title">{obj.title}</Card.Title>
+          {router.asPath === `/day/${obj.eventOfDay}` ? (
+            <div className="event-card-time-of-day">{obj.timeOfDay}</div>
+          ) : ('')}
         </div>
         <div className="event-card-location">
           <Card.Text>{obj.location}</Card.Text>
@@ -126,6 +129,7 @@ EventCardNew.propTypes = {
     uid: PropTypes.string,
     firebaseKey: PropTypes.string,
     userName: PropTypes.string,
+    eventOfDay: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

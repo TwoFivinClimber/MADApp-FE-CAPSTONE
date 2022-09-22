@@ -1,7 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
-import { Card, Dropdown, DropdownButton } from 'react-bootstrap';
+import {
+  Card, Dropdown, DropdownButton, Image,
+} from 'react-bootstrap';
 import { FaEllipsisV } from 'react-icons/fa';
 import { getDaysbyUid } from '../../api/day/dayData';
 import { getEventsByUid } from '../../api/events/eventData';
@@ -42,12 +44,15 @@ function UserProfile() {
 
   return (
     <>
-      <Card className="userProfileCard" style={{ width: '100%' }}>
-        <Card.Img style={{ width: '100%', maxWidth: '150px', height: 'auto' }} variant="start" src={authUser.imageUrl} />
+      <Card className="userProfileCard">
+        <div className="userProfileImage">
+          <Image variant="start" className="user-form-image" thumbnail src={authUser.imageUrl} />
+        </div>
         <div className="profileInfoDiv">
           <Card.Title>{authUser.userName}</Card.Title>
           <Card.Text>{authUser.tagLine}</Card.Text>
           <Card.Text>{authUser.homeCity}</Card.Text>
+          <Card.Text>{authUser.age}</Card.Text>
         </div>
         <div className="profileInterestDiv">
           <h6>Interests</h6>
@@ -55,13 +60,13 @@ function UserProfile() {
           <Card.Text>{authUser.interestTwo}</Card.Text>
           <Card.Text>{authUser.interestThree}</Card.Text>
         </div>
-        <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
+        <DropdownButton align="end" variant="secondary" className="profile-dropdown" title={<FaEllipsisV className="droptoggleicon" />}>
           <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/user/edit/${authUser.firebaseKey}`)}>Edit Profile</Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item className="deleteDropDownItem" onClick={deleteProfile}>Delete Profile</Dropdown.Item>
         </DropdownButton>
       </Card>
-      <h4>Your Events</h4>
+      <h4 className="profile-events-header">Your Posts</h4>
       <div className="userEventsDiv">
         {events.map((event) => (
           <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheContent} />
