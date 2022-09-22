@@ -201,6 +201,17 @@ body {
   display: flex;
   justify-content: center;
 }
+.event-card-time-of-day::first-letter{
+  text-transform: capitalize;
+}
+.event-card-time-of-day{
+  align-self: center;
+  background-color: #f48c06;
+  padding: .1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  border-radius: 1rem;
+}
 
 
 /* Day Card New*/

@@ -8,6 +8,7 @@ import { FaEllipsisV } from 'react-icons/fa';
 import { Rating } from 'react-simple-star-rating';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
+import Moment from 'moment';
 import { getComments } from '../../api/comments/commentData';
 import { deleteDay, getDayPackage } from '../../api/day/mergedDayData';
 import { getUser } from '../../api/user/userData';
@@ -63,12 +64,11 @@ function ViewDay() {
             <Card.Text className="view-day-username">{creator.userName}</Card.Text>
           </div>
           <div className="view-day-dropdown">
-            <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
-              <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/day/edit/${day.firebaseKey}`)}>Edit</Dropdown.Item>
-              {user.uid === day.uid ? (
-                <><Dropdown.Divider /><Dropdown.Item className="dropDownItem" onClick={deleteThisDay}>Delete This Day</Dropdown.Item></>
-              ) : ('')}
-            </DropdownButton>
+            {user.uid === day.uid ? (
+              <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
+                <><Dropdown.Item className="dropDownItem" onClick={() => router.push(`/day/edit/${day.firebaseKey}`)}>Edit</Dropdown.Item><><Dropdown.Divider /><Dropdown.Item className="dropDownItem" onClick={deleteThisDay}>Delete This Day</Dropdown.Item></></>
+              </DropdownButton>
+            ) : ('')}
           </div>
         </div>
         <ImageList sx={{ width: '100%', height: 'auto' }} cols={4} rowHeight={164}>
@@ -87,7 +87,7 @@ function ViewDay() {
           <Card.Body>
             <Card.Title>{day.title}</Card.Title>
             <Card.Text>{day.city}</Card.Text>
-            <Card.Text className="comment-card-date">{day.date}</Card.Text>
+            <Card.Text className="comment-card-date">{Moment(day.date).format('MM-DD-YYYY')}</Card.Text>
             <Rating
               name="starRating"
               allowHover={false}

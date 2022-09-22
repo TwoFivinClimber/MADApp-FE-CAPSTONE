@@ -39,6 +39,7 @@ const EventCardNew = ({ obj, onUpdate }) => {
 
   useEffect(() => {
     getTheContent();
+    console.warn(router.route);
   }, [obj]);
 
   const handleImageRotation = (selected) => {
@@ -76,6 +77,7 @@ const EventCardNew = ({ obj, onUpdate }) => {
           {images.map((image) => (
             <Carousel.Item>
               <img
+                key={image.firebaseKey}
                 className="event-card-image d-block w-100"
                 src={image.imageUrl}
                 alt="user posted content"
@@ -87,6 +89,9 @@ const EventCardNew = ({ obj, onUpdate }) => {
       <Card.Body className="event-card-body">
         <div className="event-card-title">
           <Card.Title className="event-card-title">{obj.title}</Card.Title>
+          {router.asPath === `/day/${obj.eventOfDay}` ? (
+            <div className="event-card-time-of-day">{obj.timeOfDay}</div>
+          ) : ('')}
         </div>
         <div className="event-card-location">
           <Card.Text>{obj.location}</Card.Text>
@@ -126,6 +131,7 @@ EventCardNew.propTypes = {
     uid: PropTypes.string,
     firebaseKey: PropTypes.string,
     userName: PropTypes.string,
+    eventOfDay: PropTypes.string,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
