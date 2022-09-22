@@ -39,6 +39,7 @@ const EventCardNew = ({ obj, onUpdate }) => {
 
   useEffect(() => {
     getTheContent();
+    console.warn(router.route);
   }, [obj]);
 
   const handleImageRotation = (selected) => {
@@ -76,6 +77,7 @@ const EventCardNew = ({ obj, onUpdate }) => {
           {images.map((image) => (
             <Carousel.Item>
               <img
+                key={image.firebaseKey}
                 className="event-card-image d-block w-100"
                 src={image.imageUrl}
                 alt="user posted content"

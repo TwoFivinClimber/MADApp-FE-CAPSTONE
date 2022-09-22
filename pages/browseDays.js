@@ -5,6 +5,7 @@ import DayCardNew from '../components/DayCardNew';
 
 function BrowseDays() {
   const [days, setDays] = useState([]);
+  const daysDateSort = days.sort((a, b) => Date.parse(b.date, 'mm-dd-yyyy') - Date.parse(a.date, 'mm-dd-yyyy'));
 
   const getTheContent = () => {
     getPublicDays().then(setDays);
@@ -17,7 +18,7 @@ function BrowseDays() {
   return (
     <>
       <h4>Browse Days</h4>
-      {days.map((day) => (
+      {daysDateSort.map((day) => (
         <DayCardNew key={day.firebaseKey} obj={day} onUpdate={getTheContent} />
       ))}
     </>

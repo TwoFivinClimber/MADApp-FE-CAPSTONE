@@ -11,6 +11,7 @@ import { FaEllipsisV } from 'react-icons/fa';
 // import ImageListItem from '@mui/material/ImageListItem';
 // import { getSingleEvent } from '../../api/events/eventData';
 // import { getImagesByEvent } from '../../api/images/imageData';
+import Moment from 'moment';
 import { deleteEvent, getEventPackage } from '../../api/events/mergedEvents';
 import { useAuth } from '../../utils/context/authContext';
 import CommentForm from '../../components/CommentForm';
@@ -81,7 +82,7 @@ function ViewEvent() {
           <Card.Body>
             <Card.Title>{event.title}</Card.Title>
             <Card.Text>{event.city}</Card.Text>
-            <Card.Text className="comment-card-date">{event.date}</Card.Text>
+            <Card.Text className="comment-card-date">{Moment(event.date).format('MM-DD-YYYY')}</Card.Text>
             <Rating
               name="starRating"
               allowHover={false}

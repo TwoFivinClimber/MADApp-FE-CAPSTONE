@@ -6,7 +6,6 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 // import { createDay, updateDay } from '../api/day/dayData';
-import Moment from 'moment';
 import AsyncCreatable from 'react-select/async-creatable';
 import { useAuth } from '../utils/context/authContext';
 import EventModalCard from './EventModalCard';
@@ -50,6 +49,7 @@ function DayForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
+    console.warn(input);
   };
 
   const handleChecked = (e) => {
@@ -90,14 +90,12 @@ function DayForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.firebaseKey) {
-      input.date = Moment(input.date).format('MM-DD-YYYY');
       updateDay(input).then(() => {
         handleDayEvents(obj.firebaseKey, dayEvents).then(() => {
           router.push('/user/profile');
         });
       });
     } else {
-      input.date = Moment(input.date).format('MM-DD-YYYY');
       createDay(input).then((dayObj) => {
         handleDayEvents(dayObj.firebaseKey, dayEvents).then(() => {
           router.push('/user/profile');
@@ -135,7 +133,7 @@ function DayForm({ obj }) {
         <Form.Label>Title</Form.Label>
         <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Event" required />
         <Form.Label>Date</Form.Label>
-        <Form.Control name="date" value={Moment(input.date).format('YYYY-MM-DD')} onChange={handleChange} type="date" placeholder="When Day " required />
+        <Form.Control name="date" value={input.date} onChange={handleChange} type="date" placeholder="When Day " required />
         <Form.Label>City</Form.Label>
         <AsyncCreatable
           backspaceRemovesValue
