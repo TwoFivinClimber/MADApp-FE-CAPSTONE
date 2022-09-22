@@ -1,9 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import Moment from 'moment';
+import { Button } from 'react-bootstrap';
 import { useAuth } from '../utils/context/authContext';
 import { updateComment, createComment } from '../api/comments/commentData';
+import { getSingleUserByUid } from '../api/user/userData';
 
 const initialState = {
   commentText: '',
@@ -13,6 +16,7 @@ const initialState = {
 function CommentForm({ obj, firebaseKey, onUpdate }) {
   const [input, setInput] = useState(initialState);
   const [comment, setComment] = useState();
+  const [commentUser, setCommentUser] = useState({});
   const { user } = useAuth();
 
   const handleChange = (e) => {
@@ -50,6 +54,7 @@ function CommentForm({ obj, firebaseKey, onUpdate }) {
   };
 
   useEffect(() => {
+    getSingleUserByUid(user.uid).then(setCommentUser);
     if (obj.firebaseKey) {
       setComment(obj);
       setInput(obj);
@@ -57,12 +62,14 @@ function CommentForm({ obj, firebaseKey, onUpdate }) {
       setComment({});
       setInput(initialState);
     }
-  }, [obj]);
+  }, [obj, user.uid]);
 
   return (
     <>
       {user.uid ? (
-        <Form onSubmit={handleSubmit}>
+
+        <Form className="comment-form" onSubmit={handleSubmit}>
+          <img src={commentUser.imageUrl} alt={commentUser.userName} className="comment-form-user-image" />
           <Form.Control
             type="text"
             placeholder="Add a comment..."
@@ -71,6 +78,7 @@ function CommentForm({ obj, firebaseKey, onUpdate }) {
             onChange={handleChange}
             required
           />
+          <Button type="submit" variant="secondary" className="comment-form-button">Submit</Button>
         </Form>
       ) : (
         <div>

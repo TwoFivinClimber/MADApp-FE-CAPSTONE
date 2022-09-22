@@ -7,8 +7,10 @@ import { getDaysbyUid } from '../../api/day/dayData';
 import { getEventsByUid } from '../../api/events/eventData';
 import { deleteUser } from '../../api/user/mergedUser';
 import { getUser } from '../../api/user/userData';
-import DayCard from '../../components/DayCard';
-import EventCard from '../../components/EventCard';
+// import DayCard from '../../components/DayCard';
+import DayCardNew from '../../components/DayCardNew';
+// import EventCard from '../../components/EventCard';
+import EventCardNew from '../../components/EventCardNew';
 import { signOut } from '../../utils/auth';
 import { useAuth } from '../../utils/context/authContext';
 
@@ -59,13 +61,13 @@ function UserProfile() {
           <Dropdown.Item className="deleteDropDownItem" onClick={deleteProfile}>Delete Profile</Dropdown.Item>
         </DropdownButton>
       </Card>
+      <h4>Your Events</h4>
       <div className="userEventsDiv">
-        <h4>Your Events</h4>
         {events.map((event) => (
-          <EventCard key={event.firebaseKey} obj={event} onUpdate={getTheContent} />
+          <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheContent} />
         ))}
         {days.map((day) => (
-          <DayCard key={day.firebaseKey} obj={day} onUpdate={getTheContent} />
+          <DayCardNew key={day.firebaseKey} obj={day} onUpdate={getTheContent} />
         ))}
       </div>
     </>

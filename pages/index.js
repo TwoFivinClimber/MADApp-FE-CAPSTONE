@@ -4,8 +4,11 @@ import Image from 'react-bootstrap/Image';
 import { Form } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 // import { getPublicEvents } from '../api/events/eventData';
-import EventCard from '../components/EventCard';
+// import EventCard from '../components/EventCard';
 import { getRandomPublicEvent } from '../api/events/mergedEvents';
+import EventCardNew from '../components/EventCardNew';
+import { getRandomPublicDay } from '../api/day/mergedDayData';
+import DayCardNew from '../components/DayCardNew';
 // import { useAuth } from '../utils/context/authContext';
 // import FeaturedCard from '../components/FeaturedCard';
 
@@ -14,9 +17,11 @@ function Home() {
   const router = useRouter();
   const [searchInput, setSearchInput] = useState('');
   const [featuredEvent, setFeaturedEvent] = useState({});
+  const [featuredDay, setFeaturedDay] = useState({});
 
   const getFeatured = () => {
     getRandomPublicEvent().then(setFeaturedEvent);
+    getRandomPublicDay().then(setFeaturedDay);
   };
 
   const handleChange = (e) => {
@@ -57,8 +62,11 @@ function Home() {
         </div>
       </div>
       <div className="mainFeaturedDiv">
-        <h4>Featured Event</h4>
-        <EventCard obj={featuredEvent} onUpdate={getFeatured} />
+        <h3> Featured </h3>
+        <div className="featuredContentDiv">
+          <EventCardNew obj={featuredEvent} onUpdate={getFeatured} />
+          <DayCardNew obj={featuredDay} onUpdate={getFeatured} />
+        </div>
       </div>
     </div>
   );

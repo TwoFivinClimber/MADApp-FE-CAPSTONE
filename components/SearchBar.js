@@ -13,7 +13,7 @@ function SearchBar({ setKeyword, keyword }) {
 
   return (
     <>
-      <Form>
+      <Form className="search-page-search">
         <Form.Control
           type="search"
           placeholder="Search by Event Title"
