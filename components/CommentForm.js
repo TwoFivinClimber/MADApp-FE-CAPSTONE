@@ -69,7 +69,9 @@ function CommentForm({ obj, firebaseKey, onUpdate }) {
       {user.uid ? (
 
         <Form className="comment-form" onSubmit={handleSubmit}>
-          <img src={commentUser.imageUrl} alt={commentUser.userName} className="comment-form-user-image" />
+          <div className="comment-form-image-div">
+            <img src={commentUser.imageUrl} alt={commentUser.userName} className="comment-form-user-image" />
+          </div>
           <Form.Control
             type="text"
             placeholder="Add a comment..."
