@@ -28,6 +28,7 @@ const initialState = {
   starRating: 0,
   isPublic: false,
   eventOfDay: '',
+  // creationDate: Date.now(),
 };
 
 // const testPhotos = ['https://res.cloudinary.com/twofiveclimb/image/upload/v1661898852/mad-app/zgbnsycyrspoioxxlnam.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898841/mad-app/mcn1hin10ovagnzqxibc.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898713/mad-app/pgnkhnfkqxbffjw5tx0q.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898831/mad-app/xdlyve7ecqjwhrzxaykl.jpg'];
@@ -51,6 +52,7 @@ function EventForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
+    console.warn(input);
   };
 
   const handleRating = (e) => {

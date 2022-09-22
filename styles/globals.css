@@ -365,6 +365,7 @@ margin-left: 1rem;
 .browseEvents-div{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 /*Day Form Modal*/
