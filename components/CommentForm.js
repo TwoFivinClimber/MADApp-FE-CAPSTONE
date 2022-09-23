@@ -73,7 +73,8 @@ function CommentForm({ obj, firebaseKey, onUpdate }) {
             <img src={commentUser.imageUrl} alt={commentUser.userName} className="comment-form-user-image" />
           </div>
           <Form.Control
-            type="text"
+            className="comment-form-input"
+            as="textarea"
             placeholder="Add a comment..."
             name="commentText"
             value={input.commentText}

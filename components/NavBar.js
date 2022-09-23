@@ -1,8 +1,10 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import {
-  Button, Container, Nav, Navbar, Offcanvas,
+  Button, Container, Image, Nav, Navbar, Offcanvas,
 } from 'react-bootstrap';
 import { useRouter } from 'next/router';
 import { useAuth } from '../utils/context/authContext';
@@ -34,11 +36,13 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar key={expand} bg="light" expand={expand} className={`${router.route === '/user/new' ? 'navNoShow' : ''} "mb-3"`}>
+      <Navbar key={expand} bg="light" expand={expand} className={`nav-nav ${router.route === '/user/new' ? 'navNoShow' : ''} "mb-3"`}>
         <Container fluid>
           <div className="navItems">
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
-            <Navbar.Brand className="navTitle" href="#">M.A.D. App</Navbar.Brand>
+            <Link href="/" passHref>
+              <Navbar.Brand className="navTitle">M.A.D. App</Navbar.Brand>
+            </Link>
             {/* Visible Stuff go here */}
             {user ? (
               <Button type="button" className="sign-out btn btn-danger" onClick={signOutUser}>Sign Out</Button>
@@ -53,7 +57,7 @@ const NavBar = () => {
           >
             <Offcanvas.Header closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                M.A.D. App
+                <Image className="nav-logo-expand" src="https://res.cloudinary.com/twofiveclimb/image/upload/v1663966058/mad-app/madLogoNav_hf3myl.png" alt="mad app logo" />
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>

@@ -4,13 +4,14 @@ import { clientCredentials } from '../utils/client';
 const tomApi = clientCredentials.tomTomApi;
 
 const getPoi = (input, lat, long) => new Promise((resolve, reject) => {
-  axios.get(`https://api.tomtom.com/search/2/search/${input}.json?countrySet=US&lat=${lat}&lon=${long}&language=en-US&extendedPostalCodesFor=POI&minFuzzyLevel=1&maxFuzzyLevel=2&idxSet=POI&view=Unified&relatedPois=off&key=${tomApi}`)
+  axios.get(`https://api.tomtom.com/search/2/search/${input}.json?&lat=${lat}&lon=${long}&language=en-US&extendedPostalCodesFor=POI&minFuzzyLevel=1&maxFuzzyLevel=2&idxSet=POI&view=Unified&relatedPois=off&key=${tomApi}`)
     .then((result) => {
       const poiArray = Object.values(result.data.results);
+      console.warn(poiArray);
       const returnArray = poiArray.map((poi) => (
         {
           value: poi.poi.name,
-          label: `${poi.poi.name}, (${poi.address.localName})`,
+          label: `${poi.poi.name}, (${poi.address.streetName || poi.address.postalCode}, ${poi.address.municipality})`,
           city: poi.address.localName,
           state: poi.address.countrySubdivision,
           name: 'location',
