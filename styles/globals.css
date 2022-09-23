@@ -97,8 +97,46 @@ body {
   justify-content: center;
   flex-wrap:wrap;
 }
+/* User Form */
+
+.user-form-header{
+  margin-top: 1rem;
+}
+.user-form-image-div{
+ display: flex;
+ align-items: center;
+}
+.user-form-image{
+  margin-top: 1rem;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+.user-form-upload{
+margin-left: 1rem;
+}
+.user-form label {
+  margin-top: 4px;
+  margin-bottom: -2px;
+  margin-left: .5rem;
+}
 
 /*Profile*/
+.userProfileCard{
+  display: flex;
+  margin-top: 2rem;
+  width: 80%;
+  flex-direction: row;
+  border-radius: 1rem;
+  align-items: center;
+  margin-right: auto;
+  margin-left: auto;
+}
+.userProfileImage{
+  width: 400px;
+}
 .profileInfoDiv{
   margin: 10px;
   margin-right: 40px;
@@ -108,12 +146,17 @@ body {
   width: 100%;
   margin: 10px;
 }
-.userProfileCard{
-  flex-direction: row;
+.profile-events-header{
+  margin-top: 1rem;
+  text-align: center;
 }
 .userEventsDiv{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+}
+.profile-dropdown{
+  align-self: start;
 }
 
 
@@ -128,19 +171,57 @@ body {
   }
 
 /* EVENT FORM */
+.event-form-columns{
+  display: flex;
+  flex-direction: column;
+}
+.event-form-columns > * {
+  display: flex;
+  justify-content: space-evenly;
+}
+.event-form-title-date > * {
+  width: 45%;
+}
+.event-form-time-category > * {
+  width: 45%;
+}
+.event-form-location-city > * {
+  width: 45%;
+}
+.event-form-description{
+  margin-right: auto;
+  margin-left: auto;
+  width: 93%;
+}
+
 .eventFormPhotos{
   height: 200px;
   width: auto;
 }
 .eventStarAndPublic{
-  display: flex;
-  justify-content: space-around;
   margin-top: 20px;
-}
-.formFile{
   display: flex;
+  justify-content: space-evenly;
+}
+.react-simple-star-rating-tooltip{
+  width: 155px;
+  text-align: center;
+}
+.event-form-public-check{
+ font-size: large; 
+ font-weight: 400;
 }
 /* event form images */
+.eventImageUploadDiv{
+  margin-right: auto;
+  margin-left: auto;
+  width: 93%;
+}
+.uploadedImagesDiv{
+  margin: 2rem;
+  display: flex;
+  justify-content: space-evenly;
+}
 .uploadedImagesContainer{
   position:relative;
   display: inline-block;
@@ -150,6 +231,10 @@ body {
   top:10px;
   right:10px;
   border: 2px gray solid;
+}
+.event-form-buttons{
+  display: flex;
+  justify-content: space-evenly;
 }
 
 
@@ -213,6 +298,73 @@ body {
   border-radius: 1rem;
 }
 
+/* DAY FORM */
+.day-form{
+  text-align: center;
+  margin-top: 2rem;
+}
+.day-form-title-city{
+  display: flex;
+  justify-content: space-evenly;
+}
+.day-form-title-city > * {
+  width: 45%;
+}
+.day-form-city-public {
+  display: flex;
+  justify-content: space-evenly;
+}
+.day-form-city-public > * {
+  width: 45%
+}
+.day-form-public-div{
+  display:flex;
+  justify-content: center;
+}
+.day-form-public-check{
+  align-self: center;
+  margin-top: 2rem;
+}
+.day-form-description{
+  width: 93%;
+  margin-right: auto;
+  margin-left: auto;
+}
+.dayEventDiv{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.day-form-events-header{
+  text-align: center;
+}
+.day-form-select-events{
+  display: flex;
+  flex-direction: column;
+}
+.day-form-events-select-head{
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.day-form-events-buttons{
+  display: flex;
+  justify-content: space-around;
+  margin-left: 6rem;
+  margin-right: 6rem;
+}
+
+.day-form-submit-buttons{
+  display: flex;
+  justify-content: space-around;
+  margin-right: 6rem;
+  margin-left: 6rem;
+  margin-top: 1rem;
+}
+.day-form-submit-buttons > *{
+  width: 8rem;
+  color: white;
+}
 
 /* Day Card New*/
 .day-card{
@@ -267,36 +419,6 @@ body {
   max-width: 397px;
 }
 
-/* EVENT PAGE
-.eventPage{
-
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.eventPageImages{
-  margin-top: 10px;
-  padding: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between ;
-}
-.eventPageLeft{
-  min-width: 300px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.eventPageCenter{
-  align-self: center;
-  
-  margin: none!important;
-  justify-self: center;
-}
-.eventPageDropdown{
-  min-width: 150px;
-  text-align: right;
-} */
 
 /* EVENT PAGE */
 .event-page-carousel{
@@ -316,6 +438,7 @@ body {
 .browseEvents-div{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 /*Day Form Modal*/
@@ -371,18 +494,21 @@ body {
   border: #1b5983 2px solid;
   height: 3rem;
   line-height: 3rem;
+  align-self: center;
 }
 .comment-form-button{
   margin-right: .5rem;
   background-color: #1b5983;
-}
-.comment-form-user-image{
-  max-height: 40px;
-  max-width: 40px;
-  border-radius: 50%;
+  height: 3rem;
   align-self: center;
-  margin-left: .5rem;
-  margin-right: .5rem;
+}
+
+.comment-form-user-image{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  margin: .5rem;
+  object-fit: cover;
 }
 
 /* COMMENT CARD */
@@ -444,4 +570,20 @@ justify-content: center;
 }
 .search-page-category-select{
   width: 50%;
+}
+
+/* USER PAGE */
+.user-page-events-header{
+  margin-top: 1rem;
+  text-align: center;
+}
+.userEventsDiv{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.user-page-header{
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: -1rem;
 }

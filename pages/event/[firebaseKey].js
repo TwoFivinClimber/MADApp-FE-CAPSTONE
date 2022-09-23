@@ -34,7 +34,6 @@ function ViewEvent() {
       setEvent(eventObj);
       setImages(eventObj.images);
       setEventUser(eventObj.eventUser);
-      console.warn(eventObj);
     });
     getComments(firebaseKey).then(setComments);
   };
@@ -71,6 +70,7 @@ function ViewEvent() {
           {images?.map((image) => (
             <Carousel.Item>
               <img
+                key={image.firebasekey}
                 className="event-page-images d-block w-100"
                 src={image.imageUrl}
                 alt="First slide"

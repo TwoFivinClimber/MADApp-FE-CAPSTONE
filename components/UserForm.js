@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
+import { Form, Button, Image } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import { useRouter } from 'next/router';
 import AsyncCreatable from 'react-select/async-creatable';
@@ -106,19 +106,17 @@ function UserForm({ obj }) {
 
   return (
     <>
-      <h4>{obj.firebaseKey ? 'Edit' : 'Create'} Your Profile</h4>
-      <Form onSubmit={handleSubmit}>
-        <div>
-          <Card.Img style={{ width: '100%', maxWidth: '150px', height: 'auto' }} variant="start" src={input.imageUrl} />
-          <Form.Label>Change Photo</Form.Label>
-          <Form.Group controlId="formFile" className="formFile mb-3">
-            <Form.Control type="file" onChange={uploadImage} />
-          </Form.Group>
+      <h4 className="user-form-header">{obj.firebaseKey ? 'Edit' : 'Create'} Your Profile</h4>
+      <div className="user-form-image-div">
+        <Image variant="start" className="user-form-image" thumbnail roundedCircle src={input.imageUrl} />
+        <div className="user-form-upload">
+          <Form.Label>Upload Photo</Form.Label>
+          <Form.Control type="file" onChange={uploadImage} />
         </div>
+      </div>
+      <Form className="user-form" onSubmit={handleSubmit}>
         <Form.Label>Profile Name</Form.Label>
         <Form.Control name="userName" value={input.userName} onChange={handleChange} type="text" placeholder="Enter Profile Name" required />
-        {/* <Form.Label>Image Url</Form.Label>
-        <Form.Control name="imageUrl" value={input.imageUrl} onChange={handleChange} type="text" required /> */}
         <Form.Label>Tag Line</Form.Label>
         <Form.Control name="tagLine" value={input.tagLine} onChange={handleChange} type="text" placeholder="Just Tryna Be Awesome" required />
         <Form.Label>Location </Form.Label>
@@ -139,14 +137,14 @@ function UserForm({ obj }) {
             <option key={category.category} value={category.category}>{category.category}</option>
           ))}
         </Form.Select>
-        <br />
+        <Form.Label>Interest 2</Form.Label>
         <Form.Select aria-label="Interest 2" name="interestTwo" value={input.interestTwo} onChange={handleChange}>
           <option value="">Select an Interest</option>
           {categories.map((category) => (
             <option key={category.category} value={category.category}>{category.category}</option>
           ))}
         </Form.Select>
-        <br />
+        <Form.Label>Interest 3</Form.Label>
         <Form.Select aria-label="Interest 3" name="interestThree" value={input.interestThree} onChange={handleChange}>
           <option value="">Select an Interest</option>
           {categories.map((category) => (

@@ -28,9 +28,8 @@ const initialState = {
   starRating: 0,
   isPublic: false,
   eventOfDay: '',
+  createdDate: Date.now(),
 };
-
-// const testPhotos = ['https://res.cloudinary.com/twofiveclimb/image/upload/v1661898852/mad-app/zgbnsycyrspoioxxlnam.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898841/mad-app/mcn1hin10ovagnzqxibc.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898713/mad-app/pgnkhnfkqxbffjw5tx0q.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898831/mad-app/xdlyve7ecqjwhrzxaykl.jpg'];
 
 function EventForm({ obj }) {
   const { user } = useAuth();
@@ -46,11 +45,18 @@ function EventForm({ obj }) {
     let { name, value } = e.target;
     if (name === 'isPublic') {
       value = e.target.checked;
+      console.warn(name, value);
+      setInput((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+      console.warn(name, value);
+    } else {
+      setInput((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
     }
-    setInput((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
   };
 
   const handleRating = (e) => {
@@ -60,6 +66,7 @@ function EventForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
+    console.warn(input);
   };
 
   const handleSubmit = (e) => {
@@ -79,7 +86,8 @@ function EventForm({ obj }) {
         });
       });
     } else {
-      createEvent(input).then((response) => {
+      const payload = { ...input, uid: user.uid };
+      createEvent(payload).then((response) => {
         const imageObjects = imgUrls.map((url) => (
           {
             imageUrl: url,
@@ -166,68 +174,86 @@ function EventForm({ obj }) {
   };
 
   useEffect(() => {
+    if (obj.firebaseKey) {
+      setInput(obj);
+    }
+    getImagesByEvent(obj.firebaseKey).then((imageArr) => {
+      const imageUrls = imageArr.map((img) => img.imageUrl);
+      setImgUrls(imageUrls);
+    });
     getCategories().then(setCategories);
     getUser(user.uid).then((userArr) => {
       setAuthUser(userArr[0]);
     });
-    if (obj.firebaseKey) {
-      setInput(obj);
-      getImagesByEvent(obj.firebaseKey).then((imageArr) => {
-        const imageUrls = imageArr.map((img) => img.imageUrl);
-        setImgUrls(imageUrls);
-      });
-    } else {
-      setInput((prevState) => ({
-        ...prevState,
-        uid: user.uid,
-      }));
-    }
   }, [obj]);
 
   return (
     <>
       <h4>{obj.firebaseKey ? 'Edit' : 'Create'} Event</h4>
-      <Form onSubmit={handleSubmit}>
-        <Form.Label>Title</Form.Label>
-        <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Event" required />
-        <Form.Label>Date</Form.Label>
-        <Form.Control name="date" value={input.date} onChange={handleChange} type="date" required />
-        <Form.Label>Time of Day</Form.Label>
-        <Form.Select aria-label="Time of Day" name="timeOfDay" value={input.timeOfDay} onChange={handleChange} required>
-          <option value="">Select a Time of Day</option>
-          <option value="morning">Morning</option>
-          <option value="day-time">Day Time</option>
-          <option value="afternoon">Afternoon</option>
-          <option value="evening">Evening</option>
-          <option value="night">Night</option>
-        </Form.Select>
-        <Form.Label>Category</Form.Label>
-        <Form.Select aria-label="category" name="category" value={input.category} onChange={handleChange} required>
-          <option value="">Select a Category</option>
-          {categories.map((category) => (
-            <option key={category.category} value={category.category}>{category.category}</option>
-          ))}
-        </Form.Select>
-        <Form.Label>Location</Form.Label>
-        <AsyncCreatable
-          backspaceRemovesValue
-          isClearable
-          onChange={handleSelect}
-          value={{ label: input.location, value: input.location }}
-          loadOptions={locationOptions}
-        />
-        <Form.Label>City</Form.Label>
-        <AsyncCreatable
-          backspaceRemovesValue
-          isClearable
-          onChange={handleCitySelect}
-          value={{ label: input.city, value: input.city }}
-          loadOptions={cityOptions}
-        />
-        <Form.Label>Describe Your Experience</Form.Label>
-        <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
+      <Form className="event-from" onSubmit={handleSubmit}>
+        <div className="event-form-columns">
+          <div className="event-form-title-date">
+            <div>
+              <Form.Label>Title</Form.Label>
+              <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Event" required />
+            </div>
+            <div>
+              <Form.Label>Date</Form.Label>
+              <Form.Control name="date" value={input.date} onChange={handleChange} type="date" required />
+            </div>
+          </div>
+          <div className="event-form-time-category">
+            <div>
+              <Form.Label>Time of Day</Form.Label>
+              <Form.Select aria-label="Time of Day" name="timeOfDay" value={input.timeOfDay} onChange={handleChange} required>
+                <option value="">Select a Time of Day</option>
+                <option value="morning">Morning</option>
+                <option value="day-time">Day Time</option>
+                <option value="afternoon">Afternoon</option>
+                <option value="evening">Evening</option>
+                <option value="night">Night</option>
+              </Form.Select>
+            </div>
+            <div>
+              <Form.Label>Category</Form.Label>
+              <Form.Select aria-label="category" name="category" value={input.category} onChange={handleChange} required>
+                <option value="">Select a Category</option>
+                {categories.map((category) => (
+                  <option key={category.category} value={category.category}>{category.category}</option>
+                ))}
+              </Form.Select>
+            </div>
+          </div>
+          <div className="event-form-location-city">
+            <div>
+              <Form.Label>Location</Form.Label>
+              <AsyncCreatable
+                backspaceRemovesValue
+                isClearable
+                onChange={handleSelect}
+                value={{ label: input.location, value: input.location }}
+                loadOptions={locationOptions}
+              />
+            </div>
+            <div>
+              <Form.Label>City</Form.Label>
+              <AsyncCreatable
+                backspaceRemovesValue
+                isClearable
+                onChange={handleCitySelect}
+                value={{ label: input.city, value: input.city }}
+                loadOptions={cityOptions}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="event-form-description">
+          <Form.Label>Describe Your Experience</Form.Label>
+          <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
+        </div>
         <div className="eventStarAndPublic">
           <Rating
+            className="event-form-star-rating"
             allowHover={false}
             showTooltip
             allowHalfIcon
@@ -236,20 +262,18 @@ function EventForm({ obj }) {
             onClick={handleRating}
           />
           <Form.Check
+            className="event-form-public-check"
             name="isPublic"
-            value={input.isPublic}
             onChange={handleChange}
+            checked={input.isPublic}
             type="switch"
-            defaultChecked={input.isPublic}
             id="custom-switch"
-            label="Public ?"
+            label="Make it Public ?"
           />
         </div>
         <div className="eventImageUploadDiv">
           <Form.Label>Upload Photos</Form.Label>
-          <Form.Group controlId="formFile" className="formFile mb-3">
-            <Form.Control type="file" onChange={uploadImage} />
-          </Form.Group>
+          <Form.Control type="file" onChange={uploadImage} />
         </div>
         <div className="uploadedImagesDiv">
           {imgUrls.map((url) => (
@@ -259,9 +283,10 @@ function EventForm({ obj }) {
             </div>
           ))}
         </div>
-
-        <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
-        <Button variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
+        <div className="event-form-buttons">
+          <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
+          <Button variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
+        </div>
       </Form>
     </>
   );
@@ -284,7 +309,11 @@ EventForm.propTypes = {
     isPublic: PropTypes.bool,
     uid: PropTypes.string,
     firebaseKey: PropTypes.string,
-  }).isRequired,
+  }),
+};
+
+EventForm.defaultProps = {
+  obj: initialState,
 };
 
 export default EventForm;

@@ -39,7 +39,6 @@ const EventCardNew = ({ obj, onUpdate }) => {
 
   useEffect(() => {
     getTheContent();
-    console.warn(router.route);
   }, [obj]);
 
   const handleImageRotation = (selected) => {
