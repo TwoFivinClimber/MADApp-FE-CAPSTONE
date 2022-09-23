@@ -1,13 +1,14 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Moment from 'moment';
 
 function EventModalCard({ obj }) {
   return (
     <Card className="eventModalCard">
       <Card.Title>{obj.title}</Card.Title>
       <Card.Text>{obj.location}</Card.Text>
-      <Card.Text>{obj.date}</Card.Text>
+      <Card.Text>{Moment(obj.date).format('MM-DD-YYYY')}</Card.Text>
     </Card>
   );
 }

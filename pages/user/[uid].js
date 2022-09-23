@@ -28,6 +28,7 @@ function UserPage() {
 
   return (
     <>
+      <h4 className="user-page-header">User Page</h4>
       <ProfileCard userObj={pageUser} />
       <h4 className="user-page-events-header">Events</h4>
       <div className="userEventsDiv">

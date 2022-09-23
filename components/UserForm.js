@@ -106,7 +106,7 @@ function UserForm({ obj }) {
 
   return (
     <>
-      <h4>{obj.firebaseKey ? 'Edit' : 'Create'} Your Profile</h4>
+      <h4 className="user-form-header">{obj.firebaseKey ? 'Edit' : 'Create'} Your Profile</h4>
       <div className="user-form-image-div">
         <Image variant="start" className="user-form-image" thumbnail roundedCircle src={input.imageUrl} />
         <div className="user-form-upload">
@@ -117,8 +117,6 @@ function UserForm({ obj }) {
       <Form className="user-form" onSubmit={handleSubmit}>
         <Form.Label>Profile Name</Form.Label>
         <Form.Control name="userName" value={input.userName} onChange={handleChange} type="text" placeholder="Enter Profile Name" required />
-        {/* <Form.Label>Image Url</Form.Label>
-        <Form.Control name="imageUrl" value={input.imageUrl} onChange={handleChange} type="text" required /> */}
         <Form.Label>Tag Line</Form.Label>
         <Form.Control name="tagLine" value={input.tagLine} onChange={handleChange} type="text" placeholder="Just Tryna Be Awesome" required />
         <Form.Label>Location </Form.Label>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Card, Image, Dropdown, DropdownButton,
+  Card, Image, DropdownButton,
 } from 'react-bootstrap';
 import { FaEllipsisV } from 'react-icons/fa';
 import PropTypes from 'prop-types';
@@ -9,7 +9,9 @@ import PropTypes from 'prop-types';
 function ProfileCard({ userObj }) {
   return (
     <Card className="userProfileCard">
-      <Image variant="start" className="user-form-image" thumbnail src={userObj.imageUrl} />
+      <div className="userProfileImage">
+        <Image variant="start" className="user-form-image" thumbnail src={userObj.imageUrl} />
+      </div>
       <div className="profileInfoDiv">
         <Card.Title>{userObj.userName}</Card.Title>
         <Card.Text>{userObj.tagLine}</Card.Text>
@@ -22,9 +24,7 @@ function ProfileCard({ userObj }) {
         <Card.Text>{userObj.interestTwo}</Card.Text>
         <Card.Text>{userObj.interestThree}</Card.Text>
       </div>
-      <DropdownButton align="end" variant="secondary" className="profile-dropdown" title={<FaEllipsisV className="droptoggleicon" />}>
-        <Dropdown.Divider />
-      </DropdownButton>
+      <DropdownButton align="end" variant="secondary" className="profile-dropdown" title={<FaEllipsisV className="droptoggleicon" />} />
     </Card>
   );
 }

@@ -23,6 +23,7 @@ const initialState = {
   description: '',
   isPublic: false,
   firebaseKey: '',
+  createdDate: Date.now(),
 };
 
 function DayForm({ obj }) {
@@ -44,12 +45,16 @@ function DayForm({ obj }) {
     let { name, value } = e.target;
     if (name === 'isPublic') {
       value = e.target.checked;
+      setInput((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    } else {
+      setInput((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
     }
-    setInput((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    console.warn(input);
   };
 
   const handleChecked = (e) => {
@@ -128,71 +133,91 @@ function DayForm({ obj }) {
 
   return (
     <>
-      <h4>Awesome Day Form</h4>
+      <h4 className="day-form">Awesome Day Form</h4>
       <Form onSubmit={handleSubmit}>
-        <Form.Label>Title</Form.Label>
-        <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Event" required />
-        <Form.Label>Date</Form.Label>
-        <Form.Control name="date" value={input.date} onChange={handleChange} type="date" placeholder="When Day " required />
-        <Form.Label>City</Form.Label>
-        <AsyncCreatable
-          backspaceRemovesValue
-          isClearable
-          onChange={handleCitySelect}
-          value={{ label: input.city, value: input.city }}
-          loadOptions={cityOptions}
-        />
-        <Form.Label>Describe Your Experience</Form.Label>
-        <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
-        <Form.Check
-          name="isPublic"
-          value={input.isPublic}
-          onChange={handleChange}
-          defaultChecked={input.isPublic}
-          type="switch"
-          id="custom-switch"
-          label="Public ?"
-        />
-        <Button variant="primary" onClick={handleShow}>
-          Select An Event
-        </Button>
-
-        <Modal show={show} name="eventOfDay" onHide={handleClose} animation={false}>
-          <Modal.Header closeButton>
-            <Modal.Title>Select Your Event</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {modalEvents.length ? (
-              modalEvents.map((event) => (
-                <div key={event.firebaseKey} className="modalEventCheck">
-                  <Form.Check
-                    type="checkbox"
-                    value={event.firebaseKey}
-                    onChange={handleChecked}
-                    checked={dayEvents.includes(event.firebaseKey)}
-                  />
-                  <EventModalCard obj={event} />
-                </div>
-              ))
-            ) : (
-              <h6> Please select a date or create events on this day</h6>
-            )}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={handleClear}>
-              Clear
+        <div className="day-form-title-city">
+          <div>
+            <Form.Label>Title</Form.Label>
+            <Form.Control name="title" value={input.title} onChange={handleChange} type="text" placeholder="Title Your Event" required />
+          </div>
+          <div>
+            <Form.Label>Date</Form.Label>
+            <Form.Control name="date" value={input.date} onChange={handleChange} type="date" placeholder="When Day " required />
+          </div>
+        </div>
+        <div className="day-form-city-public">
+          <div>
+            <Form.Label>City</Form.Label>
+            <AsyncCreatable
+              backspaceRemovesValue
+              isClearable
+              onChange={handleCitySelect}
+              value={{ label: input.city, value: input.city }}
+              loadOptions={cityOptions}
+            />
+          </div>
+          <div className="day-form-public-div">
+            <Form.Check
+              className="day-form-public-check"
+              name="isPublic"
+              checked={input.isPublic}
+              onChange={handleChange}
+              type="switch"
+              id="custom-switch"
+              label="Public ?"
+            />
+          </div>
+        </div>
+        <div className="day-form-select-events">
+          <Form.Label className="day-form-events-select-head">Select Events or Create For Your Day (Events need to have the same date as your day)</Form.Label>
+          <div className="day-form-events-buttons">
+            <Button variant="primary" onClick={handleShow}>
+              Select Events
             </Button>
-            <Button variant="primary" onClick={handleClose}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
-        <Button variant="warning" onClick={() => router.push('/event/new')}>Add An Event</Button>
-        <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
-        <Button variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
+            <Modal show={show} name="eventOfDay" onHide={handleClose} animation={false}>
+              <Modal.Header closeButton>
+                <Modal.Title>Select Your Event</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {modalEvents.length ? (
+                  modalEvents.map((event) => (
+                    <div key={event.firebaseKey} className="modalEventCheck">
+                      <Form.Check
+                        type="checkbox"
+                        value={event.firebaseKey}
+                        onChange={handleChecked}
+                        checked={dayEvents.includes(event.firebaseKey)}
+                      />
+                      <EventModalCard obj={event} />
+                    </div>
+                  ))
+                ) : (
+                  <h6> Please select a date or create events on this day</h6>
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                <Button variant="secondary" onClick={handleClear}>
+                  Clear
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                  Save Changes
+                </Button>
+              </Modal.Footer>
+            </Modal>
+            <Button variant="warning" onClick={() => router.push('/event/new')}>Create An Event</Button>
+          </div>
+        </div>
+        <div className="day-form-description">
+          <Form.Label>Describe Your Experience</Form.Label>
+          <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
+        </div>
+        <div className="day-form-submit-buttons">
+          <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
+          <Button variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
+        </div>
       </Form>
+      <h4 className="day-form-events-header">Selected Events</h4>
       <div className="dayEventDiv">
-        <h4>Selected Events</h4>
         {selectedEvents.map((event) => (
           <EventCardNew key={event.firebaseKey} obj={event} />
         ))}

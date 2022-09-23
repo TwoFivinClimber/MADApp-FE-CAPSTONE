@@ -28,10 +28,8 @@ const initialState = {
   starRating: 0,
   isPublic: false,
   eventOfDay: '',
-  // creationDate: Date.now(),
+  createdDate: Date.now(),
 };
-
-// const testPhotos = ['https://res.cloudinary.com/twofiveclimb/image/upload/v1661898852/mad-app/zgbnsycyrspoioxxlnam.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898841/mad-app/mcn1hin10ovagnzqxibc.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898713/mad-app/pgnkhnfkqxbffjw5tx0q.jpg', 'https://res.cloudinary.com/twofiveclimb/image/upload/v1661898831/mad-app/xdlyve7ecqjwhrzxaykl.jpg'];
 
 function EventForm({ obj }) {
   const { user } = useAuth();
@@ -47,12 +45,18 @@ function EventForm({ obj }) {
     let { name, value } = e.target;
     if (name === 'isPublic') {
       value = e.target.checked;
+      console.warn(name, value);
+      setInput((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+      console.warn(name, value);
+    } else {
+      setInput((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
     }
-    setInput((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-    console.warn(input);
   };
 
   const handleRating = (e) => {
@@ -62,6 +66,7 @@ function EventForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
+    console.warn(input);
   };
 
   const handleSubmit = (e) => {
@@ -81,7 +86,8 @@ function EventForm({ obj }) {
         });
       });
     } else {
-      createEvent(input).then((response) => {
+      const payload = { ...input, uid: user.uid };
+      createEvent(payload).then((response) => {
         const imageObjects = imgUrls.map((url) => (
           {
             imageUrl: url,
@@ -168,22 +174,17 @@ function EventForm({ obj }) {
   };
 
   useEffect(() => {
+    if (obj.firebaseKey) {
+      setInput(obj);
+    }
+    getImagesByEvent(obj.firebaseKey).then((imageArr) => {
+      const imageUrls = imageArr.map((img) => img.imageUrl);
+      setImgUrls(imageUrls);
+    });
     getCategories().then(setCategories);
     getUser(user.uid).then((userArr) => {
       setAuthUser(userArr[0]);
     });
-    if (obj.firebaseKey) {
-      setInput(obj);
-      getImagesByEvent(obj.firebaseKey).then((imageArr) => {
-        const imageUrls = imageArr.map((img) => img.imageUrl);
-        setImgUrls(imageUrls);
-      });
-    } else {
-      setInput((prevState) => ({
-        ...prevState,
-        uid: user.uid,
-      }));
-    }
   }, [obj]);
 
   return (
@@ -263,10 +264,9 @@ function EventForm({ obj }) {
           <Form.Check
             className="event-form-public-check"
             name="isPublic"
-            value={input.isPublic}
             onChange={handleChange}
+            checked={input.isPublic}
             type="switch"
-            defaultChecked={input.isPublic}
             id="custom-switch"
             label="Make it Public ?"
           />
@@ -309,7 +309,11 @@ EventForm.propTypes = {
     isPublic: PropTypes.bool,
     uid: PropTypes.string,
     firebaseKey: PropTypes.string,
-  }).isRequired,
+  }),
+};
+
+EventForm.defaultProps = {
+  obj: initialState,
 };
 
 export default EventForm;

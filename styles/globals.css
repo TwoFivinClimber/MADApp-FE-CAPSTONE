@@ -99,6 +99,9 @@ body {
 }
 /* User Form */
 
+.user-form-header{
+  margin-top: 1rem;
+}
 .user-form-image-div{
  display: flex;
  align-items: center;
@@ -130,6 +133,9 @@ margin-left: 1rem;
   align-items: center;
   margin-right: auto;
   margin-left: auto;
+}
+.userProfileImage{
+  width: 400px;
 }
 .profileInfoDiv{
   margin: 10px;
@@ -292,6 +298,73 @@ margin-left: 1rem;
   border-radius: 1rem;
 }
 
+/* DAY FORM */
+.day-form{
+  text-align: center;
+  margin-top: 2rem;
+}
+.day-form-title-city{
+  display: flex;
+  justify-content: space-evenly;
+}
+.day-form-title-city > * {
+  width: 45%;
+}
+.day-form-city-public {
+  display: flex;
+  justify-content: space-evenly;
+}
+.day-form-city-public > * {
+  width: 45%
+}
+.day-form-public-div{
+  display:flex;
+  justify-content: center;
+}
+.day-form-public-check{
+  align-self: center;
+  margin-top: 2rem;
+}
+.day-form-description{
+  width: 93%;
+  margin-right: auto;
+  margin-left: auto;
+}
+.dayEventDiv{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.day-form-events-header{
+  text-align: center;
+}
+.day-form-select-events{
+  display: flex;
+  flex-direction: column;
+}
+.day-form-events-select-head{
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.day-form-events-buttons{
+  display: flex;
+  justify-content: space-around;
+  margin-left: 6rem;
+  margin-right: 6rem;
+}
+
+.day-form-submit-buttons{
+  display: flex;
+  justify-content: space-around;
+  margin-right: 6rem;
+  margin-left: 6rem;
+  margin-top: 1rem;
+}
+.day-form-submit-buttons > *{
+  width: 8rem;
+  color: white;
+}
 
 /* Day Card New*/
 .day-card{
@@ -508,4 +581,9 @@ justify-content: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+}
+.user-page-header{
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: -1rem;
 }
