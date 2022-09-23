@@ -55,6 +55,7 @@ function DayForm({ obj }) {
         [name]: value,
       }));
     }
+    console.warn(events, input.date);
   };
 
   const handleChecked = (e) => {
@@ -115,8 +116,7 @@ function DayForm({ obj }) {
       resolve(cityArr.filter((city) => city.value.toLowerCase().includes(target.toLowerCase())));
     }).catch(reject);
   });
-
-  useEffect(() => {
+  const getTheContent = () => {
     getDayFormPackage(obj.firebaseKey, user.uid).then((dayFormObj) => {
       setDayEvents(dayFormObj.dayEvents);
       setEvents(dayFormObj.events);
@@ -129,11 +129,15 @@ function DayForm({ obj }) {
         uid: user.uid,
       }));
     }
+  };
+
+  useEffect(() => {
+    getTheContent();
   }, [obj]);
 
   return (
     <>
-      <h4 className="day-form">Awesome Day Form</h4>
+      <h4 className="day-form">{obj.firebaseKey ? 'Edit' : 'Create'} Your Awesome Day</h4>
       <Form onSubmit={handleSubmit}>
         <div className="day-form-title-city">
           <div>
@@ -164,7 +168,7 @@ function DayForm({ obj }) {
               onChange={handleChange}
               type="switch"
               id="custom-switch"
-              label="Public ?"
+              label="Make it Public ?"
             />
           </div>
         </div>
@@ -183,6 +187,7 @@ function DayForm({ obj }) {
                   modalEvents.map((event) => (
                     <div key={event.firebaseKey} className="modalEventCheck">
                       <Form.Check
+                        className="day-form-modal-check"
                         type="checkbox"
                         value={event.firebaseKey}
                         onChange={handleChecked}
@@ -211,17 +216,17 @@ function DayForm({ obj }) {
           <Form.Label>Describe Your Experience</Form.Label>
           <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
         </div>
+        <h4 className="day-form-events-header">Selected Events</h4>
+        <div className="dayEventDiv">
+          {selectedEvents.map((event) => (
+            <EventCardNew key={event.firebaseKey} onUpdate={getTheContent} obj={event} />
+          ))}
+        </div>
         <div className="day-form-submit-buttons">
           <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
           <Button variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
         </div>
       </Form>
-      <h4 className="day-form-events-header">Selected Events</h4>
-      <div className="dayEventDiv">
-        {selectedEvents.map((event) => (
-          <EventCardNew key={event.firebaseKey} obj={event} />
-        ))}
-      </div>
     </>
   );
 }
