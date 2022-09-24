@@ -19,15 +19,18 @@ import { useAuth } from '../../utils/context/authContext';
 function UserProfile() {
   const { user } = useAuth();
   const [authUser, setAuthUser] = useState({});
-  const [events, setEvents] = useState([]);
-  const [days, setDays] = useState([]);
+  const [content, setContent] = useState([]);
   const router = useRouter();
+  const renderArray = content.sort((a, b) => a.createdDate - b.createdDate);
 
   const getTheContent = () => {
     getUser(user.uid).then((userArray) => {
       setAuthUser(userArray[0]);
-      getEventsByUid(user.uid).then(setEvents);
-      getDaysbyUid(user.uid).then(setDays);
+      getEventsByUid(user.uid).then((eventsArr) => {
+        getDaysbyUid(user.uid).then((daysArr) => {
+          setContent([...eventsArr, ...daysArr]);
+        });
+      });
     });
   };
 
@@ -68,11 +71,12 @@ function UserProfile() {
       </Card>
       <h4 className="profile-events-header">Your Posts</h4>
       <div className="user-Events-Div">
-        {events.map((event) => (
-          <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheContent} />
-        ))}
-        {days.map((day) => (
-          <DayCardNew key={day.firebaseKey} obj={day} onUpdate={getTheContent} />
+        {renderArray.map((event) => (
+          event.category ? (
+            <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheContent} />
+          ) : (
+            <DayCardNew key={event.firebaseKey} obj={event} onUpdate={getTheContent} />
+          )
         ))}
       </div>
     </>
