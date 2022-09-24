@@ -53,7 +53,8 @@ justify-content: flex-end!important;
 .nav-logo-expand{
   height: 6rem!important;
   width: 6rem!important;
-  margin-left: 5rem!important;
+  justify-self: center!important;
+  
 }
 .btn-close{
 margin-left: 8.5rem!important;
@@ -63,18 +64,23 @@ align-self: flex-start!important;
 .offcanvas-body{
   padding: 0rem!important;
 }
+.nav-Links{
+  justify-content: center!important;
+}
+
 .nav-Links .navbar-toggler {
   height: 2rem!important;
   width: 90%!important;
+  align-self: center!important;
 }
 .container-fluid{
   flex: none!important;
   height: 100%!important;
 }
-/* .navbar{
+.navbar{
   padding: none!important;
   height: 80px!important;
-} */
+}
 .nav-Items{
   display: flex!important;
   width: 100%!important;
@@ -114,7 +120,7 @@ align-self: flex-start!important;
   height: 2.5rem!important;
   width: 15rem!important;
   align-self: center!important;
-  margin-left: -2.3rem!important;
+  
 }
 .sign-out-collapse{
   background-color: firebrick!important;
@@ -122,7 +128,6 @@ align-self: flex-start!important;
   height: 2.5rem!important;
   align-self: center!important;
   width: 15rem!important;
-  margin-left: -2.3rem!important;
 }
 /*NAV NO SHOW ON USER FORM */
 .nav-No-Show{
