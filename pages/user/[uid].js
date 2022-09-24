@@ -14,6 +14,7 @@ function UserPage() {
   const [content, setContent] = useState([]);
   const router = useRouter();
   const { uid } = router.query;
+  const renderArray = content.sort((a, b) => a.createdDate - b.createdDate);
 
   const getTheContent = () => {
     getUser(uid).then((userArray) => {
@@ -32,7 +33,7 @@ function UserPage() {
       <ProfileCard userObj={pageUser} />
       <h4 className="user-page-events-header">Events</h4>
       <div className="user-Events-Div">
-        {content.map((event) => (
+        {renderArray.map((event) => (
           event.category ? <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheContent} /> : <DayCardNew obj={(event)} key={event.firebaseKey} onUpdate={getTheContent} />
         ))}
       </div>

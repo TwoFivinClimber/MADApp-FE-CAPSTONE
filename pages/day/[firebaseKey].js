@@ -71,7 +71,7 @@ function ViewDay() {
             ) : ('')}
           </div>
         </div>
-        <ImageList sx={{ width: '100%', height: 'auto' }} cols={4} rowHeight={164}>
+        <ImageList sx={{ width: '100%', height: 'auto' }} cols={4} rowHeight={240}>
           {images?.map((item) => (
             <ImageListItem key={item.firebaseKey}>
               <img
