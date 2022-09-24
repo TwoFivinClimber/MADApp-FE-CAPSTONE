@@ -36,18 +36,18 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar key={expand} bg="light" expand={expand} className={`nav-nav ${router.route === '/user/new' ? 'navNoShow' : ''} "mb-3"`}>
+      <Navbar key={expand} bg="light" expand={expand} className={`navbar-navbar${router.route === '/user/new' ? 'navNoShow' : ''} "mb-3"`}>
         <Container fluid>
-          <div className="navItems">
-            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+          <div className="nav-Items">
+            <Navbar.Toggle className="nav-button-expand" aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Link href="/" passHref>
-              <Navbar.Brand className="navTitle">M.A.D. App</Navbar.Brand>
+              <Navbar.Brand className="nav-Title">M.A.D. App</Navbar.Brand>
             </Link>
             {/* Visible Stuff go here */}
             {user ? (
-              <Button type="button" className="sign-out btn btn-danger" onClick={signOutUser}>Sign Out</Button>
+              <Button type="button" className="sign-out-style btn btn-danger" onClick={signOutUser}>Sign Out</Button>
             ) : (
-              <Button type="button" className="sign-in btn btn-success" onClick={signIn}>Sign In</Button>
+              <Button type="button" className="sign-in-style btn btn-success" onClick={signIn}>Sign In</Button>
             )}
           </div>
           <Navbar.Offcanvas
@@ -55,13 +55,13 @@ const NavBar = () => {
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
             placement="start"
           >
-            <Offcanvas.Header closeButton>
+            <Offcanvas.Header className="nav-logo-container" closeButton>
               <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
                 <Image className="nav-logo-expand" src="https://res.cloudinary.com/twofiveclimb/image/upload/v1663966058/mad-app/madLogoNav_hf3myl.png" alt="mad app logo" />
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Nav className="navLinks justify-content-center flex-grow-1 pe-3">
+              <Nav className="nav-Links justify-content-center flex-grow-1 pe-3">
                 <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
                   <Link href="/" passHref expand={false}>
                     <span> Home</span>
@@ -106,9 +106,9 @@ const NavBar = () => {
                     )
                     : <></> }
                   {user ? (
-                    <Button type="button" className="sign-out btn btn-danger" onClick={signOutUser}>Sign Out</Button>
+                    <Button type="button" className="sign-out-style btn btn-danger" onClick={signOutUser}>Sign Out</Button>
                   ) : (
-                    <Button type="button" className="sign-in btn btn-success" onClick={signIn}>Sign In</Button>
+                    <Button type="button" className="sign-in-style btn btn-success" onClick={signIn}>Sign In</Button>
                   )}
                 </>
               </Nav>

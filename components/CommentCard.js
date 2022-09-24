@@ -32,16 +32,16 @@ function CommentCard({ obj, onUpdate, setCommentToUpdate }) {
   }, [obj]);
 
   return (
-    <Card className="commentCard">
+    <Card className="comment-Card">
       <div className="comment-card-top">
         <div className="comment-card-user">
           {commentUser.uid === user.uid ? (
             <Link href="/user/profile" passHref>
-              <Image className="commentUserImage" src={commentUser.imageUrl} />
+              <Image className="comment-User-Image" src={commentUser.imageUrl} />
             </Link>
           ) : (
             <Link href={`/user/${commentUser.uid}`} passHref>
-              <Image className="commentUserImage" src={commentUser.imageUrl} />
+              <Image className="comment-User-Image" src={commentUser.imageUrl} />
             </Link>
           )}
 
@@ -52,14 +52,14 @@ function CommentCard({ obj, onUpdate, setCommentToUpdate }) {
           <DropdownButton align="end" variant="secondary" className="comment-drop-down cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
             <>
               <Dropdown.Item
-                className="dropDownItem"
+                className="drop-Down-Item"
                 onClick={() => {
                   setCommentToUpdate(obj); scroll();
                 }}
               >Edit
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item className="dropDownItem" onClick={deleteThisComment}>Delete</Dropdown.Item>
+              <Dropdown.Item className="drop-Down-Item" onClick={deleteThisComment}>Delete</Dropdown.Item>
             </>
           </DropdownButton>
         ) : ('🙌🏻')}

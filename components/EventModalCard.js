@@ -5,7 +5,7 @@ import Moment from 'moment';
 
 function EventModalCard({ obj }) {
   return (
-    <Card className="eventModalCard">
+    <Card className="event-Modal-Card">
       <Card.Title>{obj.title}</Card.Title>
       <Card.Text>{obj.location}</Card.Text>
       <Card.Text>{Moment(obj.date).format('MM-DD-YYYY')}</Card.Text>

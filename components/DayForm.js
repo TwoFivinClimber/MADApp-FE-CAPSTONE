@@ -185,7 +185,7 @@ function DayForm({ obj }) {
               <Modal.Body>
                 {modalEvents.length ? (
                   modalEvents.map((event) => (
-                    <div key={event.firebaseKey} className="modalEventCheck">
+                    <div key={event.firebaseKey} className="modal-Event-Check">
                       <Form.Check
                         className="day-form-modal-check"
                         type="checkbox"
@@ -217,7 +217,7 @@ function DayForm({ obj }) {
           <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
         </div>
         <h4 className="day-form-events-header">Selected Events</h4>
-        <div className="dayEventDiv">
+        <div className="day-Event-Div">
           {selectedEvents.map((event) => (
             <EventCardNew key={event.firebaseKey} onUpdate={getTheContent} obj={event} />
           ))}

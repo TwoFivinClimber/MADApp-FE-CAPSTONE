@@ -44,30 +44,30 @@ function UserProfile() {
 
   return (
     <>
-      <Card className="userProfileCard">
-        <div className="userProfileImage">
+      <Card className="user-Profile-Card">
+        <div className="user-Profile-Image">
           <Image variant="start" className="user-form-image" thumbnail src={authUser.imageUrl} />
         </div>
-        <div className="profileInfoDiv">
+        <div className="profile-Info-Div">
           <Card.Title>{authUser.userName}</Card.Title>
           <Card.Text>{authUser.tagLine}</Card.Text>
           <Card.Text>{authUser.homeCity}</Card.Text>
           <Card.Text>{authUser.age}</Card.Text>
         </div>
-        <div className="profileInterestDiv">
+        <div className="profile-Interest-Div">
           <h6>Interests</h6>
           <Card.Text>{authUser.interestOne}</Card.Text>
           <Card.Text>{authUser.interestTwo}</Card.Text>
           <Card.Text>{authUser.interestThree}</Card.Text>
         </div>
-        <DropdownButton align="end" variant="secondary" className="profile-dropdown" title={<FaEllipsisV className="droptoggleicon" />}>
-          <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/user/edit/${authUser.firebaseKey}`)}>Edit Profile</Dropdown.Item>
+        <DropdownButton align="end" variant="secondary" className="profile-dropdown" title={<FaEllipsisV />}>
+          <Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/user/edit/${authUser.firebaseKey}`)}>Edit Profile</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item className="deleteDropDownItem" onClick={deleteProfile}>Delete Profile</Dropdown.Item>
+          <Dropdown.Item onClick={deleteProfile}>Delete Profile</Dropdown.Item>
         </DropdownButton>
       </Card>
       <h4 className="profile-events-header">Your Posts</h4>
-      <div className="userEventsDiv">
+      <div className="user-Events-Div">
         {events.map((event) => (
           <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheContent} />
         ))}
