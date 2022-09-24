@@ -112,7 +112,7 @@ function Search() {
 
   return (
     <>
-      <div className="searchActionsDiv">
+      <div className="search-Actions-Div">
         <h3>Find the Conent You Want</h3>
         <Form.Label>Keyword Search</Form.Label>
         <SearchBar onChange={handleInput} setKeyword={setKeyword} keyword={keyword} />
@@ -134,7 +134,7 @@ function Search() {
           onChange={handleCitySelect}
         />
       </div>
-      <div className="searchResultsDiv">
+      <div className="search-Results-Div">
         {results?.map((event) => (
           <EventCardNew key={event.firebaseKey} onUpdate={getTheContent} obj={event} />
         ))}

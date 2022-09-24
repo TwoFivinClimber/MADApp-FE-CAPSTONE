@@ -58,12 +58,12 @@ function DayCardNew({ obj, onUpdate }) {
         <div className="day-card-head">
           <Card.Title className="day-card-title">{obj.title}</Card.Title>
           <DropdownButton align="end" variant="secondary" className="day-card-dropdown" title={<FaEllipsisV className="droptoggleicon" />}>
-            <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/day/${obj.firebaseKey}`)}>View</Dropdown.Item>
+            <Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/day/${obj.firebaseKey}`)}>View</Dropdown.Item>
             {user.uid === obj.uid ? (
               <>
-                <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/day/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
+                <Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/day/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item className="dropDownItem" onClick={deleteThisDay}>Delete</Dropdown.Item>
+                <Dropdown.Item className="drop-Down-Item" onClick={deleteThisDay}>Delete</Dropdown.Item>
               </>
             ) : ('')}
           </DropdownButton>
@@ -72,18 +72,18 @@ function DayCardNew({ obj, onUpdate }) {
           <div className="day-card-user">
             {dayUser?.uid === user.uid ? (
               <Link href="/user/profile" passHref>
-                <Image className="commentUserImage" src={dayUser?.imageUrl} />
+                <Image className="comment-User-Image" src={dayUser?.imageUrl} />
               </Link>
             ) : (
               <Link href={`/user/${dayUser?.uid}`} passHref>
-                <Image className="commentUserImage" src={dayUser?.imageUrl} />
+                <Image className="comment-User-Image" src={dayUser?.imageUrl} />
               </Link>
             )}
             <Card.Text className="day-card-username">{dayUser?.userName}</Card.Text>
           </div>
           <Card.Text className="day-card-city">{obj.city}</Card.Text>
           <Rating
-            name="starRating"
+            name="star-Rating"
             allowHover={false}
             showTooltip
             allowHalfIcon

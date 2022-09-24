@@ -51,17 +51,17 @@ function ViewEvent() {
   };
 
   return (
-    <Card className="viewDayHeader">
+    <Card className="view-Day-Header">
       <Card.Body>
         <div className="view-day-head">
           <div className="view-day-user">
-            <Card.Img className="roundUserImg" src={eventUser?.imageUrl} />
+            <Card.Img className="round-User-Img" src={eventUser?.imageUrl} />
             <Card.Text className="view-day-username">{eventUser?.userName}</Card.Text>
           </div>
           <div className="view-day-dropdown">
-            <DropdownButton align="end" variant="secondary" className="cardDropdown" title={<FaEllipsisV className="droptoggleicon" />}>
+            <DropdownButton align="end" variant="secondary" className="card-Dropdown" title={<FaEllipsisV />}>
               {user.uid === event.uid ? (
-                <><Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${event.firebaseKey}`)}>Edit</Dropdown.Item><><Dropdown.Divider /><Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete This Day</Dropdown.Item></></>
+                <><Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/event/edit/${event.firebaseKey}`)}>Edit</Dropdown.Item><><Dropdown.Divider /><Dropdown.Item className="drop-Down-Item" onClick={deleteThisEvent}>Delete This Day</Dropdown.Item></></>
               ) : ('')}
             </DropdownButton>
           </div>
@@ -102,7 +102,7 @@ function ViewEvent() {
           </Card.Body>
         </div>
       </Card.Body>
-      <div className="commentsDiv">
+      <div className="comments-Div">
         <CommentForm obj={commentToUpdate} firebaseKey={firebaseKey} onUpdate={getTheContent} />
         {comments?.map((comment) => (
           <CommentCard key={comment.firebaseKey} obj={comment} onUpdate={getTheContent} setCommentToUpdate={setCommentToUpdate} />

@@ -30,22 +30,39 @@ body {
 
 
 /* NAV BAR */
-.nav-nav{
+.navbar-navbar{
   background-color: #ECAC43!important;
 }
 .offcanvas{
   background-color: #fffcf2!important;
 }
+.nav-button-expand{
+  height: 4rem;
+  width: 4rem;
+  align-self: center;
+  border: 2px black solid;
+}
+.offcanvas-header{
+  display:inherit;
+}
+.nav-logo-container{
+display:flex;
+justify-content: flex-end;
+}
 
 .nav-logo-expand{
   height: 6rem;
   width: 6rem;
+  margin-left: 6rem;
+}
+.btn-close{
+margin-left: 7.5rem;
 }
 
 .offcanvas-body{
   padding: 0rem;
 }
-.navLinks .navbar-toggler {
+.nav-Links .navbar-toggler {
   height: 2rem;
   width: 90%;
 }
@@ -53,23 +70,23 @@ body {
   flex: none;
   height: 100%;
 }
-.navbar{
+/* .navbar{
   padding: none;
   height: 80px;
-}
-.navItems{
+} */
+.nav-Items{
   display: flex;
   width: 100%;
   height: 100%;
 }
-.navTitle{
+.nav-Title{
  margin-left: auto;
  margin-right: auto;
  align-self: center;
  font-family: 'Bevan', cursive;
  font-size: 4rem;
 }
-.roundUserImg{
+.round-User-Img{
   height: 45px;
   width: 45px;
   border-radius: 50%;
@@ -77,14 +94,14 @@ body {
 .navbar-toggler{
   margin: 10px;
 }
-.sign-in{
+.sign-in-style{
   background-color: #6a994e;
   color: black;
   height: 3rem;
   width: 7rem;
   align-self: center;
 }
-.sign-out{
+.sign-out-style{
   background-color: firebrick;
   color: black;
   height: 3rem;
@@ -92,36 +109,36 @@ body {
   width: 7rem;
 }
 /*NAV NO SHOW ON USER FORM */
-.navNoShow{
+.nav-No-Show{
   display: none;
 }
-.navShow{
+.nav-Show{
   display: none;
 }
 
 /*MAIN LANDING*/
-.mainDiv{
+.main-Div{
   display: flex;
   justify-content: center;
 }
-.backgroundImage{
+.background-Image{
   margin-top: 2rem;
   width: 100%;
   max-height: 600px;
   object-fit: cover;
  }
-.mainHeadSearch{
+.main-Head-Search{
   position: absolute;
   align-self: center;
   margin-bottom: 18rem;
 }
-.mainFeaturedDiv{
+.main-Featured-Div{
   margin-top: 1.5rem;
   display:flex;
   flex-direction: column;
   align-items: center;
 }
-.featuredContentDiv{
+.featured-Content-Div{
   display:flex;
   justify-content: center;
   flex-wrap:wrap;
@@ -153,7 +170,8 @@ margin-left: 1rem;
 }
 
 /*Profile*/
-.userProfileCard{
+
+.user-Profile-Card{
   display: flex;
   margin-top: 2rem;
   width: 80%;
@@ -163,15 +181,15 @@ margin-left: 1rem;
   margin-right: auto;
   margin-left: auto;
 }
-.userProfileImage{
+.user-Profile-Image{
   width: 400px;
 }
-.profileInfoDiv{
+.profile-Info-Div{
   margin: 10px;
   margin-right: 40px;
   width: 100%;
 }
-.profileInterestDiv{
+.profile-Interest-Div{
   width: 100%;
   margin: 10px;
 }
@@ -179,7 +197,7 @@ margin-left: 1rem;
   margin-top: 1rem;
   text-align: center;
 }
-.userEventsDiv{
+.user-Events-Div{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -223,11 +241,11 @@ margin-left: 1rem;
   width: 93%;
 }
 
-.eventFormPhotos{
+.event-Form-Photos{
   height: 200px;
   width: auto;
 }
-.eventStarAndPublic{
+.event-Star-And-Public{
   margin-top: 20px;
   display: flex;
   justify-content: space-evenly;
@@ -241,21 +259,21 @@ margin-left: 1rem;
  font-weight: 400;
 }
 /* event form images */
-.eventImageUploadDiv{
+.event-Image-Upload-Div{
   margin-right: auto;
   margin-left: auto;
   width: 93%;
 }
-.uploadedImagesDiv{
+.uploaded-Images-Div{
   margin: 2rem;
   display: flex;
   justify-content: space-evenly;
 }
-.uploadedImagesContainer{
+.uploaded-Images-Container{
   position:relative;
   display: inline-block;
 }
-.imageDelete{
+.image-Delete{
   position:absolute;
   top:10px;
   right:10px;
@@ -362,7 +380,7 @@ margin-left: 1rem;
   margin-right: auto;
   margin-left: auto;
 }
-.dayEventDiv{
+.day-Event-Div{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -471,7 +489,7 @@ margin-left: 1rem;
 
 /* Broswe EVents Page*/
 
-.browseEvents-div{
+.browse-Events-div{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -479,11 +497,11 @@ margin-left: 1rem;
 
 /*Day Form Modal*/
 
-.modalEventCheck{
+.modal-Event-Check{
   display: flex;
   align-items: center;
 }
-.eventModalCard{
+.event-Modal-Card{
   width: 100%;
 }
 
@@ -554,7 +572,7 @@ margin-left: 1rem;
 
 /* COMMENT CARD */
 
-.commentCard {
+.comment-Card {
   width: 100%;
   padding-left: 10px; 
   display:flex;
@@ -576,7 +594,7 @@ margin-left: 1rem;
   margin-top: .4rem;
   font-weight: 600;
 }
-.commentUserImage{
+.comment-User-Image{
   height: 40px;
   width: 40px;
   border-radius: 50%;
@@ -591,14 +609,14 @@ margin-left: 1rem;
 }
 
 /* SEARCH PAGE */
-.searchActionsDiv{
+.search-Actions-Div{
   margin-top: 2rem;
   margin-bottom: 2rem;
   display:flex;
   flex-direction: column;
   align-items: center;
 }
-.searchResultsDiv{
+.search-Results-Div{
 display: flex;
 flex-wrap: wrap;
 justify-content: center;
@@ -618,7 +636,7 @@ justify-content: center;
   margin-top: 1rem;
   text-align: center;
 }
-.userEventsDiv{
+.user-Events-Div{
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

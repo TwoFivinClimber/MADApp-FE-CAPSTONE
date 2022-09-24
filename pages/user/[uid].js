@@ -31,7 +31,7 @@ function UserPage() {
       <h4 className="user-page-header">User Page</h4>
       <ProfileCard userObj={pageUser} />
       <h4 className="user-page-events-header">Events</h4>
-      <div className="userEventsDiv">
+      <div className="user-Events-Div">
         {content.map((event) => (
           event.category ? <EventCardNew key={event.firebaseKey} obj={event} onUpdate={getTheContent} /> : <DayCardNew obj={(event)} key={event.firebaseKey} onUpdate={getTheContent} />
         ))}

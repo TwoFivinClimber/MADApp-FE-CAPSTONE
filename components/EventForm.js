@@ -271,15 +271,15 @@ function EventForm({ obj }) {
             label="Make it Public ?"
           />
         </div>
-        <div className="eventImageUploadDiv">
+        <div className="event-Image-Upload-Div">
           <Form.Label>Upload Photos</Form.Label>
           <Form.Control type="file" onChange={uploadImage} />
         </div>
-        <div className="uploadedImagesDiv">
+        <div className="uploaded-Images-Div">
           {imgUrls.map((url) => (
-            <div key={url} className="uploadedImagesContainer">
-              <Image className="eventFormPhotos" rounded src={url} />
-              <CloseButton onClick={() => removePhoto(url)} className="imageDelete" />
+            <div key={url} className="uploaded-Images-Container">
+              <Image className="event-Form-Photos" rounded src={url} />
+              <CloseButton onClick={() => removePhoto(url)} className="image-Delete" />
             </div>
           ))}
         </div>

@@ -51,22 +51,22 @@ const EventCardNew = ({ obj, onUpdate }) => {
         <div className="event-card-user">
           {eventUser?.uid === user.uid ? (
             <Link href="/user/profile" passHref>
-              <Image className="commentUserImage" src={eventUser?.imageUrl} />
+              <Image className="comment-User-Image" src={eventUser?.imageUrl} />
             </Link>
           ) : (
             <Link href={`/user/${eventUser?.uid}`} passHref>
-              <Image className="commentUserImage" src={eventUser?.imageUrl} />
+              <Image className="comment-User-Image" src={eventUser?.imageUrl} />
             </Link>
           )}
           <Card.Text className="event-card-username">{eventUser?.userName}</Card.Text>
         </div>
-        <DropdownButton align="end" variant="secondary" className="event-card-dropdown" title={<FaEllipsisV className="droptoggleicon" />}>
-          <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/${obj.firebaseKey}`)}>View</Dropdown.Item>
+        <DropdownButton align="end" variant="secondary" className="event-card-dropdown" title={<FaEllipsisV />}>
+          <Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/event/${obj.firebaseKey}`)}>View</Dropdown.Item>
           {user.uid === obj.uid ? (
             <>
-              <Dropdown.Item className="dropDownItem" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
+              <Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item className="dropDownItem" onClick={deleteThisEvent}>Delete</Dropdown.Item>
+              <Dropdown.Item className="drop-Down-Item" onClick={deleteThisEvent}>Delete</Dropdown.Item>
             </>
           ) : ('')}
         </DropdownButton>
