@@ -36,7 +36,7 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar key={expand} bg="light" expand={expand} className={`navbar-navbar${router.route === '/user/new' ? 'navNoShow' : ''} "mb-3"`}>
+      <Navbar key={expand} expand={expand} className={`navbar-navbar ${router.route === '/user/new' ? 'navNoShow' : ''} "mb-3"`}>
         <Container fluid>
           <div className="nav-Items">
             <Navbar.Toggle className="nav-button-expand" aria-controls={`offcanvasNavbar-expand-${expand}`} />
@@ -62,53 +62,56 @@ const NavBar = () => {
             </Offcanvas.Header>
             <Offcanvas.Body>
               <Nav className="nav-Links justify-content-center flex-grow-1 pe-3">
-                <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
-                  <Link href="/" passHref expand={false}>
+                <Link href="/" passHref expand={false}>
+                  <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
                     <span> Home</span>
-                  </Link>
-                </Navbar.Toggle>
+                  </Navbar.Toggle>
+                </Link>
                 <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
                   <Link href="/browseEvents" passHref>
                     <span>Browse Events</span>
                   </Link>
                 </Navbar.Toggle>
-                <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
-                  <Link href="/browseDays" passHref>
+                <Link href="/browseDays" passHref>
+                  <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
                     <span>Browse Days</span>
-                  </Link>
-                </Navbar.Toggle>
-                <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
-                  <Link href="/search" passHref>
+                  </Navbar.Toggle>
+                </Link>
+                <Link href="/search" passHref>
+                  <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
                     <span>Search</span>
-                  </Link>
-                </Navbar.Toggle>
+                  </Navbar.Toggle>
+                </Link>
                 <>
                   {user
                     ? (
-                      <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
-                        <Link href="/event/new" passHref><span>Create Event</span>
-                        </Link>
-                      </Navbar.Toggle>
+                      <Link href="/event/new" passHref>
+                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
+                          <span>Create Event</span>
+                        </Navbar.Toggle>
+                      </Link>
                     ) : <></> }
                   {user
                     ? (
-                      <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
-                        <Link href="/day/new" passHref><span>Create Day</span>
-                        </Link>
-                      </Navbar.Toggle>
+                      <Link href="/day/new" passHref>
+                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
+                          <span>Create Day</span>
+                        </Navbar.Toggle>
+                      </Link>
                     ) : <></> }
                   {user
                     ? (
-                      <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
-                        <Link href="/user/profile" passHref><span>Profile</span>
-                        </Link>
-                      </Navbar.Toggle>
+                      <Link href="/user/profile" passHref>
+                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`}>
+                          <span>Profile</span>
+                        </Navbar.Toggle>
+                      </Link>
                     )
                     : <></> }
                   {user ? (
-                    <Button type="button" className="sign-out-style btn btn-danger" onClick={signOutUser}>Sign Out</Button>
+                    <Button type="button" className="sign-out-collapse btn btn-danger" onClick={signOutUser}>Sign Out</Button>
                   ) : (
-                    <Button type="button" className="sign-in-style btn btn-success" onClick={signIn}>Sign In</Button>
+                    <Button type="button" className="sign-in-collapse btn btn-success" onClick={signIn}>Sign In</Button>
                   )}
                 </>
               </Nav>

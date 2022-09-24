@@ -233,6 +233,7 @@ function EventForm({ obj }) {
                 onChange={handleSelect}
                 value={{ label: input.location, value: input.location }}
                 loadOptions={locationOptions}
+                required
               />
             </div>
             <div>
@@ -251,7 +252,7 @@ function EventForm({ obj }) {
           <Form.Label>Describe Your Experience</Form.Label>
           <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
         </div>
-        <div className="eventStarAndPublic">
+        <div className="event-Star-And-Public">
           <Rating
             className="event-form-star-rating"
             allowHover={false}
