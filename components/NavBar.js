@@ -36,10 +36,10 @@ const NavBar = () => {
 
   return (
     <>
-      <Navbar key={expand} expand={expand} className={`navbar-navbar ${router.route === '/user/new' ? 'navNoShow' : ''} "mb-3"`}>
+      <Navbar key={expand} expand={expand} className="navbar-navbar mb-3">
         <Container fluid>
           <div className="nav-Items">
-            <Navbar.Toggle className="nav-button-expand" aria-controls={`offcanvasNavbar-expand-${expand}`} />
+            <Navbar.Toggle className={`nav-button-expand ${router.route === '/user/new' ? 'nav-No-Show' : ''}`} aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Link href="/" passHref>
               <Navbar.Brand className="nav-Title">M.A.D. App</Navbar.Brand>
             </Link>
