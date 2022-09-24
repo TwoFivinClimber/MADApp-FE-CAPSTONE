@@ -1,16 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import { Form } from 'react-bootstrap';
 import { useRouter } from 'next/router';
-// import { getPublicEvents } from '../api/events/eventData';
-// import EventCard from '../components/EventCard';
 import { getRandomPublicEvent } from '../api/events/mergedEvents';
 import EventCardNew from '../components/EventCardNew';
 import { getRandomPublicDay } from '../api/day/mergedDayData';
 import DayCardNew from '../components/DayCardNew';
-// import { useAuth } from '../utils/context/authContext';
-// import FeaturedCard from '../components/FeaturedCard';
 
 function Home() {
   // const { user } = useAuth();
