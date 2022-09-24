@@ -31,10 +31,10 @@ body {
 
 /* NAV BAR */
 .navbar-navbar{
-  background-color: #ECAC43!important;
+  background-color: #ECAC43;
 }
 .offcanvas{
-  background-color: #fffcf2!important;
+  background-color: #fffcf2;
 }
 .nav-button-expand{
   height: 4rem;
@@ -53,10 +53,11 @@ justify-content: flex-end;
 .nav-logo-expand{
   height: 6rem;
   width: 6rem;
-  margin-left: 6rem;
+  margin-left: 5rem;
 }
 .btn-close{
-margin-left: 7.5rem;
+margin-left: 8.5rem;
+align-self: flex-start;
 }
 
 .offcanvas-body{
@@ -91,9 +92,8 @@ margin-left: 7.5rem;
   width: 45px;
   border-radius: 50%;
 }
-.navbar-toggler{
-  margin: 10px;
-}
+
+
 .sign-in-style{
   background-color: #6a994e;
   color: black;
@@ -107,6 +107,22 @@ margin-left: 7.5rem;
   height: 3rem;
   align-self: center;
   width: 7rem;
+}
+.sign-in-collapse{
+  background-color: #6a994e;
+  color: black;
+  height: 2.5rem;
+  width: 15rem;
+  align-self: center;
+  margin-left: -2.3rem;
+}
+.sign-out-collapse{
+  background-color: firebrick;
+  color: black;
+  height: 2.5rem;
+  align-self: center;
+  width: 15rem;
+  margin-left: -2.3rem;
 }
 /*NAV NO SHOW ON USER FORM */
 .nav-No-Show{
@@ -494,6 +510,15 @@ margin-left: 1rem;
   flex-wrap: wrap;
   justify-content: center;
 }
+
+/* BROWSE DAYS */
+
+.browse-days-div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 
 /*Day Form Modal*/
 

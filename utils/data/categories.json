@@ -17,6 +17,9 @@
   "fitness":{
     "category": "Fitness"
   },
+  "bar":{
+    "category": "Bar"
+  },
   "music":{
     "category": "Music"
   },

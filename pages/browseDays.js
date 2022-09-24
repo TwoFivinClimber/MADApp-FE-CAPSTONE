@@ -18,9 +18,11 @@ function BrowseDays() {
   return (
     <>
       <h4>Browse Days</h4>
-      {daysDateSort.map((day) => (
-        <DayCardNew key={day.firebaseKey} obj={day} onUpdate={getTheContent} />
-      ))}
+      <div className="browse-days-div">
+        {daysDateSort.map((day) => (
+          <DayCardNew key={day.firebaseKey} obj={day} onUpdate={getTheContent} />
+        ))}
+      </div>
     </>
   );
 }
