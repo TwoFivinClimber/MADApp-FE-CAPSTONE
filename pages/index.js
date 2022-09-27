@@ -61,8 +61,8 @@ function Home() {
       <div className="main-Featured-Div">
         <h3> Featured </h3>
         <div className="featured-Content-Div">
-          <EventCardNew obj={featuredEvent} onUpdate={getFeatured} />
-          <DayCardNew obj={featuredDay} onUpdate={getFeatured} />
+          <EventCardNew key={featuredEvent.firebaseKey} obj={featuredEvent} onUpdate={getFeatured} />
+          <DayCardNew key={featuredDay.firebaseKey} obj={featuredDay} onUpdate={getFeatured} />
         </div>
       </div>
     </div>

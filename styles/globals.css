@@ -6,8 +6,7 @@ body {
   padding: 0!important;
   margin: 0!important;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif!important;
-    
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif!important;  
 }
 .container{
   padding: 0!important;
@@ -22,6 +21,11 @@ a {
 * {
   box-sizing: border-box!important;
 }
+@media all and (max-width: 500px){
+  * {
+    font-size: .75rem;
+  }
+}
 
 body {
   background-color: #fffcf2!important;
@@ -32,6 +36,7 @@ body {
 /* NAV BAR */
 .navbar-navbar{
   background-color: #ECAC43!important;
+  width: 100%;
 }
 .offcanvas{
   background-color: #fffcf2!important;
@@ -47,7 +52,6 @@ body {
 }
 .nav-logo-container{
 display:flex!important;
-justify-content: flex-end!important;
 }
 
 .nav-logo-expand{
@@ -91,7 +95,7 @@ align-self: flex-start!important;
  margin-right: auto!important;
  align-self: center!important;
  font-family: 'Bevan', cursive!important;
- font-size: 4rem!important;
+ font-size: 2rem!important;
 }
 .round-User-Img{
   height: 45px!important;
@@ -113,6 +117,29 @@ align-self: flex-start!important;
   height: 3rem!important;
   align-self: center!important;
   width: 7rem!important;
+}
+@media all and (max-width: 400px) {
+  .sign-out-style{ 
+    height: 2rem!important;
+    width: 4rem!important;
+    font-size: .6rem;
+  }
+  .sign-in-style{
+    height: 2rem!important;
+    width: 4rem!important;
+    font-size: .6rem;
+  }
+  .sign-out-collapse{
+    height: 2rem!important;
+    width: 4rem!important;
+    font-size: .6rem;
+  }
+  .sign-in-collapse{
+    height: 2rem!important;
+    width: 4rem!important;
+    font-size: .6rem;
+    
+  }
 }
 .sign-in-collapse{
   background-color: #6a994e!important;
@@ -450,6 +477,14 @@ margin-left: 1rem!important;
   width: 727px!important;
   margin: 8px!important;
 }
+
+@media all and (max-width: 400px) {
+.day-card {
+  width: 80%!important;
+}
+
+}
+
 .day-card-head{
   display:flex!important;
   justify-content: space-between!important;
