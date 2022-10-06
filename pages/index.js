@@ -43,7 +43,7 @@ function Home() {
       <div className="main-Div">
         <Image className="background-Image" src="https://res.cloudinary.com/twofiveclimb/image/upload/v1662000538/IMG_8989_lgto2x.jpg" />
         <div className="main-Head-Search">
-          <h1>Find Your Day</h1>
+          <h1 className="find-your-day">Find Your Day</h1>
           <Form>
             <Form.Control
               type="search"

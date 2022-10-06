@@ -10,7 +10,7 @@ function ProfileCard({ userObj }) {
   return (
     <Card className="user-Profile-Card">
       <div className="user-Profile-Image">
-        <Image variant="start" className="user-form-image" thumbnail src={userObj.imageUrl} />
+        <Image variant="start" className="user-profile-image" thumbnail src={userObj.imageUrl} />
       </div>
       <div className="profile-Info-Div">
         <Card.Title>{userObj.userName}</Card.Title>

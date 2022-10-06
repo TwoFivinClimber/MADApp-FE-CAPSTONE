@@ -55,11 +55,12 @@ const NavBar = () => {
             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
             placement="start"
           >
-            <Offcanvas.Header className="nav-logo-container" closeButton>
-              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>
-                <Image className="nav-logo-expand" src="https://res.cloudinary.com/twofiveclimb/image/upload/v1663966058/mad-app/madLogoNav_hf3myl.png" alt="mad app logo" />
-              </Offcanvas.Title>
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`} />
             </Offcanvas.Header>
+            <div className="nav-logo-container">
+              <Image className="nav-logo-expand" src="https://res.cloudinary.com/twofiveclimb/image/upload/v1663966058/mad-app/madLogoNav_hf3myl.png" alt="mad app logo" />
+            </div>
             <Offcanvas.Body>
               <Nav className="nav-Links justify-content-center flex-grow-1 pe-3">
                 <Link href="/" passHref expand={false}>

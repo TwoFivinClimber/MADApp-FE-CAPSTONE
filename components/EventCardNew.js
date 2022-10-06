@@ -102,12 +102,14 @@ const EventCardNew = ({ obj, onUpdate }) => {
             allowHover={false}
             showTooltip
             allowHalfIcon
+            className="star-rating"
+            tooltipClassName="star-rating-tooltip"
             tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
             tooltipStyle={{
-              height: 'auto', width: 'auto', fontSize: '12px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
+              height: 'auto', width: 'auto', fontSize: '10px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
             }}
             ratingValue={obj.starRating}
-            size={26}
+            size={20}
             readonly
           />
         </div>

@@ -89,10 +89,12 @@ function DayCardNew({ obj, onUpdate }) {
             allowHalfIcon
             ratingValue={rating}
             readonly
-            size={26}
+            size={20}
+            className="star-rating"
+            tooltipClassName="star-rating-tooltip"
             tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
             tooltipStyle={{
-              height: 'auto', width: 'auto', fontSize: '12px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
+              height: 'auto', width: 'auto', fontSize: '10px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
             }}
           />
         </div>
@@ -109,7 +111,7 @@ function DayCardNew({ obj, onUpdate }) {
             {images?.map((url) => (
               <Carousel.Item key={url}>
                 <img
-                  className="event-card-image d-block w-100"
+                  className="day-card-image d-block w-100"
                   src={url}
                   alt="user posted content"
                 />

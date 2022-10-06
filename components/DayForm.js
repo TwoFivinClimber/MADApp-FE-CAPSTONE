@@ -55,7 +55,6 @@ function DayForm({ obj }) {
         [name]: value,
       }));
     }
-    console.warn(events, input.date);
   };
 
   const handleChecked = (e) => {

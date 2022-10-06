@@ -40,7 +40,7 @@ function ViewEvent() {
 
   useEffect(() => {
     getTheContent();
-  }, [firebaseKey]);
+  }, [firebaseKey, user]);
 
   const deleteThisEvent = () => {
     if (window.confirm('Are You Sure ?')) {
