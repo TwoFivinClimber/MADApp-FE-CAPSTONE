@@ -34,7 +34,7 @@ Choose whether to make content Public or Private
 Comment on Public Events and Days to show the love or opinions
 Delete any content that they have created
 
-<div class="readme-images">
+<div style="display: flex; flex-direction: column; justify-content: center">
 <img
   src="/styles/readme-images/ss-browse.png"
   alt="view of browse events page"
@@ -52,3 +52,15 @@ Delete any content that they have created
   style="display: inline-block; margin: 0 auto; max-width: 300px">
   </div>
   
+
+  ## Thanks
+  Nashville Software School
+  Cohort E-19 ! and Halloween-Town-Blue Legs
+  Those that encouraged me to take this dive into tech
+  Special thank to the universe for aligning us with this instructional team of Dr. Teresa Vasquez, Trinity Christiana, and Aja Washington.   
+  
+  ## Links
+
+  <a href="https://mad-app.netlify.app/">Link To Application</a>
+  <a href="https://lucid.app/lucidchart/2703fcc4-4a59-488c-a2fc-7a4a14c4b048/edit?page=0_0&invitationId=inv_e0ee016e-fb3a-402f-bd1e-82acf315bc17#">Link To Erd and Technical Flowchart</a>
+  <a href="https://www.figma.com/file/0nq5RYPmlysdW6ujBowXss/MAD-App-Wire-Frame?node-id=0%3A1">Link to Wire-Frames</a>
