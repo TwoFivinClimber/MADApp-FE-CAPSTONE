@@ -20,3 +20,16 @@ Photo Hosting is brought to you by Cloudinary API.
 Tomtom API is being used for Geolocation biased, and Point of Interest search and data capture.
 3rd party packages include React-Select and NPM Star Rating.
 M.A.D App’s layout and style was done with React-Bootstrap, CSS, Google-Fonts, and React Icons.
+
+### Un-authenticated Users can:
+Browse content by Event, Day, or by User Profile
+Search for events by Keyword, Category, or Location
+
+### Authenticated Users can:
+Create a profile and modify location, interests, and their profile image
+Create Events with the Who, What, Where, and Why and add their photos
+Group their Events together into a Day to showcase what they did
+Choose whether to make content Public or Private
+Comment on Public Events and Days to show the love or opinions
+Delete any content that they have created
+
