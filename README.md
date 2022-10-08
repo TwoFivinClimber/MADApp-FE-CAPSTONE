@@ -61,6 +61,6 @@ Delete any content that they have created
   
   ## Links
 
-  <a style="display: inline" href="https://mad-app.netlify.app/">Link To Application</a>
-  <a style="display: inline" href="https://lucid.app/lucidchart/2703fcc4-4a59-488c-a2fc-7a4a14c4b048/edit?page=0_0&invitationId=inv_e0ee016e-fb3a-402f-bd1e-82acf315bc17#">Link To Erd and Technical Flowchart</a>
+  <a style="display: inline" href="https://mad-app.netlify.app/">Link To Application</a> ||
+  <a style="display: inline" href="https://lucid.app/lucidchart/2703fcc4-4a59-488c-a2fc-7a4a14c4b048/edit?page=0_0&invitationId=inv_e0ee016e-fb3a-402f-bd1e-82acf315bc17#">Link To Erd and Technical Flowchart</a> ||
   <a style="display: inline" href="https://www.figma.com/file/0nq5RYPmlysdW6ujBowXss/MAD-App-Wire-Frame?node-id=0%3A1">Link to Wire-Frames</a>
