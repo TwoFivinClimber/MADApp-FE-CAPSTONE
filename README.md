@@ -56,13 +56,13 @@ Delete any content that they have created
   ### This App is Mobile-Ready as well which allows you to take your photos and create content On The Go !
   <img
   src="/styles/readme-images/ss-mobile1.png"
-  alt="Search View"
-  title="Search Page"
+  alt="moblie-one"
+  title="mobile view"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
   <img
   src="/styles/readme-images/ss-mobile2.png"
-  alt="Search View"
-  title="Search Page"
+  alt="mobile-2"
+  title="mobile create"
   style="display: inline-block; margin: 0 auto; max-width: 300px">
   
   
