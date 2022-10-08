@@ -7,7 +7,13 @@ The Problem is either not knowing what to do, wanting to break the norm locally,
 MAD App is designed to find out what is happening where you are or are going.    The idea is to see REAL descriptions and REAL evidence of what people did and how they felt about it. With the MAD App photo displays, it’s also fun to create your events, and link them together to show the people just how awesome your day was.
 
 ### The Stack
-<a href="https://reactnative.dev/" title="React Native"><img src="https://github.com/get-icon/geticon/raw/master/icons/react.svg" alt="React Native" width="21px" height="21px"></a>
+<a href="https://reactnative.dev/" title="React Native"><img src="https://github.com/get-icon/geticon/raw/master/icons/react.svg" alt="React Native" width="50px" height="50px"></a>
+<a href="https://nextjs.org/" title="Next.js"><img src="https://github.com/get-icon/geticon/raw/master/icons/nextjs-icon.svg" alt="Next.js" width="50px" height="50px"></a>
+<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" title="JavaScript"><img src="https://github.com/get-icon/geticon/raw/master/icons/javascript.svg" alt="JavaScript" width="50px" height="50px"></a>
+<a href="https://getbootstrap.com/" title="Bootstrap"><img src="https://github.com/get-icon/geticon/raw/master/icons/bootstrap.svg" alt="Bootstrap" width="50px" height="50px"></a>
+<a href="https://www.npmjs.com/" title="npm"><img src="https://github.com/get-icon/geticon/raw/master/icons/npm.svg" alt="npm" width="50px" height="50px"></a>
+<a href="https://www.firebase.com/" title="Firebase"><img src="https://github.com/get-icon/geticon/raw/master/icons/firebase.svg" alt="Firebase" width="50px" height="50px"></a>
+
 M.A.D App was built with React using Next.js framework. 
 Data is being stored Google Firebase API with help from Postman for testing.
 Photo Hosting is brought to you by Cloudinary API.
