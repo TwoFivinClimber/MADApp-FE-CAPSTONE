@@ -53,6 +53,9 @@ Delete any content that they have created
   </div>
   
 
+  ### This App is Mobile-Ready as well which allows you to take your photos and create content On The Go !
+  
+  
   ## Thanks
   Nashville Software School
   Cohort E-19 ! and Halloween-Town-Blue Legs
