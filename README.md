@@ -34,3 +34,21 @@ Choose whether to make content Public or Private
 Comment on Public Events and Days to show the love or opinions
 Delete any content that they have created
 
+<div class="readme-images">
+<img
+  src="/styles/readme-images/ss-browse.png"
+  alt="view of browse events page"
+  title="Browse"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+  <img
+  src="/styles/readme-images/ss-day.png"
+  alt="View Day View"
+  title="A Day"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+  <img
+  src="/styles/readme-images/ss-search.png"
+  alt="Search View"
+  title="Search Page"
+  style="display: inline-block; margin: 0 auto; max-width: 300px">
+  </div>
+  
