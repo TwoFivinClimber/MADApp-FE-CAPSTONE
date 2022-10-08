@@ -119,6 +119,7 @@ function Search() {
         <Form.Label>Category Search</Form.Label>
         <AsyncSelect
           className="search-page-category-select"
+          classNamePrefix="select"
           isClearable
           defaultOptions
           loadOptions={handleCatInput}
@@ -127,6 +128,7 @@ function Search() {
         <Form.Label>City Search</Form.Label>
         <AsyncSelect
           className="search-page-city-select"
+          classNamePrefix="select"
           autoFocus
           isClearable
           noOptionsMessage={() => 'No Events Found in The City....Yet'}

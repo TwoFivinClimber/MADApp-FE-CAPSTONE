@@ -64,7 +64,7 @@ const EventCardNew = ({ obj, onUpdate }) => {
           <Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/event/${obj.firebaseKey}`)}>View</Dropdown.Item>
           {user.uid === obj.uid ? (
             <>
-              <Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
+              <Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edi</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item className="drop-Down-Item" onClick={deleteThisEvent}>Delete</Dropdown.Item>
             </>

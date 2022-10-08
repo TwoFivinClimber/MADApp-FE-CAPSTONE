@@ -228,6 +228,7 @@ function EventForm({ obj }) {
             <div>
               <Form.Label>Location</Form.Label>
               <AsyncCreatable
+                classNamePrefix="select"
                 backspaceRemovesValue
                 isClearable
                 onChange={handleSelect}
@@ -239,6 +240,7 @@ function EventForm({ obj }) {
             <div>
               <Form.Label>City</Form.Label>
               <AsyncCreatable
+                classNamePrefix="select"
                 backspaceRemovesValue
                 isClearable
                 onChange={handleCitySelect}
@@ -253,15 +255,20 @@ function EventForm({ obj }) {
           <Form.Control as="textarea" rows={3} name="description" value={input.description} onChange={handleChange} placeholder="Tell the people about it" required />
         </div>
         <div className="event-Star-And-Public">
-          <Rating
-            className="event-form-star-rating"
-            allowHover={false}
-            showTooltip
-            allowHalfIcon
-            tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
-            ratingValue={input.starRating}
-            onClick={handleRating}
-          />
+          <div className="event-form-star-rating-div">
+            <Rating
+              allowHover={false}
+              showTooltip
+              size={26}
+              allowHalfIcon
+              tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
+              ratingValue={input.starRating}
+              onClick={handleRating}
+              tooltipStyle={{
+                height: 'auto', width: 'auto', fontSize: '13px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
+              }}
+            />
+          </div>
           <Form.Check
             className="event-form-public-check"
             name="isPublic"
@@ -285,8 +292,8 @@ function EventForm({ obj }) {
           ))}
         </div>
         <div className="event-form-buttons">
-          <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
-          <Button variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
+          <Button className="submit-btn" type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
+          <Button className="cancel-btn" variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
         </div>
       </Form>
     </>

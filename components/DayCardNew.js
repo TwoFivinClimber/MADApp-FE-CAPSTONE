@@ -72,11 +72,11 @@ function DayCardNew({ obj, onUpdate }) {
           <div className="day-card-user">
             {dayUser?.uid === user.uid ? (
               <Link href="/user/profile" passHref>
-                <Image className="comment-User-Image" src={dayUser?.imageUrl} />
+                <Card.Img className="comment-User-Image" src={dayUser?.imageUrl} />
               </Link>
             ) : (
               <Link href={`/user/${dayUser?.uid}`} passHref>
-                <Image className="comment-User-Image" src={dayUser?.imageUrl} />
+                <Card.Img className="comment-User-Image" src={dayUser?.imageUrl} />
               </Link>
             )}
             <Card.Text className="day-card-username">{dayUser?.userName}</Card.Text>
@@ -110,7 +110,7 @@ function DayCardNew({ obj, onUpdate }) {
           <Carousel activeIndex={index} onSelect={handleImageRotation} interval={null}>
             {images?.map((url) => (
               <Carousel.Item key={url}>
-                <img
+                <Image
                   className="day-card-image d-block w-100"
                   src={url}
                   alt="user posted content"

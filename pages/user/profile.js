@@ -49,7 +49,7 @@ function UserProfile() {
     <>
       <Card className="user-Profile-Card">
         <div className="user-Profile-Image">
-          <Image variant="start" className="user-form-image" thumbnail src={authUser.imageUrl} />
+          <Image variant="start" className="user-profile-image" thumbnail src={authUser.imageUrl} />
         </div>
         <div className="profile-Info-Div">
           <Card.Title>{authUser.userName}</Card.Title>
