@@ -128,8 +128,11 @@ border: 1px solid black!important;
 }
 @media all and (max-width: 500px){
   .offcanvas{
-    max-width: 175px!important;
-    max-height: 350px!important;
+    max-width: 185px!important;
+    height: fit-content!important;
+  }
+  .navbar-navbar{
+    margin-bottom: 0px!important;
   }
 }
 @media all and (max-width: 500px) {
@@ -147,7 +150,8 @@ border: 1px solid black!important;
   .sign-out-collapse{
     height: 2rem!important;
     width: 4rem!important;
-    font-size: .6rem;
+    font-size: .6rem!important;
+    margin-bottom: 1rem!important;
   }
   .sign-in-collapse{
     height: 2rem!important;
@@ -211,7 +215,7 @@ border: 1px solid black!important;
   margin-bottom: 18rem!important;
 }
 .main-Featured-Div{
-  border: #2a9d8f 6px solid!important;
+  border: #bb3e03 6px solid!important;
   margin-top: 1.5rem!important;
   display:flex!important;
   flex-direction: column!important;
@@ -222,6 +226,11 @@ border: 1px solid black!important;
   display:flex!important;
   justify-content: center!important;
   flex-wrap:wrap!important;
+}
+@media all and (max-width: 500px){
+  .main-Featured-Div{
+    margin-top: 0px!important;
+  }
 }
 /* User Form */
 
@@ -247,6 +256,11 @@ margin-left: 1rem!important;
   margin-top: 4px!important;
   margin-bottom: -2px!important;
   margin-left: .5rem!important;
+}
+@media all and (max-width: 500px){
+  .background-Image{
+   margin-top: 0px!important;
+   }
 }
 
 /*Profile*/
@@ -390,9 +404,12 @@ margin-left: 1rem!important;
   width: 93%!important;
 }
 .uploaded-Images-Div{
-  margin: 2rem!important;
+  width: 100%!important;
+  margin-top: 1rem!important;
+  margin-bottom: 1rem!important;
   display: flex!important;
-  justify-content: space-evenly!important;
+  justify-content: center!important;
+  flex-wrap: wrap!important;
 }
 .uploaded-Images-Container{
   position:relative!important;
@@ -430,6 +447,14 @@ margin-left: 1rem!important;
     margin-bottom: 10px!important;
     justify-content: space-around!important;
   }
+  .event-Form-Photos{
+    height: 100px!important;
+  }
+  .uploaded-Images-Div{
+    display:flex;
+    flex-wrap: wrap;
+  }
+
 }
 
 
