@@ -58,12 +58,12 @@ Delete any content that they have created
     src="/styles/readme-images/ss-mobileone.PNG"
     alt="moblie-1"
     title="mobile view"
-    style="display: inline-block; margin: 0 auto; max-width: 300px">
+    style="display: inline-block; margin: 0 auto; width: 150px; height: 220px">
   <img
     src="/styles/readme-images/ss-mobiletwo.PNG"
     alt="mobile-2"
     title="mobile create"
-    style="display: inline-block; margin: 0 auto; max-width: 300px">
+    style="display: inline-block; margin: 0 auto; width: 150px; height: 220px ">
   
   
   ## Thanks
