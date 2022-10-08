@@ -74,9 +74,8 @@ const EventCardNew = ({ obj, onUpdate }) => {
       <div className="event-card-carousel">
         <Carousel activeIndex={index} onSelect={handleImageRotation} interval={null}>
           {images.map((image) => (
-            <Carousel.Item>
+            <Carousel.Item key={image.firebaseKey}>
               <img
-                key={image.firebaseKey}
                 className="event-card-image d-block w-100"
                 src={image.imageUrl}
                 alt="user posted content"

@@ -103,7 +103,7 @@ function DayCardNew({ obj, onUpdate }) {
         <div className="day-card-events">
           <h6 className="day-card-events-header">Events From Day</h6>
           {events.map((event) => (
-            <Card.Title>{event.title}</Card.Title>
+            <Card.Title key={event.firebaseKey}>{event.title}</Card.Title>
           ))}
         </div>
         <div className="day-card-photos">

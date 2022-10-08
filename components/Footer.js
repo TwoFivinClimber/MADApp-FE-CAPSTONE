@@ -9,7 +9,7 @@ function Footer() {
           <Nav.Link href="/">Home</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <h8>MAD App Future Copyright</h8>
+          <h6>MAD App Future Copyright</h6>
         </Nav.Item>
         <Nav.Item>
           <Nav.Link href="https://www.linkedin.com/in/brett-hughes-08942893">Connect</Nav.Link>
