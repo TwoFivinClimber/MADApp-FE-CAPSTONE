@@ -72,11 +72,11 @@ function DayCardNew({ obj, onUpdate }) {
           <div className="day-card-user">
             {dayUser?.uid === user.uid ? (
               <Link href="/user/profile" passHref>
-                <Image className="comment-User-Image" src={dayUser?.imageUrl} />
+                <Card.Img className="comment-User-Image" src={dayUser?.imageUrl} />
               </Link>
             ) : (
               <Link href={`/user/${dayUser?.uid}`} passHref>
-                <Image className="comment-User-Image" src={dayUser?.imageUrl} />
+                <Card.Img className="comment-User-Image" src={dayUser?.imageUrl} />
               </Link>
             )}
             <Card.Text className="day-card-username">{dayUser?.userName}</Card.Text>
@@ -89,10 +89,12 @@ function DayCardNew({ obj, onUpdate }) {
             allowHalfIcon
             ratingValue={rating}
             readonly
-            size={26}
+            size={20}
+            className="star-rating"
+            tooltipClassName="star-rating-tooltip"
             tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
             tooltipStyle={{
-              height: 'auto', width: 'auto', fontSize: '12px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
+              height: 'auto', width: 'auto', fontSize: '10px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
             }}
           />
         </div>
@@ -108,8 +110,8 @@ function DayCardNew({ obj, onUpdate }) {
           <Carousel activeIndex={index} onSelect={handleImageRotation} interval={null}>
             {images?.map((url) => (
               <Carousel.Item key={url}>
-                <img
-                  className="event-card-image d-block w-100"
+                <Image
+                  className="day-card-image d-block w-100"
                   src={url}
                   alt="user posted content"
                 />

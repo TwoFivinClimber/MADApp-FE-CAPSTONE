@@ -40,7 +40,7 @@ function ViewEvent() {
 
   useEffect(() => {
     getTheContent();
-  }, [firebaseKey]);
+  }, [firebaseKey, user]);
 
   const deleteThisEvent = () => {
     if (window.confirm('Are You Sure ?')) {
@@ -68,9 +68,8 @@ function ViewEvent() {
         </div>
         <Carousel fade className="event-page-carousel">
           {images?.map((image) => (
-            <Carousel.Item>
+            <Carousel.Item key={image.firebasekey}>
               <img
-                key={image.firebasekey}
                 className="event-page-images d-block w-100"
                 src={image.imageUrl}
                 alt="First slide"

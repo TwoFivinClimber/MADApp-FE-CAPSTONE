@@ -121,6 +121,7 @@ function UserForm({ obj }) {
         <Form.Control name="tagLine" value={input.tagLine} onChange={handleChange} type="text" placeholder="Just Tryna Be Awesome" required />
         <Form.Label>Location </Form.Label>
         <AsyncCreatable
+          classNamePrefix="select"
           backspaceRemovesValue
           isClearable
           onChange={handleSelect}
@@ -152,7 +153,7 @@ function UserForm({ obj }) {
           ))}
         </Form.Select>
         <br />
-        <Button type="submit" variant="success">Submit</Button>
+        <Button className="submit-btn" type="submit" variant="success">Submit</Button>
       </Form>
     </>
   );

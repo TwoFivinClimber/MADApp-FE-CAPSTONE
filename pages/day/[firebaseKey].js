@@ -2,13 +2,14 @@
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import {
-  Card, Dropdown, DropdownButton,
+  Card, Dropdown, DropdownButton, Carousel,
 } from 'react-bootstrap';
 import { FaEllipsisV } from 'react-icons/fa';
 import { Rating } from 'react-simple-star-rating';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
+// import ImageList from '@mui/material/ImageList';
+// import ImageListItem from '@mui/material/ImageListItem';
 import Moment from 'moment';
+import Link from 'next/link';
 import { getComments } from '../../api/comments/commentData';
 import { deleteDay, getDayPackage } from '../../api/day/mergedDayData';
 import { getUser } from '../../api/user/userData';
@@ -60,8 +61,16 @@ function ViewDay() {
       <Card.Body>
         <div className="view-day-head">
           <div className="view-day-user">
-            <Card.Img className="round-User-Img" src={creator.imageUrl} />
-            <Card.Text className="view-day-username">{creator.userName}</Card.Text>
+            {creator?.uid === user.uid ? (
+              <Link href="/user/profile" passHref>
+                <Card.Img className="comment-User-Image" src={creator?.imageUrl} />
+              </Link>
+            ) : (
+              <Link href={`/user/${creator?.uid}`} passHref>
+                <Card.Img className="comment-User-Image" src={creator?.imageUrl} />
+              </Link>
+            )}
+            <Card.Text className="view-day-username">{creator?.userName}</Card.Text>
           </div>
           <div className="view-day-dropdown">
             {user.uid === day.uid ? (
@@ -71,36 +80,38 @@ function ViewDay() {
             ) : ('')}
           </div>
         </div>
-        <ImageList sx={{ width: '100%', height: 'auto' }} cols={4} rowHeight={240}>
-          {images?.map((item) => (
-            <ImageListItem key={item.firebaseKey}>
+        <Carousel className="event-page-carousel" fade>
+          {images?.map((image) => (
+            <Carousel.Item key={image.firebasekey}>
               <img
-                src={`${item}?w=164&h=164&fit=crop&auto=format`}
-                srcSet={`${item.imageUrl}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                alt="user provided photos"
-                loading="lazy"
+                className="event-page-images d-block w-100"
+                src={image}
+                alt="First slide"
               />
-            </ImageListItem>
+            </Carousel.Item>
           ))}
-        </ImageList>
+        </Carousel>
         <div className="view-day-details">
           <Card.Body>
             <Card.Title>{day.title}</Card.Title>
             <Card.Text>{day.city}</Card.Text>
             <Card.Text className="comment-card-date">{Moment(day.date).format('MM-DD-YYYY')}</Card.Text>
-            <Rating
-              name="starRating"
-              allowHover={false}
-              showTooltip
-              allowHalfIcon
-              ratingValue={rating}
-              readonly
-              size={26}
-              tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
-              tooltipStyle={{
-                height: 'auto', width: 'auto', fontSize: '12px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
-              }}
-            />
+            <div className="view-day-star-rating">
+              <Rating
+                className="starRating"
+                name="starRating"
+                allowHover={false}
+                showTooltip
+                allowHalfIcon
+                ratingValue={rating}
+                readonly
+                size={26}
+                tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
+                tooltipStyle={{
+                  height: 'auto', width: 'auto', fontSize: '12px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
+                }}
+              />
+            </div>
           </Card.Body>
           <Card.Body className="view-day-description">
             <Card.Text>{day.description}</Card.Text>

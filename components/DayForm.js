@@ -55,7 +55,6 @@ function DayForm({ obj }) {
         [name]: value,
       }));
     }
-    console.warn(events, input.date);
   };
 
   const handleChecked = (e) => {
@@ -153,6 +152,7 @@ function DayForm({ obj }) {
           <div>
             <Form.Label>City</Form.Label>
             <AsyncCreatable
+              classNamePrefix="select"
               backspaceRemovesValue
               isClearable
               onChange={handleCitySelect}
@@ -175,7 +175,7 @@ function DayForm({ obj }) {
         <div className="day-form-select-events">
           <Form.Label className="day-form-events-select-head">Select Events or Create For Your Day (Events need to have the same date as your day)</Form.Label>
           <div className="day-form-events-buttons">
-            <Button variant="primary" onClick={handleShow}>
+            <Button className="select-events-btn" variant="primary" onClick={handleShow}>
               Select Events
             </Button>
             <Modal show={show} name="eventOfDay" onHide={handleClose} animation={false}>
@@ -223,8 +223,8 @@ function DayForm({ obj }) {
           ))}
         </div>
         <div className="day-form-submit-buttons">
-          <Button type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
-          <Button variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
+          <Button className="submit-btn" type="submit" variant="success">{obj.firebaseKey ? 'Update' : 'Submit'}</Button>
+          <Button className="cancel-btn" variant="danger" onClick={() => router.push('/user/profile')}>Cancel</Button>
         </div>
       </Form>
     </>

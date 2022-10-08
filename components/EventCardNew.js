@@ -64,7 +64,7 @@ const EventCardNew = ({ obj, onUpdate }) => {
           <Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/event/${obj.firebaseKey}`)}>View</Dropdown.Item>
           {user.uid === obj.uid ? (
             <>
-              <Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edit</Dropdown.Item>
+              <Dropdown.Item className="drop-Down-Item" onClick={() => router.push(`/event/edit/${obj.firebaseKey}`)}>Edi</Dropdown.Item>
               <Dropdown.Divider />
               <Dropdown.Item className="drop-Down-Item" onClick={deleteThisEvent}>Delete</Dropdown.Item>
             </>
@@ -102,12 +102,14 @@ const EventCardNew = ({ obj, onUpdate }) => {
             allowHover={false}
             showTooltip
             allowHalfIcon
+            className="star-rating"
+            tooltipClassName="star-rating-tooltip"
             tooltipArray={['Bad', 'Bad', 'Not Bad', 'Not Bad', 'Good', 'Good', 'Great', 'Great', 'Awesome', 'M.A.D. Awesome']}
             tooltipStyle={{
-              height: 'auto', width: 'auto', fontSize: '12px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
+              height: 'auto', width: 'auto', fontSize: '10px', padding: '2px 4px', textAlign: 'center', marginTop: '4px', marginLeft: '10px',
             }}
             ratingValue={obj.starRating}
-            size={26}
+            size={20}
             readonly
           />
         </div>

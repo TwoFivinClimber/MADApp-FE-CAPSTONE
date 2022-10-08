@@ -1,8 +1,7 @@
 import React from 'react';
 import {
-  Card, Image, DropdownButton,
+  Card, Image,
 } from 'react-bootstrap';
-import { FaEllipsisV } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 // import { useRouter } from 'next/router';
 
@@ -10,7 +9,7 @@ function ProfileCard({ userObj }) {
   return (
     <Card className="user-Profile-Card">
       <div className="user-Profile-Image">
-        <Image variant="start" className="user-form-image" thumbnail src={userObj.imageUrl} />
+        <Image variant="start" className="user-profile-image" thumbnail src={userObj.imageUrl} />
       </div>
       <div className="profile-Info-Div">
         <Card.Title>{userObj.userName}</Card.Title>
@@ -24,7 +23,6 @@ function ProfileCard({ userObj }) {
         <Card.Text>{userObj.interestTwo}</Card.Text>
         <Card.Text>{userObj.interestThree}</Card.Text>
       </div>
-      <DropdownButton align="end" variant="secondary" className="profile-dropdown" title={<FaEllipsisV />} />
     </Card>
   );
 }

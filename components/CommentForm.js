@@ -35,7 +35,7 @@ function CommentForm({ obj, firebaseKey, onUpdate }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (comment.firebaseKey) {
+    if (comment?.firebaseKey) {
       updateComment(input)
         .then(() => {
           setComment({});
@@ -70,7 +70,7 @@ function CommentForm({ obj, firebaseKey, onUpdate }) {
 
         <Form className="comment-form" onSubmit={handleSubmit}>
           <div className="comment-form-image-div">
-            <img src={commentUser.imageUrl} alt={commentUser.userName} className="comment-form-user-image" />
+            <img src={commentUser?.imageUrl} alt={commentUser?.userName} className="comment-form-user-image" />
           </div>
           <Form.Control
             className="comment-form-input"
