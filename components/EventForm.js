@@ -156,6 +156,11 @@ function EventForm({ obj }) {
           location: value,
         }));
       }
+    } else {
+      setInput((prevState) => ({
+        ...prevState,
+        location: '',
+      }));
     }
   };
   const handleCitySelect = (selected) => {
@@ -246,6 +251,7 @@ function EventForm({ obj }) {
                 onChange={handleCitySelect}
                 value={{ label: input.city, value: input.city }}
                 loadOptions={cityOptions}
+                required
               />
             </div>
           </div>
