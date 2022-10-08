@@ -35,7 +35,7 @@
     "react-icons": "^4.4.0",
     "react-ip-details": "^1.2.6",
     "react-select": "^5.4.0",
-    "react-simple-star-rating": "^4.0.5"
+    "react-simple-star-rating": "4.0.5"
   },
   "devDependencies": {
     "eslint": "^7.32.0",
