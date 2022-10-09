@@ -1,5 +1,6 @@
-/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @next/next/no-img-element */
+
 import React, { useEffect, useState } from 'react';
 import {
   Card, Dropdown, DropdownButton, Image, Carousel,
@@ -9,8 +10,6 @@ import { FaEllipsisV } from 'react-icons/fa';
 import { useRouter } from 'next/router';
 import { Rating } from 'react-simple-star-rating';
 import Link from 'next/link';
-// import { getEventsByDay } from '../api/events/eventData';
-// import EventCard from './EventCard';
 import { deleteDay, getDayPackage } from '../api/day/mergedDayData';
 import { useAuth } from '../utils/context/authContext';
 import { getUser } from '../api/user/userData';
@@ -24,7 +23,6 @@ function DayCardNew({ obj, onUpdate }) {
   const [index, setIndex] = useState(0);
 
   const getTheContent = () => {
-    // getEventsByDay(obj.firebaseKey).then(setEvents);
     getDayPackage(obj.firebaseKey).then((dayObj) => {
       setEvents(dayObj.events);
       setImages(dayObj.images);
@@ -36,7 +34,12 @@ function DayCardNew({ obj, onUpdate }) {
 
   useEffect(() => {
     getTheContent();
-  }, [obj]);
+    return () => {
+      setEvents([]);
+      setImages([]);
+      setDayUser([]);
+    };
+  }, [obj, user]);
 
   const deleteThisDay = () => {
     if (window.confirm('Are you Sure?  Your Day Looks Awesome!')) {

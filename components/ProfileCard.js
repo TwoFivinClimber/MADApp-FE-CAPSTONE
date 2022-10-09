@@ -9,7 +9,7 @@ function ProfileCard({ userObj }) {
   return (
     <Card className="user-Profile-Card">
       <div className="user-Profile-Image">
-        <Image variant="start" className="user-profile-image" thumbnail src={userObj.imageUrl} />
+        <Image variant="start" className="user-profile-image" thumbnail src={userObj?.imageUrl} />
       </div>
       <div className="profile-Info-Div">
         <Card.Title>{userObj.userName}</Card.Title>
@@ -32,7 +32,7 @@ ProfileCard.propTypes = {
     userName: PropTypes.string,
     imageUrl: PropTypes.string,
     tagLine: PropTypes.string,
-    age: PropTypes.number,
+    age: PropTypes.string,
     homeCity: PropTypes.string,
     interestOne: PropTypes.string,
     interestTwo: PropTypes.string,
