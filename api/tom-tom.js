@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { clientCredentials } from '../utils/client';
+// import { clientCredentials } from '../utils/client';
 
-const tomApi = clientCredentials.tomTomApi;
+// const tomApi = clientCredentials.tomTomApi;
 
 const getPoi = (input, lat, long) => new Promise((resolve, reject) => {
-  axios.get(`https://api.tomtom.com/search/2/search/${input}.json?&lat=${lat}&lon=${long}&language=en-US&extendedPostalCodesFor=POI&minFuzzyLevel=1&maxFuzzyLevel=2&idxSet=POI&view=Unified&relatedPois=off&key=${tomApi}`)
+  axios.get(`https://api.tomtom.com/search/2/search/${input}.json?&lat=${lat}&lon=${long}&language=en-US&extendedPostalCodesFor=POI&minFuzzyLevel=1&maxFuzzyLevel=2&idxSet=POI&view=Unified&relatedPois=off&key=h7BrcblaIvpXTTQtlrux4NjI1EMNNTnk`)
     .then((result) => {
       const poiArray = Object.values(result.data.results);
       console.warn(poiArray);
