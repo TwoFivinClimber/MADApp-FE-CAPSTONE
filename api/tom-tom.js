@@ -23,7 +23,7 @@ const getPoi = (input, lat, long) => new Promise((resolve, reject) => {
 });
 
 const getCity = (input) => new Promise((resolve, reject) => {
-  axios.get(`https://api.tomtom.com/search/2/geocode/${input}.json?storeResult=false&view=Unified&key=${tomApi}`)
+  axios.get(`https://api.tomtom.com/search/2/geocode/${input}.json?storeResult=false&view=Unified&key=h7BrcblaIvpXTTQtlrux4NjI1EMNNTnk`)
     .then((result) => {
       const cityArray = Object.values(result.data.results);
       const returnArray = cityArray.map((city) => ({
