@@ -126,6 +126,21 @@ border: 1px solid black!important;
   align-self: center!important;
   width: 7rem!important;
 }
+.sign-in-collapse{
+  background-color: #6a994e!important;
+  color: black!important;
+  height: 2.5rem!important;
+  width: 15rem!important;
+  align-self: center!important;
+  
+}
+.sign-out-collapse{
+  background-color: firebrick!important;
+  color: black!important;
+  height: 2.5rem!important;
+  align-self: center!important;
+  width: 15rem!important;
+}
 @media all and (max-width: 500px){
   .offcanvas{
     max-width: 185px!important;
@@ -148,33 +163,21 @@ border: 1px solid black!important;
     font-size: .6rem;
   }
   .sign-out-collapse{
+    margin-top: .7rem;
     height: 2rem!important;
-    width: 4rem!important;
+    width: 9rem!important;
     font-size: .6rem!important;
     margin-bottom: 1rem!important;
   }
   .sign-in-collapse{
+    margin-top: .7rem;
     height: 2rem!important;
-    width: 4rem!important;
+    width: 9rem!important;
     font-size: .6rem;
     
   }
 }
-.sign-in-collapse{
-  background-color: #6a994e!important;
-  color: black!important;
-  height: 2.5rem!important;
-  width: 15rem!important;
-  align-self: center!important;
-  
-}
-.sign-out-collapse{
-  background-color: firebrick!important;
-  color: black!important;
-  height: 2.5rem!important;
-  align-self: center!important;
-  width: 15rem!important;
-}
+
 /*NAV NO SHOW ON USER FORM */
 .nav-No-Show{
   display: none!important;
@@ -903,7 +906,7 @@ justify-content: center!important;
 /* FOOTER */
 .footer{
   margin-top: 1rem!important;
-  justify-content: space-around!important;
+  justify-content: space-evenly!important;
   align-items: center!important;
   background-color: #ECAC43!important;
   position:fixed!important;
