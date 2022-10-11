@@ -14,7 +14,7 @@ function UserPage() {
   const [content, setContent] = useState([]);
   const router = useRouter();
   const { uid } = router.query;
-  const renderArray = content.sort((a, b) => a.createdDate - b.createdDate);
+  const renderArray = content.sort((a, b) => b.createdDate - a.createdDate);
 
   const getTheContent = () => {
     getUser(uid).then((userArray) => {
