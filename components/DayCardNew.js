@@ -104,17 +104,19 @@ function DayCardNew({ obj, onUpdate }) {
       </Card.Body>
       <div className="day-card-bottom">
         <div className="day-card-events">
-          <h6 className="day-card-events-header">Events From Day</h6>
-          {events.map((event) => (
-            <Card.Title key={event.firebaseKey}>{event.title}</Card.Title>
-          ))}
+          <h5 className="day-card-events-header">Events</h5>
+          <div className="day-card-events-list">
+            {events.map((event) => (
+              <h5 className="day-card-event" key={event.firebaseKey}>{event.title}</h5>
+            ))}
+          </div>
         </div>
         <div className="day-card-photos">
           <Carousel activeIndex={index} onSelect={handleImageRotation} interval={null}>
             {images?.map((url) => (
               <Carousel.Item key={url}>
                 <Image
-                  className="day-card-image d-block w-100"
+                  className="day-card-image d-block"
                   src={url}
                   alt="user posted content"
                 />

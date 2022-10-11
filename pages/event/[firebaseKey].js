@@ -70,7 +70,7 @@ function ViewEvent() {
           {images?.map((image) => (
             <Carousel.Item key={image.firebasekey}>
               <img
-                className="event-page-images d-block w-100"
+                className="event-page-images d-block"
                 src={image.imageUrl}
                 alt="First slide"
               />

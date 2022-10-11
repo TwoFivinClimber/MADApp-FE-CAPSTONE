@@ -37,7 +37,7 @@ body {
 
 
 .navbar-navbar{
-  background-color: #ECAC43!important;
+  background-color: #fcb045!important;
   width: 100%!important;
 }
 .offcanvas{
@@ -218,12 +218,13 @@ border: 1px solid black!important;
   margin-bottom: 18rem!important;
 }
 .main-Featured-Div{
-  border: #bb3e03 6px solid!important;
   margin-top: 1.5rem!important;
   display:flex!important;
   flex-direction: column!important;
   align-items: center!important;
   padding: 2rem!important;
+  background: radial-gradient(circle, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 45%, rgba(252,176,69,1) 77%);
+  border-radius: 25px;
 }
 .featured-Content-Div{
   display:flex!important;
@@ -454,8 +455,8 @@ margin-left: 1rem!important;
     height: 100px!important;
   }
   .uploaded-Images-Div{
-    display:flex;
-    flex-wrap: wrap;
+    display:flex!important;
+    flex-wrap: wrap!important;
   }
 
 }
@@ -463,6 +464,7 @@ margin-left: 1rem!important;
 
 /* Event Card New */
 .event-card {
+  background-color: #fffcf2;
   width: 355px!important;
   margin: 8px!important;
 }
@@ -479,10 +481,11 @@ margin-left: 1rem!important;
   height: 116px!important;
 }
 .event-card-title {
-  height: 2rem!important;
+  height: 2.1rem!important;
   display: flex!important;
   justify-content: space-between!important;
-  overflow: scroll!important;
+  line-height: 2rem;
+  overflow: auto!important;
 }
 
 .event-card-header{
@@ -497,10 +500,11 @@ margin-left: 1rem!important;
   align-items: center!important;
 }
 .event-card-username{
-  margin-left: .5rem!important;
+  padding-left: .5rem!important;
 }
 .event-card-dropdown{
   align-self: center!important;
+  margin-right: .35rem!important;
 }
 
 .event-card-location {
@@ -612,39 +616,57 @@ margin-left: 1rem!important;
 
 /* Day Card New*/
 .day-card{
+  background-color: #fffcf2;
   display: flex!important;
-  flex-wrap: wrap!important;
   width: 727px!important;
   margin: 8px!important;
+  justify-items: center;
 }
 
-@media all and (max-width: 500px) {
-.day-card {
-  width: 100%!important;
+.day-card-top{
+  padding: .75rem!important;
+  height: 20%!important;
 }
+.day-card-bottom{
+  display:flex!important;
+  flex-direction: row!important; 
+  justify-content: space-evenly!important;
+  justify-items: center!important;
+  height: 75%!important;
+}
+
 .day-card-image{
-  height: 160px!important;
-  width: 220px!important; 
-}
-
-.star-rating-tooltip{
-  font-size: 8px!important;
-}
-
-
-}
-.day-card-image{
-  max-height: 265px!important;
-  max-width: 353px!important; 
+  max-height: 300px!important;
+  max-width: 375px!important; 
   object-fit: cover!important;
+  object-position: center!important;
+  margin-right: auto;
+  margin-left: auto;
+}
+.carousel-inner{
+  width: auto!important;
+}
+.carousel-control-prev{
+  width: 45%!important;
+}
+.carousel-control-next{
+  width: 45%!important;
+}
+.carousel-control-next-icon{
+  display: none;
+}
+.carousel-control-prev-icon{
+  display: none;
 }
 
 .day-card-head{
   display:flex!important;
   justify-content: space-between!important;
+  align-items: center!important;
 }
 .day-card-dropdown{
   margin-top: -.5rem!important;
+  
 }
 .day-card-info{
   display: flex!important;
@@ -664,27 +686,54 @@ margin-left: 1rem!important;
   margin-left: .5rem!important;
 }
 
-.day-card-bottom{
-  display:flex!important;
-  flex-direction: row!important; 
-  justify-content: space-evenly!important;
-}
-.day-card-events-header{
- text-decoration:underline!important;
-}
+
 .day-card-events{
   display: flex!important;
   flex-direction: column!important;
-  align-items: center!important;
-  justify-content: space-around!important;
-  margin-bottom: 2rem!important;
-  margin-top: -2rem!important;
+  width: 50%!important;
+  padding-left: 2rem!important;
 }
+.day-card-events-header{
+  text-decoration:underline!important;
+ }
+  
+ .day-card-events-list{
+  height: 100%!important;
+  display: flex!important;
+  flex-direction: column!important;
+  justify-content: space-evenly!important;
+  padding-bottom: 1rem!important;
+ }
+
 .day-card-photos{
-  align-self: right!important;
-  margin-bottom: 1rem!important;
-  max-width: 397px!important;
+  align-self: center!important;
+  width: 50%!important;
+  padding-right: 1.5rem!important;
+  margin-bottom: .5rem;
 }
+
+
+
+@media all and (max-width: 500px) {
+  .day-card {
+    width: 100%!important;
+  }
+  .day-card-image{
+    height: 160px!important;
+    width: 220px!important;
+  }
+  
+  .star-rating-tooltip{
+    font-size: 8px!important;
+  }
+  .day-card-top{
+    padding: .5rem!important;
+  }
+  .day-card-events{
+    margin-top: 1rem!important;
+  }
+  
+  }
 
 
 /* EVENT PAGE */

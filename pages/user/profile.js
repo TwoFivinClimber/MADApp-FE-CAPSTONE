@@ -21,7 +21,7 @@ function UserProfile() {
   const [authUser, setAuthUser] = useState({});
   const [content, setContent] = useState([]);
   const router = useRouter();
-  const renderArray = content.sort((a, b) => a.createdDate - b.createdDate);
+  const renderArray = content.sort((a, b) => b.createdDate - a.createdDate);
 
   const getTheContent = () => {
     getUser(user.uid).then((userArray) => {

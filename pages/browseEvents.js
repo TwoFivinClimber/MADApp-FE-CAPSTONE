@@ -5,7 +5,7 @@ import EventCardNew from '../components/EventCardNew';
 
 function BrowseEvents() {
   const [events, setEvents] = useState([]);
-  const eventsDateSort = events?.sort((a, b) => Date.parse(b.date, 'mm-dd-yyyy') - Date.parse(a.date, 'mm-dd-yyyy'));
+  const eventsDateSort = events?.sort((a, b) => b.createdDate - a.createdDate);
 
   const getTheEvents = () => {
     getPublicEvents().then(setEvents);
