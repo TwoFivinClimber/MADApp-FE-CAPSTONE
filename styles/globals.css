@@ -643,9 +643,7 @@ margin-left: 1rem!important;
   margin-right: auto!important;
   margin-left: auto!important;
 }
-.carousel-inner{
-  width: auto!important;
-}
+
 .carousel-control-prev{
   width: 45%!important;
 }
@@ -653,9 +651,11 @@ margin-left: 1rem!important;
   width: 45%!important;
 }
 .carousel-control-next-icon{
+  display: block!important;
   display: none!important;
 }
 .carousel-control-prev-icon{
+  display: block!important;
   display: none!important;
 }
 
