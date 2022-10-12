@@ -464,7 +464,7 @@ margin-left: 1rem!important;
 
 /* Event Card New */
 .event-card {
-  background-color: #fffcf2;
+  background-color: #fffcf2!important;
   width: 355px!important;
   margin: 8px!important;
 }
