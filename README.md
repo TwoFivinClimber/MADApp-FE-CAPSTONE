@@ -35,13 +35,15 @@ Comment on Public Events and Days to show the love or opinions
 Delete any content that they have created
 
 ## Future Features
--Following Users
--User Group Creation
--Likes for Posts
--Tagging of users in posts
--Proposed Day for Group Day Planning
--Saving of Events/Days to To-Do List
--Mapping feature to show and allow access to navagition.
+<ul>
+  <li>Following Users</li>
+  <li>User Group Creation</li>
+  <li>Likes for Posts</li>
+  <li>Tagging of users in posts</li>
+  <li>Proposed Day for Group Day Planning</li>
+  <li>Saving of Events/Days to To-Do List</li>
+  <li>Mapping feature to show and allow access to navagition</li>
+</ul>  
 
 <div style="display: flex; flex-direction: column; justify-content: center">
 <img
