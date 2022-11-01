@@ -7,9 +7,10 @@ import { Rating } from 'react-simple-star-rating';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import AsyncCreatable from 'react-select/async-creatable';
+import sha1 from 'sha1';
 import { useAuth } from '../utils/context/authContext';
 import { getCategories } from '../api/categories';
-import uploadPhoto from '../api/cloudinary';
+import { uploadPhoto, deletePhoto } from '../api/cloudinary';
 import { createEvent, updateEvent } from '../api/events/eventData';
 import { createImages, deleteImagesByEvent } from '../api/images/mergedImage';
 import { getImagesByEvent } from '../api/images/imageData';
@@ -54,7 +55,6 @@ function EventForm({ obj }) {
         [name]: value,
       }));
     }
-    console.warn(images);
   };
 
   const handleRating = (e) => {
@@ -98,13 +98,13 @@ function EventForm({ obj }) {
     }
   };
 
-  const uploadImage = async (e) => {
+  const uploadImage = (e) => {
     if (e.target.files.length) {
       const payload = new FormData();
       payload.append('file', e.target.files[0]);
       payload.append('upload_preset', 'nofzejna');
       payload.append('cloud_name', 'twofiveclimb');
-      await uploadPhoto(payload).then((data) => {
+      uploadPhoto(payload).then((data) => {
         const imageObj = {
           url: data.url,
           publicId: data.public_id,
@@ -117,10 +117,22 @@ function EventForm({ obj }) {
     }
   };
 
-  const removePhoto = (url) => {
+  const deleteImage = (imageObj) => {
+    const timeStamp = Math.round((new Date().getTime() / 1000));
+    const data = new FormData();
+    data.append('public_id', imageObj.publicId);
+    data.append('timestamp', timeStamp);
+    data.append('api_key', '854886524753826');
+    data.append('signature', sha1(`${timeStamp}${imageObj.publicId}`));
+    deletePhoto(data).then(() => {
+    });
+  };
+
+  const removePhoto = (image) => {
+    deleteImage(image);
     setImages((prevState) => {
       const prevCopy = prevState;
-      const index = prevCopy.findIndex((imageObj) => imageObj.url === url);
+      const index = prevCopy.findIndex((imageObj) => imageObj.url === image.url);
       prevCopy.splice(index, 1);
       return prevCopy;
     });
@@ -292,7 +304,7 @@ function EventForm({ obj }) {
           {images.map((image) => (
             <div key={image.url} className="uploaded-Images-Container">
               <Image className="event-Form-Photos" rounded src={image.url} />
-              <CloseButton onClick={() => removePhoto(image.url)} className="image-Delete" />
+              <CloseButton onClick={() => removePhoto(image)} className="image-Delete" />
             </div>
           ))}
         </div>
