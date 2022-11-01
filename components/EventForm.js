@@ -36,8 +36,7 @@ function EventForm({ obj }) {
   const [authUser, setAuthUser] = useState({});
   const [input, setInput] = useState(initialState);
   const [categories, setCategories] = useState([]);
-  // From Cloudinary For Sample Render and Firebase ⬇️  //
-  const [imgUrls, setImgUrls] = useState([]);
+  const [images, setImages] = useState([]);
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -45,18 +44,17 @@ function EventForm({ obj }) {
     let { name, value } = e.target;
     if (name === 'isPublic') {
       value = e.target.checked;
-      console.warn(name, value);
       setInput((prevState) => ({
         ...prevState,
         [name]: value,
       }));
-      console.warn(name, value);
     } else {
       setInput((prevState) => ({
         ...prevState,
         [name]: value,
       }));
     }
+    console.warn(images);
   };
 
   const handleRating = (e) => {
@@ -66,7 +64,6 @@ function EventForm({ obj }) {
       ...prevState,
       [name]: value,
     }));
-    console.warn(input);
   };
 
   const handleSubmit = (e) => {
@@ -74,9 +71,9 @@ function EventForm({ obj }) {
     if (obj.firebaseKey) {
       deleteImagesByEvent(obj.firebaseKey).then(() => {
         updateEvent(input).then(() => {
-          const imageObjects = imgUrls.map((url) => (
+          const imageObjects = images.map((image) => (
             {
-              imageUrl: url,
+              ...image,
               eventId: obj.firebaseKey,
               uid: user.uid,
             }
@@ -88,9 +85,9 @@ function EventForm({ obj }) {
     } else {
       const payload = { ...input, uid: user.uid };
       createEvent(payload).then((response) => {
-        const imageObjects = imgUrls.map((url) => (
+        const imageObjects = images.map((image) => (
           {
-            imageUrl: url,
+            ...image,
             eventId: response.firebaseKey,
             uid: user.uid,
           }
@@ -107,20 +104,23 @@ function EventForm({ obj }) {
       payload.append('file', e.target.files[0]);
       payload.append('upload_preset', 'nofzejna');
       payload.append('cloud_name', 'twofiveclimb');
-      await uploadPhoto(payload).then((url) => {
-        setImgUrls((prevState) => (
-          [...prevState,
-            url,
-          ]
+      await uploadPhoto(payload).then((data) => {
+        const imageObj = {
+          url: data.url,
+          publicId: data.public_id,
+          signature: data.signature,
+        };
+        setImages((prevState) => (
+          [...prevState, imageObj]
         ));
       });
     }
   };
 
   const removePhoto = (url) => {
-    setImgUrls((prevState) => {
-      const prevCopy = [...prevState];
-      const index = prevCopy.indexOf(url);
+    setImages((prevState) => {
+      const prevCopy = prevState;
+      const index = prevCopy.findIndex((imageObj) => imageObj.url === url);
       prevCopy.splice(index, 1);
       return prevCopy;
     });
@@ -183,8 +183,7 @@ function EventForm({ obj }) {
       setInput(obj);
     }
     getImagesByEvent(obj.firebaseKey).then((imageArr) => {
-      const imageUrls = imageArr.map((img) => img.imageUrl);
-      setImgUrls(imageUrls);
+      setImages(imageArr);
     });
     getCategories().then(setCategories);
     getUser(user.uid).then((userArr) => {
@@ -290,10 +289,10 @@ function EventForm({ obj }) {
           <Form.Control type="file" onChange={uploadImage} />
         </div>
         <div className="uploaded-Images-Div">
-          {imgUrls.map((url) => (
-            <div key={url} className="uploaded-Images-Container">
-              <Image className="event-Form-Photos" rounded src={url} />
-              <CloseButton onClick={() => removePhoto(url)} className="image-Delete" />
+          {images.map((image) => (
+            <div key={image.url} className="uploaded-Images-Container">
+              <Image className="event-Form-Photos" rounded src={image.url} />
+              <CloseButton onClick={() => removePhoto(image.url)} className="image-Delete" />
             </div>
           ))}
         </div>
