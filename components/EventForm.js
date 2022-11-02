@@ -16,6 +16,10 @@ import { createImages, deleteImagesByEvent } from '../api/images/mergedImage';
 import { getImagesByEvent } from '../api/images/imageData';
 import { getCity, getPoi } from '../api/tom-tom';
 import { getUser } from '../api/user/userData';
+import { clientCredentials } from '../utils/client';
+
+const cldnryApiKey = clientCredentials.cloudinaryApiKey;
+const cldnrySecret = clientCredentials.cloudinaryApiSecret;
 
 const initialState = {
   title: '',
@@ -39,6 +43,19 @@ function EventForm({ obj }) {
   const [categories, setCategories] = useState([]);
   const [images, setImages] = useState([]);
   const router = useRouter();
+
+  const getTheContent = () => {
+    if (obj.firebaseKey) {
+      setInput(obj);
+    }
+    getImagesByEvent(obj.firebaseKey).then((imageArr) => {
+      setImages(imageArr);
+    });
+    getCategories().then(setCategories);
+    getUser(user.uid).then((userArr) => {
+      setAuthUser(userArr[0]);
+    });
+  };
 
   const handleChange = (e) => {
     // eslint-disable-next-line prefer-const
@@ -122,20 +139,21 @@ function EventForm({ obj }) {
     const data = new FormData();
     data.append('public_id', imageObj.publicId);
     data.append('timestamp', timeStamp);
-    data.append('api_key', '854886524753826');
-    data.append('signature', sha1(`${timeStamp}${imageObj.publicId}`));
+    data.append('api_key', cldnryApiKey);
+    data.append('signature', sha1(`public_id=${imageObj.publicId}&timestamp=${timeStamp}${cldnrySecret}`));
     deletePhoto(data).then(() => {
     });
   };
 
   const removePhoto = (image) => {
-    deleteImage(image);
     setImages((prevState) => {
       const prevCopy = prevState;
       const index = prevCopy.findIndex((imageObj) => imageObj.url === image.url);
       prevCopy.splice(index, 1);
       return prevCopy;
     });
+    deleteImage(image);
+    getTheContent();
   };
 
   // TOM TOM API//
@@ -191,16 +209,7 @@ function EventForm({ obj }) {
   };
 
   useEffect(() => {
-    if (obj.firebaseKey) {
-      setInput(obj);
-    }
-    getImagesByEvent(obj.firebaseKey).then((imageArr) => {
-      setImages(imageArr);
-    });
-    getCategories().then(setCategories);
-    getUser(user.uid).then((userArr) => {
-      setAuthUser(userArr[0]);
-    });
+    getTheContent();
   }, [obj]);
 
   return (
